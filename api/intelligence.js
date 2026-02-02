@@ -8,12 +8,25 @@ import {
     extractTokenomics
 } from '../lib/tavily.js';
 import crypto from 'crypto';
+import { strictRateLimiter } from '../lib/rate-limiter.js';
+import { csrfProtection, addSecurityHeaders } from '../lib/csrf-protection.js';
 
 /**
  * NΞØ Intelligence API (Consolidated with DB Cache)
  * Action-based routing to stay within Vercel limits.
  */
 export default async function handler(req, res) {
+    // SEGURANÇA: Headers de segurança
+    addSecurityHeaders(res);
+
+    // SEGURANÇA: CSRF protection
+    const csrfResult = csrfProtection(req, res);
+    if (csrfResult !== true) return;
+
+    // SEGURANÇA: Rate limiting estrito para API de IA (mais caro)
+    const rateLimitResult = strictRateLimiter(req, res);
+    if (rateLimitResult !== true) return;
+
     const { action, lead_id, session_id } = req.query || req.body;
 
     // Se for GET para alchemy-pulse
@@ -40,35 +53,75 @@ export default async function handler(req, res) {
             }
         }
 
-        let result;
-        switch (actionType) {
-            case 'market-research':
-                result = await handleMarketResearch(req, res, true);
-                break;
-            case 'marketing-suggestions':
-                result = await handleMarketingSuggestions(req, res, true);
-                break;
-            case 'validate-token-name':
-                result = await handleValidateTokenName(req, res, true);
-                break;
-            case 'generate-whitepaper-base':
-                result = await handleGenerateWhitepaper(req, res, true);
-                break;
-            default:
-                return res.status(400).json({ error: 'Invalid or missing action' });
+        // PERFORMANCE: Criar promise para tracking de requests em andamento
+        const hash = generateHash(actionType, body);
+        let requestPromise;
+
+        if (inFlightRequests.has(hash)) {
+            // Request já em andamento, aguardar resultado
+            console.log('[Intelligence] Request duplicado detectado, aguardando...');
+            requestPromise = inFlightRequests.get(hash);
+        } else {
+            // Novo request, criar promise
+            requestPromise = (async () => {
+                try {
+                    let result;
+                    switch (actionType) {
+                        case 'market-research':
+                            result = await handleMarketResearch(req, res, true);
+                            break;
+                        case 'marketing-suggestions':
+                            result = await handleMarketingSuggestions(req, res, true);
+                            break;
+                        case 'validate-token-name':
+                            result = await handleValidateTokenName(req, res, true);
+                            break;
+                        case 'generate-whitepaper-base':
+                            result = await handleGenerateWhitepaper(req, res, true);
+                            break;
+                        default:
+                            throw new Error('Invalid or missing action');
+                    }
+
+                    // Salvar no Cache e Logar (se DB disponível)
+                    if (sql && result && !result.fallback && !result.error) {
+                        await setCache(actionType, body, result);
+                        await logIntelligence(lead_id || body.lead_id, session_id || body.session_id, actionType, body, false);
+                    }
+
+                    return result;
+                } finally {
+                    // Limpar do tracking
+                    inFlightRequests.delete(hash);
+                }
+            })();
+
+            inFlightRequests.set(hash, requestPromise);
         }
 
-        // Salvar no Cache e Logar (se DB disponível)
-        if (sql && result && !result.fallback) {
-            await setCache(actionType, body, result);
-            await logIntelligence(lead_id || body.lead_id, session_id || body.session_id, actionType, body, false);
+        const result = await requestPromise;
+        
+        if (result.error) {
+            return res.status(400).json(result);
         }
 
         return res.status(200).json(result);
 
     } catch (err) {
-        console.error('Intelligence API Error:', err);
-        return res.status(500).json({ error: 'Internal server error', message: err.message });
+        // SEGURANÇA: Não expor detalhes internos em produção
+        console.error('[Intelligence API] Error:', err);
+        
+        // Logging estruturado para debugging
+        console.error('[Intelligence API] Stack:', err.stack);
+        console.error('[Intelligence API] Action:', action);
+        
+        // Resposta genérica para o cliente
+        const isDev = process.env.NODE_ENV === 'development';
+        return res.status(500).json({ 
+            error: 'Internal server error',
+            message: isDev ? err.message : 'An error occurred processing your request',
+            ...(isDev && { stack: err.stack })
+        });
     }
 }
 
@@ -107,7 +160,21 @@ async function handleAlchemyPulse(req, res) {
 
 async function handleMarketResearch(req, res, returnRaw = false) {
     const { category, keywords } = req.body;
+    
+    // SEGURANÇA: Validação de inputs
+    if (category && (typeof category !== 'string' || category.length > 100)) {
+        return returnRaw ? { error: 'Invalid category' } : res.status(400).json({ error: 'Invalid category' });
+    }
+    if (keywords && (typeof keywords !== 'string' || keywords.length > 200)) {
+        return returnRaw ? { error: 'Invalid keywords' } : res.status(400).json({ error: 'Invalid keywords' });
+    }
+    
     const query = `${category || ''} ${keywords || ''} token launch trends 2026 cryptocurrency`.trim();
+    
+    if (query.length < 5) {
+        return returnRaw ? { error: 'Query too short' } : res.status(400).json({ error: 'Query too short' });
+    }
+    
     const data = await searchTavily(query, { search_depth: 'advanced', include_answer: true, max_results: 15 });
 
     const result = {
@@ -127,6 +194,15 @@ async function handleMarketResearch(req, res, returnRaw = false) {
 
 async function handleMarketingSuggestions(req, res, returnRaw = false) {
     const { tokenName, category } = req.body;
+    
+    // SEGURANÇA: Validação de inputs
+    if (!tokenName || typeof tokenName !== 'string' || tokenName.length < 2 || tokenName.length > 100) {
+        return returnRaw ? { error: 'Invalid tokenName' } : res.status(400).json({ error: 'Invalid tokenName' });
+    }
+    if (category && (typeof category !== 'string' || category.length > 100)) {
+        return returnRaw ? { error: 'Invalid category' } : res.status(400).json({ error: 'Invalid category' });
+    }
+    
     const query = `${category || ''} token launch marketing strategy social media campaigns 2026 ${tokenName}`.trim();
     const data = await searchTavily(query, {
         search_depth: 'advanced',
@@ -166,6 +242,15 @@ async function handleValidateTokenName(req, res, returnRaw = false) {
 
 async function handleGenerateWhitepaper(req, res, returnRaw = false) {
     const { tokenName, category } = req.body;
+    
+    // SEGURANÇA: Validação de inputs
+    if (!tokenName || typeof tokenName !== 'string' || tokenName.length < 2 || tokenName.length > 100) {
+        return returnRaw ? { error: 'Invalid tokenName' } : res.status(400).json({ error: 'Invalid tokenName' });
+    }
+    if (category && (typeof category !== 'string' || category.length > 100)) {
+        return returnRaw ? { error: 'Invalid category' } : res.status(400).json({ error: 'Invalid category' });
+    }
+    
     const query = `${tokenName} ${category || ''} tokenomics useCase targetAudience`.trim();
     const data = await searchTavily(query, { search_depth: 'advanced', include_answer: true, max_results: 10 });
 
@@ -179,9 +264,19 @@ async function handleGenerateWhitepaper(req, res, returnRaw = false) {
 
 // --- Cache & Log Helpers ---
 
+// PERFORMANCE: Cache em memória para prevenir race conditions
+const inFlightRequests = new Map();
+
 async function getCache(action, params) {
     try {
         const hash = generateHash(action, params);
+        
+        // SEGURANÇA: Verificar se já existe request em andamento (prevenir race condition)
+        if (inFlightRequests.has(hash)) {
+            console.log('[Cache] Request já em andamento, aguardando...');
+            return await inFlightRequests.get(hash);
+        }
+        
         const cached = await sql`
             SELECT response_data FROM intelligence_cache 
             WHERE query_hash = ${hash} 

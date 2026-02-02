@@ -30,8 +30,18 @@ import SkeletonLoader from './components/ui/SkeletonLoader';
 import { validateAddress, formatAddress } from './utils/addressValidation';
 import ProgressBar from './components/ui/ProgressBar';
 
-// Input sanitization
-const sanitizeInput = (val) => String(val).replace(/[<>]/g, '');
+// SEGURANÇA: Sanitização robusta contra XSS
+const sanitizeInput = (val) => {
+  if (!val) return '';
+  return String(val)
+    .replace(/[<>'"&]/g, (char) => {
+      const entities = { '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;', '&': '&amp;' };
+      return entities[char] || char;
+    })
+    .replace(/javascript:/gi, '')
+    .replace(/on\w+\s*=/gi, '')
+    .slice(0, 1000); // Limite de caracteres para prevenir DoS
+};
 
 // Sanitize for display/storage (with trim)
 const sanitizeForStorage = (val) => sanitizeInput(val).trim();
@@ -47,9 +57,30 @@ const getOrCreateSessionId = () => {
   return sessionId;
 };
 
+// PERFORMANCE: Timeout wrapper para prevenir requests travados
+const fetchWithTimeout = async (url, options = {}, timeout = 10000) => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+  
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error.name === 'AbortError') {
+      throw new Error('Request timeout');
+    }
+    throw error;
+  }
+};
+
 const safeApiCall = async (url, options = {}) => {
   try {
-    const res = await fetch(url, options);
+    const res = await fetchWithTimeout(url, options, 10000); // 10s timeout
     const contentType = res.headers.get('content-type');
     if (!contentType || !contentType.includes('application/json')) {
       return null; // API not available (vite dev mode)
@@ -59,6 +90,10 @@ const safeApiCall = async (url, options = {}) => {
     }
     return null;
   } catch (error) {
+    if (error.message === 'Request timeout') {
+      console.warn('[MARKETING] API call timeout:', url);
+      return null;
+    }
     if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
       return null; // Expected in vite dev
     }
@@ -284,8 +319,14 @@ export default function SmartMint() {
 
   // Cloud State Sync (Drafts + Marketing Session)
   useEffect(() => {
+    // PERFORMANCE: Evitar memory leaks com AbortController
+    const abortController = new AbortController();
+    let isMounted = true;
+
     if (step === 2) {
       const saveData = async () => {
+        if (!isMounted) return;
+
         // Salvar draft (se tiver wallet)
         if (userAddress) {
           try {
@@ -297,8 +338,11 @@ export default function SmartMint() {
                 token_config: formData,
                 lead_id: leadId,
                 session_id: sessionId
-              })
+              }),
+              signal: abortController.signal
             });
+
+            if (!isMounted) return;
 
             const contentType = res.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
@@ -309,18 +353,21 @@ export default function SmartMint() {
               console.warn("[CLOUD] Auto-save failed:", res.status);
             }
           } catch (error) {
+            if (error.name === 'AbortError') return; // Request foi cancelado intencionalmente
             if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
               return;
             }
             if (error.message && (error.message.includes('JSON') || error.message.includes('Unexpected token'))) {
               return;
             }
-            console.error("[CLOUD] Auto-save sequence interrupted:", error);
+            if (isMounted) {
+              console.error("[CLOUD] Auto-save sequence interrupted:", error);
+            }
           }
         }
 
         // Atualizar sessão de marketing (com snapshot do form)
-        if (sessionId && leadId) {
+        if (sessionId && leadId && isMounted) {
           // Calcular step baseado no que foi preenchido
           let currentStep = 1;
           if (formData.tokenName && formData.tokenSymbol) currentStep = 2;
@@ -345,7 +392,7 @@ export default function SmartMint() {
           });
 
           // Registrar eventos de progresso
-          if (currentStep >= 2) {
+          if (currentStep >= 2 && isMounted) {
             await safeApiCall('/api/marketing?action=event-record', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -361,16 +408,30 @@ export default function SmartMint() {
       };
 
       const timeoutId = setTimeout(saveData, 2000); // 2s debounce for performance
-      return () => clearTimeout(timeoutId);
+      
+      // CLEANUP: Prevenir memory leaks
+      return () => {
+        isMounted = false;
+        clearTimeout(timeoutId);
+        abortController.abort();
+      };
     }
   }, [formData, userAddress, step, sessionId, leadId]);
 
   // Load Cloud State
   useEffect(() => {
+    // PERFORMANCE: Prevenir memory leaks com AbortController
+    const abortController = new AbortController();
+    let isMounted = true;
+
     if (userAddress) {
       const loadDraft = async () => {
         try {
-          const res = await fetch(`/api/ops?action=drafts&address=${userAddress}`);
+          const res = await fetch(`/api/ops?action=drafts&address=${userAddress}`, {
+            signal: abortController.signal
+          });
+
+          if (!isMounted) return;
 
           // Check if response is actually JSON (not source code)
           const contentType = res.headers.get('content-type');
@@ -382,17 +443,22 @@ export default function SmartMint() {
           if (res.ok) {
             try {
               const draftData = await res.json();
-              setFormData(prev => ({ ...prev, ...draftData }));
+              if (isMounted) {
+                setFormData(prev => ({ ...prev, ...draftData }));
+              }
             } catch (jsonError) {
               // JSON parse error - likely received source code instead
               if (jsonError.message && (jsonError.message.includes('JSON') || jsonError.message.includes('Unexpected token'))) {
                 // Expected in vite dev mode, don't log
                 return;
               }
-              console.warn("[CLOUD] Failed to parse draft data:", jsonError);
+              if (isMounted) {
+                console.warn("[CLOUD] Failed to parse draft data:", jsonError);
+              }
             }
           }
         } catch (error) {
+          if (error.name === 'AbortError') return; // Request foi cancelado intencionalmente
           // Silently fail in dev mode (API routes require vercel dev)
           if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
             return;
@@ -401,11 +467,19 @@ export default function SmartMint() {
           if (error.message && (error.message.includes('JSON') || error.message.includes('Unexpected token'))) {
             return;
           }
-          console.warn("[CLOUD] State retrieval skipped:", error);
+          if (isMounted) {
+            console.warn("[CLOUD] State retrieval skipped:", error);
+          }
         }
       };
       loadDraft();
     }
+
+    // CLEANUP: Prevenir memory leaks
+    return () => {
+      isMounted = false;
+      abortController.abort();
+    };
   }, [userAddress]);
 
   // Marketing: Detectar abandono (beforeunload)

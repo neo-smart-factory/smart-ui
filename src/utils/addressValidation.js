@@ -44,11 +44,17 @@ export function validateAddress(address) {
  */
 export function formatAddress(address, start = 6, end = 4) {
     if (!address) return '';
-    if (!isAddress(address)) return address;
-
-    // Use checksummed version for formatting
-    const checksummed = getAddress(address);
-    return `${checksummed.slice(0, start)}...${checksummed.slice(-end)}`;
+    
+    // SEGURANÇA: Validação antes de processar
+    try {
+        if (!isAddress(address)) return address;
+        // Use checksummed version for formatting
+        const checksummed = getAddress(address);
+        return `${checksummed.slice(0, start)}...${checksummed.slice(-end)}`;
+    } catch (error) {
+        console.warn('[addressValidation] formatAddress error:', error);
+        return address.length > 10 ? `${address.slice(0, start)}...${address.slice(-end)}` : address;
+    }
 }
 
 /**

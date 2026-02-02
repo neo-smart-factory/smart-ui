@@ -1,10 +1,23 @@
 import sql from '../lib/db.js';
+import { rateLimiter } from '../lib/rate-limiter.js';
+import { csrfProtection, addSecurityHeaders } from '../lib/csrf-protection.js';
 
 /**
  * NΞØ Marketing & Analytics Hub (Consolidated)
  * Action-based routing for tracking, leads, sessions and funnel analytics.
  */
 export default async function handler(req, res) {
+    // SEGURANÇA: Headers de segurança
+    addSecurityHeaders(res);
+
+    // SEGURANÇA: CSRF protection
+    const csrfResult = csrfProtection(req, res);
+    if (csrfResult !== true) return;
+
+    // SEGURANÇA: Rate limiting para prevenir abuse
+    const rateLimitResult = rateLimiter(req, res);
+    if (rateLimitResult !== true) return;
+
     if (!sql) {
         return res.status(503).json({ error: "Database connection not authenticated" });
     }
@@ -40,8 +53,16 @@ export default async function handler(req, res) {
                 return res.status(400).json({ error: "Action parameter is required (e.g., ?action=lead-sync)" });
         }
     } catch (error) {
+        // SEGURANÇA: Não expor detalhes internos em produção
         console.error(`[Marketing Hub] Error in ${action || 'unknown'}:`, error);
-        return res.status(500).json({ error: "Internal server error", message: error.message });
+        console.error('[Marketing Hub] Stack:', error.stack);
+        
+        const isDev = process.env.NODE_ENV === 'development';
+        return res.status(500).json({ 
+            error: "Internal server error",
+            message: isDev ? error.message : 'An error occurred processing your request',
+            ...(isDev && { stack: error.stack })
+        });
     }
 }
 
@@ -53,6 +74,17 @@ async function handleLeadSync(req, res) {
     if (req.method === 'GET') {
         if (!session_id && !wallet_address && !email) {
             return res.status(400).json({ error: "session_id, wallet_address, or email required" });
+        }
+
+        // SEGURANÇA: Validação de inputs antes de query
+        if (session_id && (typeof session_id !== 'string' || session_id.length > 200)) {
+            return res.status(400).json({ error: "Invalid session_id format" });
+        }
+        if (wallet_address && (typeof wallet_address !== 'string' || !/^0x[a-fA-F0-9]{40}$/.test(wallet_address))) {
+            return res.status(400).json({ error: "Invalid wallet_address format" });
+        }
+        if (email && (typeof email !== 'string' || email.length > 255 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
+            return res.status(400).json({ error: "Invalid email format" });
         }
 
         const leads = session_id
@@ -67,7 +99,26 @@ async function handleLeadSync(req, res) {
 
     if (req.method === 'POST') {
         const { session_id, email, wallet_address, ip_address, user_agent, referrer, utm_source, utm_medium, utm_campaign, conversion_status, metadata } = req.body;
-        if (!session_id) return res.status(400).json({ error: "session_id is required" });
+        
+        // SEGURANÇA: Validações rigorosas de inputs
+        if (!session_id || typeof session_id !== 'string' || session_id.length > 200) {
+            return res.status(400).json({ error: "Invalid or missing session_id" });
+        }
+        if (email && (typeof email !== 'string' || email.length > 255 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
+            return res.status(400).json({ error: "Invalid email format" });
+        }
+        if (wallet_address && !/^0x[a-fA-F0-9]{40}$/.test(wallet_address)) {
+            return res.status(400).json({ error: "Invalid wallet_address format" });
+        }
+        if (user_agent && user_agent.length > 500) {
+            return res.status(400).json({ error: "user_agent too long" });
+        }
+        if (conversion_status && !['visitor', 'engaged', 'wallet_connected', 'draft_started', 'token_created'].includes(conversion_status)) {
+            return res.status(400).json({ error: "Invalid conversion_status" });
+        }
+        if (metadata && typeof metadata !== 'object') {
+            return res.status(400).json({ error: "metadata must be an object" });
+        }
 
         const existing = await sql`SELECT id FROM leads WHERE session_id = ${session_id} LIMIT 1`;
 
