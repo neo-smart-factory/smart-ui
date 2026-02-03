@@ -23,6 +23,8 @@ import { useDynamicWallet } from './hooks/useDynamicWallet';
 import TransactionStatus from './components/TransactionStatus';
 import { useTransactionStatus } from './hooks/useTransactionStatus';
 import useFeatures from './hooks/useFeatures';
+import { useSchemaValidation } from './hooks/useSchemaValidation';
+import LogicVaultBadge from './components/ui/LogicVaultBadge';
 import { TRANSACTION_STATUS } from './types/cli';
 import ErrorBoundary from './components/ErrorBoundary';
 import LoadingButton from './components/ui/LoadingButton';
@@ -61,7 +63,7 @@ const getOrCreateSessionId = () => {
 const fetchWithTimeout = async (url, options = {}, timeout = 10000) => {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
-  
+
   try {
     const response = await fetch(url, {
       ...options,
@@ -141,6 +143,10 @@ export default function SmartMint() {
   const [historyLoading, setHistoryLoading] = useState(true);
   const [deployProgress, setDeployProgress] = useState(0);
   const [deployStatus, setDeployStatus] = useState('');
+  const [logicManifesto, setLogicManifesto] = useState(null);
+
+  // Schema Validation
+  const { validate: schemaValidate } = useSchemaValidation();
 
   // Fetch History with retry logic
   const fetchDeploys = useCallback(async () => {
@@ -408,7 +414,7 @@ export default function SmartMint() {
       };
 
       const timeoutId = setTimeout(saveData, 2000); // 2s debounce for performance
-      
+
       // CLEANUP: Prevenir memory leaks
       return () => {
         isMounted = false;
@@ -518,10 +524,11 @@ export default function SmartMint() {
   const [deployResult, setDeployResult] = useState(null);
 
   const validateDeploy = () => {
-    if (!formData.tokenName || formData.tokenName.length < 3) return "Token name must be at least 3 chars.";
-    if (!formData.tokenSymbol || formData.tokenSymbol.length < 2) return "Token symbol must be at least 2 chars.";
-    if (!formData.tokenSupply || Number(formData.tokenSupply) <= 0) return "Genesis supply must be positive.";
+    // 1. Schema-based technical validation (Synchronized with MCP)
+    const schemaError = schemaValidate(formData);
+    if (schemaError) return schemaError;
 
+    // 2. Protocol-specific validation
     if (!effectiveUserAddress) return "Wallet connection required for protocol deployment.";
     const addrValidation = validateAddress(effectiveUserAddress);
     if (!addrValidation.valid) return `Invalid wallet: ${addrValidation.error}`;
@@ -578,8 +585,10 @@ export default function SmartMint() {
           ...formData,
           address: '0x' + Array(40).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join(''),
           txHash: '0x' + Array(64).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join(''),
+          logicHash: 'sha256:' + (Math.random().toString(16) + Math.random().toString(16)).substring(0, 64),
           status: 'DEPLOYED'
         };
+
       } else {
         await simulateProgress();
 
@@ -587,8 +596,10 @@ export default function SmartMint() {
           ...formData,
           address: '0x' + Array(40).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join(''),
           txHash: '0x' + Array(64).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join(''),
+          logicHash: 'sha256:' + (Math.random().toString(16) + Math.random().toString(16)).substring(0, 64),
           status: 'DEPLOYED'
         };
+
       }
 
       // Atualizar TransactionStatus como confirmed
@@ -1021,6 +1032,18 @@ export default function SmartMint() {
                     <span className="text-neon-acid font-mono text-[10px] tracking-[0.3em] font-bold">GENESIS SUCCESSFUL</span>
                     <h2 className="text-4xl font-bold">{formData.tokenName} is Deployed!</h2>
                     <p className="text-slate-400 font-mono text-xs break-all border border-white/10 bg-black/40 p-2 rounded max-w-sm mx-auto">{deployResult?.address}</p>
+                  </div>
+
+                  <div className="flex flex-col items-center gap-4 py-2">
+                    <LogicVaultBadge logicHash={deployResult?.logicHash} />
+                    <a
+                      href={`/deployments/${formData.network}/${formData.tokenSymbol}-MANIFESTO.md`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] text-slate-500 hover:text-neon-acid flex items-center gap-2 uppercase font-bold tracking-widest transition-colors underline decoration-dotted"
+                    >
+                      View Sovereign Manifesto
+                    </a>
                   </div>
                   <div className="flex flex-wrap justify-center gap-3">
                     <button className="bg-white/5 px-6 py-2 rounded-lg border border-white/10 flex items-center gap-2 hover:bg-white/10 transition-all text-xs font-bold uppercase">

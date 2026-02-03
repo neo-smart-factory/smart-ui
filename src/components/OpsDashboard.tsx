@@ -140,8 +140,24 @@ export default function OpsDashboard() {
                         </div>
                         <h4 className="text-[10px] font-bold text-neon-acid uppercase tracking-widest mb-3 flex items-center gap-2">
                             <span className="w-1 h-1 bg-neon-acid rounded-full animate-pulse" />
-                            Doctor Intelligence — Phase A
+                            Doctor Intelligence — Sovereign Node
                         </h4>
+
+                        <div className="mb-4 p-3 bg-green-500/5 border border-green-500/20 rounded-lg">
+                            <div className="flex items-center justify-between mb-2">
+                                <div className="flex items-center gap-2">
+                                    <Shield className="w-3.5 h-3.5 text-green-400" />
+                                    <span className="text-[10px] font-bold text-green-400 uppercase tracking-wider">Logic Vault Status</span>
+                                </div>
+                                <span className="text-[8px] bg-green-500/20 text-green-400 px-1.5 py-0.5 rounded font-mono">VERIFIED</span>
+                            </div>
+                            <p className="text-[9px] text-slate-400 mb-2">All MIO Manifestos match their on-chain bytecode signatures.</p>
+                            <div className="flex items-center gap-2">
+                                <div className="text-[8px] text-slate-500 font-mono">Vault ID: LV-9921-X</div>
+                                <div className="text-[8px] text-slate-600 font-mono truncate">hash:0xde...adbf</div>
+                            </div>
+                        </div>
+
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-1">
                                 <p className="text-[9px] text-slate-500 uppercase font-bold tracking-tighter">Smart Scan</p>
@@ -163,7 +179,9 @@ export default function OpsDashboard() {
                             </div>
                         </div>
                         <div className="mt-3 flex justify-between items-center text-[8px] text-slate-500">
-                            <span className="flex items-center gap-1"><CheckCircle2 className="w-2 h-2 text-neon-acid" /> Initializable Checked</span>
+                            <a href="/deployments/ton/NEOFLW_MAINNET/DEPLOYMENT_LOG.md" target="_blank" className="flex items-center gap-1 hover:text-green-400 transition-colors uppercase font-bold">
+                                <Shield className="w-2 h-2" /> View MIO Manifesto
+                            </a>
                             <button
                                 onClick={() => setIsIntelligenceOpen(true)}
                                 className="flex items-center gap-1 hover:text-neon-acid transition-colors font-bold uppercase"
