@@ -733,7 +733,7 @@ export default function SmartMint() {
         <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="relative w-10 h-10">
-              <img src="/brand/logo-main.png" alt="NEØ Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(216,242,68,0.4)]" />
+              <img src="/brand/logo.png" alt="NEØ Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(216,242,68,0.4)]" />
             </div>
             <span className="font-headline font-bold text-xl tracking-tighter uppercase">NΞØ <span className="text-neon-acid">SMART FACTORY</span></span>
           </div>
@@ -760,62 +760,7 @@ export default function SmartMint() {
 
         <main className="container mx-auto px-6 pt-32 pb-20 max-w-4xl">
           <AnimatePresence mode="wait">
-            {/* Phase Status Badges - Design Moderno */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-6 flex flex-wrap items-center gap-3"
-            >
-              {/* Badge: Fase Atual */}
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="glass px-4 py-2 rounded-full flex items-center gap-2 border-[#D8F244]/30"
-              >
-                <div className="w-2 h-2 rounded-full bg-[#D8F244] animate-pulse"></div>
-                <span className="text-xs font-bold text-[#D8F244] uppercase tracking-wider">
-                  {phaseInfo?.name}
-                </span>
-                <span className="text-xs text-gray-400 font-mono">
-                  {phaseInfo?.status}
-                </span>
-              </motion.div>
-
-              {/* Badge: Features Disponíveis (contador) */}
-              {phaseInfo?.availableFeatures && (
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="glass px-3 py-1.5 rounded-full flex items-center gap-2 border-white/10"
-                >
-                  <ShieldCheck className="w-3.5 h-3.5 text-green-400" />
-                  <span className="text-xs text-gray-300 font-medium">
-                    {phaseInfo.availableFeatures.length} Features Ativas
-                  </span>
-                </motion.div>
-              )}
-
-              {/* Badge: Próxima Fase (se houver) */}
-              {phaseInfo?.lockedFeatures && phaseInfo.lockedFeatures.length > 0 && (
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="glass px-3 py-1.5 rounded-full flex items-center gap-2 border-orange-500/20"
-                >
-                  <Rocket className="w-3.5 h-3.5 text-orange-400" />
-                  <span className="text-xs text-orange-300 font-medium">
-                    Phase 2: {phaseInfo?.estimatedRelease || 'Q1 2026'}
-                  </span>
-                </motion.div>
-              )}
-
-              {/* Tooltip/Info Button (opcional - expande para ver detalhes) */}
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="glass p-1.5 rounded-full border-white/10 hover:border-[#D8F244]/30 transition-colors"
-                title="Ver detalhes da fase atual"
-              >
-                <Info className="w-4 h-4 text-gray-400 hover:text-[#D8F244] transition-colors" />
-              </motion.button>
-            </motion.div>
+            {/* Phase Status Badges - Removido para manter o visual limpo e comercial */}
 
             {/* Transaction Status */}
             {transaction && isRealTransactionsEnabled && (
@@ -1124,38 +1069,7 @@ export default function SmartMint() {
                 <span className="text-[10px] font-bold tracking-widest uppercase">NEØ PROTOCOL — EST. 2025</span>
               </div>
               <div className="flex gap-10">
-                <a
-                  href="https://github.com/neo-smart-token-factory"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[10px] uppercase font-bold text-slate-500 hover:text-neon-acid transition-colors tracking-widest"
-                >
-                  Organization
-                </a>
-                <a
-                  href="https://github.com/neo-smart-token-factory/smart-ui/blob/main/docs/ARCHITECTURAL_ADDENDUMS.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[10px] uppercase font-bold text-slate-500 hover:text-neon-acid transition-colors tracking-widest"
-                >
-                  Governance
-                </a>
-                <a
-                  href="https://github.com/neo-smart-token-factory/smart-ui/blob/main/docs/adr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[10px] uppercase font-bold text-slate-500 hover:text-neon-acid transition-colors tracking-widest"
-                >
-                  Technical ADRs
-                </a>
-                <a
-                  href="https://github.com/neo-smart-token-factory/smart-ui/blob/main/docs/PROJECT_OVERVIEW.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[10px] uppercase font-bold text-slate-500 hover:text-neon-acid transition-colors tracking-widest"
-                >
-                  Documentation
-                </a>
+                {/* Links de governança e docs ocultos até Q3/Q4 */}
               </div>
             </div>
 
@@ -1165,7 +1079,7 @@ export default function SmartMint() {
               </p>
               <p className="text-[8px] text-slate-700 mt-2 max-w-2xl mx-auto">
                 Built with deliberate security architecture. All decisions documented in ADRs.
-                Governed by <a href="https://github.com/neo-smart-token-factory" target="_blank" rel="noopener noreferrer" className="text-neon-acid/60 hover:text-neon-acid transition-colors">neo-smart-token-factory</a> organization.
+                Governed by the NEØ PROTOCOL organization.
               </p>
             </div>
           </div>

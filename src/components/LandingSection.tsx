@@ -10,8 +10,8 @@ export default function LandingSection() {
 
     return (
         <div className="space-y-24 py-12">
-            {/* Social Proof / Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Social Proof / Stats - Removido por ser placeholder / números fictícios */}
+            {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {stats.map((stat, i) => (
                     <motion.div
                         key={i}
@@ -30,7 +30,7 @@ export default function LandingSection() {
                         <div className="text-xs uppercase font-bold tracking-[0.2em] text-slate-500">{stat.label}</div>
                     </motion.div>
                 ))}
-            </div>
+            </div> */}
 
             {/* Conversion / Traffic Paid Focus */}
             <div className="glass-card bg-gradient-to-br from-white/5 to-transparent border-neon-acid/20 p-12 text-center relative overflow-hidden">
