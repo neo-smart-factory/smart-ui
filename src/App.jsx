@@ -143,6 +143,22 @@ export default function SmartMint() {
   // Transaction Status
   const { transaction, setTransaction: setTransactionState, clearTransaction } = useTransactionStatus();
 
+  // Scroll logic for Header CTA sync
+  const [heroPassed, setHeroPassed] = useState(false);
+  const heroButtonRef = useCallback(node => {
+    if (node !== null) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          // Quando o botão hero sai da tela (ou está quase saindo), ativamos o glow no header
+          setHeroPassed(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+        },
+        { threshold: 0 }
+      );
+      observer.observe(node);
+      return () => observer.disconnect();
+    }
+  }, []);
+
   const [historyLoading, setHistoryLoading] = useState(true);
   const [deployProgress, setDeployProgress] = useState(0);
   const [deployStatus, setDeployStatus] = useState('');
@@ -748,6 +764,7 @@ export default function SmartMint() {
                 setUserAddress={setUserAddress}
                 onConnect={handleWalletConnect}
                 onDisconnect={handleWalletDisconnect}
+                className={heroPassed ? 'btn-launch scale-90 translate-x-2 shadow-neon-acid/20' : 'btn-secondary'}
               />
             ) : (
               <button
@@ -826,9 +843,13 @@ export default function SmartMint() {
                           });
                         }
                       }}
-                      className="btn-launch flex items-center gap-3 mx-auto text-lg px-12 relative z-10 group"
+                      className="btn-launch flex flex-row items-center gap-6 mx-auto text-2xl px-20 py-6 relative z-10 group min-w-[400px]"
                     >
-                      LAUNCH SMART MINT <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      <div className="relative">
+                        <Rocket className="w-8 h-8 group-hover:rotate-12 transition-transform duration-500 relative z-10" />
+                        <div className="absolute -inset-2 bg-[#D8F244]/40 blur-lg rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      </div>
+                      <span ref={heroButtonRef} className="font-headline font-black tracking-[0.3em]">LAUNCH SMART MINT</span>
                     </button>
                   </div>
                 </div>

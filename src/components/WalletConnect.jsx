@@ -80,7 +80,10 @@ function WalletConnectInner({ onConnect, onDisconnect, userAddress, setUserAddre
                     <span className="font-mono">{formatAddress(userAddress)}</span>
                   </>
                 ) : (
-                  <span className="font-headline font-black text-sm tracking-[0.2em]">LAUNCH App</span>
+                  <>
+                    <Zap className="w-3.5 h-3.5 fill-current animate-pulse" />
+                    <span className="font-headline font-black text-xs tracking-[0.2em]">LAUNCH App</span>
+                  </>
                 )}
               </>
             )}
