@@ -8,6 +8,12 @@ export default defineConfig({
         alias: {
             '@': '/src',
         },
+        dedupe: [
+            'react',
+            'react-dom',
+            '@dynamic-labs/sdk-react-core',
+            '@dynamic-labs/ethereum',
+        ],
     },
     optimizeDeps: {
         include: [
