@@ -103,6 +103,7 @@ export default function WalletConnect({
   const rawId = import.meta.env.VITE_DYNAMIC_ENVIRONMENT_ID;
   const dynamicEnvironmentId = rawId ? String(rawId).trim() : null;
 
+
   // Se Web3 não está habilitado, mostrar modo simulação
   if (!isWeb3Enabled) {
     return (
