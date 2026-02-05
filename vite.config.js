@@ -7,6 +7,10 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': '/src',
+            // Polyfill Node.js crypto for browser compatibility
+            crypto: 'crypto-browserify',
+            stream: 'stream-browserify',
+            buffer: 'buffer',
         },
         dedupe: [
             'react',
@@ -14,6 +18,10 @@ export default defineConfig({
             '@dynamic-labs/sdk-react-core',
             '@dynamic-labs/ethereum',
         ],
+    },
+    define: {
+        // Define global for Node.js modules in browser
+        global: 'globalThis',
     },
     optimizeDeps: {
         include: [
