@@ -57,39 +57,41 @@ function WalletConnectInner({ onConnect, onDisconnect, userAddress, setUserAddre
 
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <DynamicWidget
-        variant="modal"
-        buttonClassName="btn-launch !py-2 !px-8 !text-xs flex items-center gap-2 group"
-        innerButtonComponent={
-          <div className="flex items-center gap-2 min-w-[100px] justify-center tracking-[0.1em]">
-            {!sdkHasLoaded ? (
-              <>
-                <LoadingSpinner size="sm" className="!w-3 !h-3" />
-                <span>INITIALIZING...</span>
-              </>
-            ) : !isAuthenticated && primaryWallet ? (
-              <>
-                <LoadingSpinner size="sm" className="!w-3 !h-3" />
-                <span>AUTHENTICATING...</span>
-              </>
-            ) : (
-              <>
-                {userAddress ? (
-                  <>
-                    <Wallet className="w-3.5 h-3.5 opacity-80" />
-                    <span className="font-mono">{formatAddress(userAddress)}</span>
-                  </>
-                ) : (
-                  <>
-                    <Zap className="w-3.5 h-3.5 fill-current animate-pulse" />
-                    <span className="font-headline font-black text-xs tracking-[0.2em]">LAUNCH App</span>
-                  </>
-                )}
-              </>
-            )}
-          </div>
-        }
-      />
+      <div className="glass-frame">
+        <DynamicWidget
+          variant="modal"
+          buttonClassName={`${className} !py-2 !px-8 !text-xs flex items-center gap-2 group transition-all duration-500`}
+          innerButtonComponent={
+            <div className="flex items-center gap-2 min-w-[100px] justify-center tracking-[0.1em]">
+              {!sdkHasLoaded ? (
+                <>
+                  <LoadingSpinner size="sm" className="!w-3 !h-3" />
+                  <span>INITIALIZING...</span>
+                </>
+              ) : !isAuthenticated && primaryWallet ? (
+                <>
+                  <LoadingSpinner size="sm" className="!w-3 !h-3" />
+                  <span>AUTHENTICATING...</span>
+                </>
+              ) : (
+                <>
+                  {userAddress ? (
+                    <>
+                      <Wallet className="w-3.5 h-3.5 opacity-80" />
+                      <span className="font-mono">{formatAddress(userAddress)}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Zap className="w-3.5 h-3.5 fill-current animate-pulse" />
+                      <span className="font-headline font-black text-xs tracking-[0.2em]">MINT TOKEN</span>
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+          }
+        />
+      </div>
     </div>
   );
 }

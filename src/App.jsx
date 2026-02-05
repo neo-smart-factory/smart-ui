@@ -826,31 +826,33 @@ export default function SmartMint() {
                     The most efficient Smart Contract Factory. Compile and deploy stable, liquid protocols in seconds with zero upfront fees.
                   </p>
                   <div className="pt-8">
-                    <button
-                      onClick={() => {
-                        setStep(2);
-                        // Marketing: Registrar evento de clique no CTA
-                        if (leadId && sessionId) {
-                          safeApiCall('/api/events', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                              lead_id: leadId,
-                              session_id: sessionId,
-                              event_type: 'cta_click',
-                              event_data: { cta: 'Open Smart Mint' }
-                            })
-                          });
-                        }
-                      }}
-                      className="btn-launch flex flex-row items-center gap-6 mx-auto text-2xl px-20 py-6 relative z-10 group min-w-[400px]"
-                    >
-                      <div className="relative">
-                        <Rocket className="w-8 h-8 group-hover:rotate-12 transition-transform duration-500 relative z-10" />
-                        <div className="absolute -inset-2 bg-[#D8F244]/40 blur-lg rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                      </div>
-                      <span ref={heroButtonRef} className="font-headline font-black tracking-[0.3em]">LAUNCH SMART MINT</span>
-                    </button>
+                    <div className="glass-frame">
+                      <button
+                        onClick={() => {
+                          setStep(2);
+                          // Marketing: Registrar evento de clique no CTA
+                          if (leadId && sessionId) {
+                            safeApiCall('/api/events', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({
+                                lead_id: leadId,
+                                session_id: sessionId,
+                                event_type: 'cta_click',
+                                event_data: { cta: 'Open Smart Mint' }
+                              })
+                            });
+                          }
+                        }}
+                        className="btn-launch flex flex-row items-center gap-6 mx-auto text-2xl px-20 py-6 relative z-10 group min-w-[400px]"
+                      >
+                        <div className="relative">
+                          <Rocket className="w-8 h-8 group-hover:rotate-12 transition-transform duration-500 relative z-10" />
+                          <div className="absolute -inset-2 bg-[#D8F244]/40 blur-lg rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                        <span ref={heroButtonRef} className="font-headline font-black tracking-[0.3em]">LAUNCH SMART MINT</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
 
