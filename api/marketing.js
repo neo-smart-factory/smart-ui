@@ -23,7 +23,6 @@ export default async function handler(req, res) {
     }
 
     const action = req.query.action || req.body?.action;
-    const method = req.method;
 
     try {
         switch (action) {
@@ -56,9 +55,9 @@ export default async function handler(req, res) {
         // SEGURANÇA: Não expor detalhes internos em produção
         console.error(`[Marketing Hub] Error in ${action || 'unknown'}:`, error);
         console.error('[Marketing Hub] Stack:', error.stack);
-        
+
         const isDev = process.env.NODE_ENV === 'development';
-        return res.status(500).json({ 
+        return res.status(500).json({
             error: "Internal server error",
             message: isDev ? error.message : 'An error occurred processing your request',
             ...(isDev && { stack: error.stack })
@@ -99,7 +98,7 @@ async function handleLeadSync(req, res) {
 
     if (req.method === 'POST') {
         const { session_id, email, wallet_address, ip_address, user_agent, referrer, utm_source, utm_medium, utm_campaign, conversion_status, metadata } = req.body;
-        
+
         // SEGURANÇA: Validações rigorosas de inputs
         if (!session_id || typeof session_id !== 'string' || session_id.length > 200) {
             return res.status(400).json({ error: "Invalid or missing session_id" });
@@ -221,17 +220,19 @@ async function handleEventRecord(req, res) {
 }
 
 async function handleAnalyticsFetch(req, res) {
-    const { type, days = 30 } = req.query;
+    const { type } = req.query;
 
     switch (type) {
-        case 'funnel':
+        case 'funnel': {
             const funnel = await sql`SELECT * FROM conversion_funnel`;
             return res.status(200).json(funnel[0] || {});
-        case 'abandoned':
+        }
+        case 'abandoned': {
             const { limit = 50, hours = 24 } = req.query;
             const abandoned = await sql`SELECT * FROM abandoned_leads WHERE hours_since_activity >= ${parseFloat(hours)} ORDER BY last_activity_at DESC LIMIT ${parseInt(limit)}`;
             return res.status(200).json(abandoned);
-        case 'summary':
+        }
+        case 'summary': {
             const summary = await sql`
         SELECT 
           (SELECT COUNT(*) FROM leads) as total_leads,
@@ -241,6 +242,7 @@ async function handleAnalyticsFetch(req, res) {
           (SELECT COUNT(*) FROM email_subscriptions WHERE status = 'active') as active_subscriptions
       `;
             return res.status(200).json(summary[0] || {});
+        }
         default:
             return res.status(200).json({ status: "Marketing Hub Online" });
     }

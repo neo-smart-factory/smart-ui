@@ -1,4 +1,4 @@
-/**
+````/**
  * Hook useDebounce para debouncing de valores
  * Útil para otimizar performance em inputs e buscas
  */
@@ -35,7 +35,7 @@ export function useDebounce(value, delay = 500) {
  * @param {Array} deps - Dependências
  * @returns {Function} - Callback debounced
  */
-export function useDebounceCallback(callback, delay = 500, deps = []) {
+export function useDebounceCallback(callback, delay = 500) {
   const timeoutRef = useRef(null);
   const callbackRef = useRef(callback);
 

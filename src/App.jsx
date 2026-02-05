@@ -143,7 +143,6 @@ export default function SmartMint() {
   const [historyLoading, setHistoryLoading] = useState(true);
   const [deployProgress, setDeployProgress] = useState(0);
   const [deployStatus, setDeployStatus] = useState('');
-  const [logicManifesto, setLogicManifesto] = useState(null);
 
   // Schema Validation
   const { validate: schemaValidate } = useSchemaValidation();

@@ -29,7 +29,7 @@ export default async function handler(req, res) {
         if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
             return res.status(401).json({ error: 'Unauthorized: Ghost Protocol' });
         }
-    } catch (err) {
+    } catch {
         return res.status(401).json({ error: 'Security Handshake Failed' });
     }
 
