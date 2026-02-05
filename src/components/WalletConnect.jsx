@@ -160,6 +160,8 @@ export default function WalletConnect({
           walletConnectors: [EthereumWalletConnectors],
           appName: 'NΞØ Smart Factory',
           appLogoUrl: '/brand/logo-main.png',
+          // Disable third-party analytics (Amplitude)
+          disableAnalytics: true,
           overrides: {
             evmNetworks: [
               {
