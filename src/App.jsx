@@ -11,7 +11,10 @@ import {
   LayoutDashboard,
   Wallet,
   AlertTriangle,
-  Info
+  Info,
+  Instagram,
+  Twitter,
+  Mail
 } from 'lucide-react';
 import NetworkSelector from './components/NetworkSelector';
 import AssetPack from './components/AssetPack';
@@ -1068,18 +1071,41 @@ export default function SmartMint() {
                 <Hexagon className="w-4 h-4 text-neon-acid" />
                 <span className="text-[10px] font-bold tracking-widest uppercase">NEØ PROTOCOL — EST. 2025</span>
               </div>
-              <div className="flex gap-10">
-                {/* Links de governança e docs ocultos até Q3/Q4 */}
+              <div className="flex gap-8 items-center">
+                <a
+                  href="https://www.instagram.com/neosmart.factory/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-500 hover:text-[#D8F244] transition-all"
+                  title="Instagram"
+                >
+                  <Instagram className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://x.com/neosmartfactory"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-500 hover:text-[#D8F244] transition-all"
+                  title="X (Twitter)"
+                >
+                  <Twitter className="w-4 h-4" />
+                </a>
+                <a
+                  href="mailto:team@nsfactory.xyz"
+                  className="flex items-center gap-2 text-[10px] uppercase font-bold text-slate-500 hover:text-[#D8F244] transition-all tracking-widest"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span className="hidden md:inline">team@nsfactory.xyz</span>
+                </a>
               </div>
             </div>
 
             <div className="border-t border-white/5 pt-6 text-center">
               <p className="text-[9px] text-slate-600 uppercase tracking-wider font-mono">
-                Open Source Infrastructure · Institutional Responsibility · Active Governance
+                Neural Infrastructure · Cybernetic Governance · Active Sovereignty
               </p>
               <p className="text-[8px] text-slate-700 mt-2 max-w-2xl mx-auto">
-                Built with deliberate security architecture. All decisions documented in ADRs.
-                Governed by the NEØ PROTOCOL organization.
+                Built with deliberate security architecture. Governed by the NEØ PROTOCOL organization.
               </p>
             </div>
           </div>
