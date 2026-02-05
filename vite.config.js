@@ -9,6 +9,19 @@ export default defineConfig({
             '@': '/src',
         },
     },
+    optimizeDeps: {
+        include: [
+            '@dynamic-labs/sdk-react-core',
+            '@dynamic-labs/ethereum',
+            '@dynamic-labs/ethers-v6',
+        ],
+    },
+    build: {
+        commonjsOptions: {
+            include: [/node_modules/],
+            transformMixedEsModules: true,
+        },
+    },
     server: {
         port: 3000,
         // Note: API routes (/api/*) are Vercel Serverless Functions
