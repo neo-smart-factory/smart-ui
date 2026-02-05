@@ -30,12 +30,12 @@ export const FEATURES = {
     simulationMode: false, // Modo simulação para demonstração
   },
   phase2: {
-    // Web3 Integration - Em desenvolvimento
-    web3: true, // Será true quando lançar Phase 2
-    realTransactions: false,
+    // Web3 Integration - LIVE/BETA
+    web3: true,
+    realTransactions: true,
     walletConnection: true,
-    onChainEvents: false,
-    contractDeployment: false,
+    onChainEvents: true,
+    contractDeployment: true,
   },
   phase3: {
     // AI & Automation - Planejado
@@ -68,9 +68,9 @@ export const PHASE_INFO = {
   },
   phase2: {
     name: 'Web3 Integration',
-    status: 'IN DEVELOPMENT',
+    status: 'LIVE',
     description: 'Integração com blockchain e transações reais',
-    estimatedRelease: 'Q1 2026',
+    estimatedRelease: 'Disponível Agora',
     lockedFeatures: [
       'Transações blockchain reais (Phase 2)',
       'AI Integration (Phase 3)',
@@ -112,12 +112,12 @@ export function isFeatureEnabled(phase, feature) {
     console.warn(`[FEATURES] Phase "${phase}" não existe`);
     return false;
   }
-  
+
   if (!(feature in FEATURES[phase])) {
     console.warn(`[FEATURES] Feature "${feature}" não existe na phase "${phase}"`);
     return false;
   }
-  
+
   return FEATURES[phase][feature] === true;
 }
 
@@ -151,12 +151,12 @@ export function getCurrentPhase() {
   if (Object.values(FEATURES.phase2).some(v => v === true)) {
     return 'phase2';
   }
-  
+
   // Se Phase 3 tem alguma feature ativa, estamos na Phase 3
   if (Object.values(FEATURES.phase3).some(v => v === true)) {
     return 'phase3';
   }
-  
+
   // Padrão: Phase 1
   return 'phase1';
 }
@@ -173,11 +173,11 @@ export function isFeatureEnabledWithOverride(phase, feature) {
   // Verificar override via variável de ambiente (apenas em dev)
   const envKey = `VITE_FEATURE_${phase.toUpperCase()}_${feature.toUpperCase()}`;
   const envOverride = import.meta.env[envKey];
-  
+
   if (envOverride !== undefined) {
     return envOverride === 'true' || envOverride === true;
   }
-  
+
   // Retornar valor padrão
   return isFeatureEnabled(phase, feature);
 }
