@@ -68,6 +68,29 @@
   .skeleton-card {
     @apply glass rounded-2xl p-6 h-24;
   }
+
+  .btn-launch {
+    @apply relative overflow-hidden bg-neon-acid text-obsidian font-bold py-2.5 px-10 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(216,242,68,0.2)] hover:shadow-[0_0_40px_rgba(216,242,68,0.6)];
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-launch::before {
+    content: '';
+    @apply absolute inset-0 opacity-10 transition-opacity duration-300;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    animation: shimmer-btn 4s infinite linear;
+  }
+
+  .btn-launch:hover::before {
+    @apply opacity-30;
+  }
+
+  @keyframes shimmer-btn {
+    0% { transform: translateX(-150%); }
+    100% { transform: translateX(150%); }
+  }
 }
 
 @keyframes shimmer {

@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useRef } from 'react';
-import { Wallet } from 'lucide-react';
+import { Wallet, Rocket, Zap } from 'lucide-react';
 import { DynamicContextProvider, DynamicWidget, useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
 import useFeatures from '../hooks/useFeatures';
@@ -59,27 +59,29 @@ function WalletConnectInner({ onConnect, onDisconnect, userAddress, setUserAddre
     <div className={`flex items-center gap-2 ${className}`}>
       <DynamicWidget
         variant="modal"
-        buttonClassName="btn-secondary !py-2 !px-4 !text-xs flex items-center gap-2"
+        buttonClassName="btn-launch !py-2 !px-8 !text-xs flex items-center gap-2 group"
         innerButtonComponent={
-          <div className="flex items-center gap-2 min-w-[120px] justify-center">
+          <div className="flex items-center gap-2 min-w-[100px] justify-center tracking-[0.1em]">
             {!sdkHasLoaded ? (
               <>
                 <LoadingSpinner size="sm" className="!w-3 !h-3" />
-                <span>Initializing...</span>
+                <span>INITIALIZING...</span>
               </>
             ) : !isAuthenticated && primaryWallet ? (
               <>
                 <LoadingSpinner size="sm" className="!w-3 !h-3" />
-                <span>Authenticating...</span>
+                <span>AUTHENTICATING...</span>
               </>
             ) : (
               <>
-                <Wallet className="w-3 h-3" />
-                <span>
-                  {userAddress
-                    ? formatAddress(userAddress)
-                    : 'Connect Wallet'}
-                </span>
+                {userAddress ? (
+                  <>
+                    <Wallet className="w-3.5 h-3.5 opacity-80" />
+                    <span className="font-mono">{formatAddress(userAddress)}</span>
+                  </>
+                ) : (
+                  <span className="font-headline font-black text-sm tracking-[0.2em]">LAUNCH App</span>
+                )}
               </>
             )}
           </div>

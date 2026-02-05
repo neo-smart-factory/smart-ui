@@ -826,9 +826,9 @@ export default function SmartMint() {
                           });
                         }
                       }}
-                      className="btn-primary flex items-center gap-3 mx-auto text-lg px-12 relative z-10 group"
+                      className="btn-launch flex items-center gap-3 mx-auto text-lg px-12 relative z-10 group"
                     >
-                      Open Smart Mint <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      LAUNCH SMART MINT <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </div>
                 </div>
@@ -1069,7 +1069,7 @@ export default function SmartMint() {
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-2 opacity-50">
                 <Hexagon className="w-4 h-4 text-neon-acid" />
-                <span className="text-[10px] font-bold tracking-widest uppercase">NEØ PROTOCOL — EST. 2025</span>
+                <span className="text-[10px] font-bold tracking-widest uppercase">NSFACTORY // ECOSYSTEM NEØ PROTOCOL</span>
               </div>
               <div className="flex gap-8 items-center">
                 <a
