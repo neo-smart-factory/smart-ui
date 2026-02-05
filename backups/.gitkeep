@@ -1,0 +1,2 @@
+# Keep this directory in git but ignore all backup files
+# See ../.gitignore for backup exclusion rules

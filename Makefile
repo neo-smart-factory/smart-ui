@@ -1,6 +1,6 @@
 # NΞØ SMART FACTORY — Makefile (Dashboard only)
 
-.PHONY: dev dev-dashboard dev-vercel build build-dashboard start lint clean install help ops-sync health test test-dashboard validate
+.PHONY: dev dev-dashboard dev-vercel build build-dashboard start lint clean install help ops-sync health test test-dashboard validate backup-db restore-db snapshot-config rollback pre-deploy-check
 
 # Variáveis
 DASHBOARD_DIR = .
@@ -37,6 +37,13 @@ help:
 	@echo "  make ops-sync          - Sincroniza com Internal Ops e Docs"
 	@echo "  make sync-env          - Sincroniza variáveis do Vercel para .env local"
 	@echo "  make migratedb-marketing - Executa migration de Marketing & Analytics"
+	@echo ""
+	@echo "🔒 Backup & Recovery (PHASE 2):"
+	@echo "  make backup-db         - Cria backup do database"
+	@echo "  make restore-db backup=FILE - Restaura database do backup"
+	@echo "  make snapshot-config   - Cria snapshot de configuração"
+	@echo "  make rollback commit=HASH - Rollback completo (git + db)"
+	@echo "  make pre-deploy-check  - Validação pré-deploy (recomendado)"
 	@echo ""
 	@echo "🚢 Deploy:"
 	@echo "  make deploy            - Safe Commit + Push (Triggers Vercel)"
@@ -205,3 +212,39 @@ sync-env:
 	@echo "Sincronizando variáveis de ambiente do Vercel para .env local..."
 	@chmod +x scripts/sync-env-from-vercel.sh
 	@./scripts/sync-env-from-vercel.sh
+
+# ============================================
+# Backup & Recovery (PHASE 2)
+# ============================================
+
+backup-db:
+	@echo "🔒 Creating database backup..."
+	@test -f .env || (echo "❌ Crie .env com DATABASE_URL (copie de .env.example)"; exit 1)
+	@set -a && . ./.env && set +a && node scripts/backup-database.js
+	@echo "✅ Database backup complete!"
+
+restore-db:
+	@echo "⚠️  CRITICAL: Database restore operation"
+	@test -n "$(backup)" || (echo "❌ Usage: make restore-db backup=backups/db_backup_[timestamp].sql"; exit 1)
+	@test -f .env || (echo "❌ Crie .env com DATABASE_URL (copie de .env.example)"; exit 1)
+	@set -a && . ./.env && set +a && node scripts/restore-database.js "$(backup)"
+	@echo "✅ Database restore complete!"
+
+snapshot-config:
+	@echo "📸 Creating configuration snapshot..."
+	@chmod +x scripts/snapshot-config.sh
+	@./scripts/snapshot-config.sh
+	@echo "✅ Configuration snapshot complete!"
+
+rollback:
+	@echo "🔄 CRITICAL: Full system rollback"
+	@test -n "$(commit)" || (echo "❌ Usage: make rollback commit=<git-hash> [backup=<db-backup-file>]"; exit 1)
+	@chmod +x scripts/rollback.sh
+	@./scripts/rollback.sh "$(commit)" "$(backup)"
+	@echo "✅ Rollback sequence complete!"
+
+pre-deploy-check:
+	@echo "🔍 Running pre-deployment validation..."
+	@chmod +x scripts/pre-deploy-check.sh
+	@./scripts/pre-deploy-check.sh
+	@echo "✅ Pre-deployment checks complete!"

@@ -47,3 +47,11 @@ venv/
 .env*.local
 __pycache__/
 *.pyc
+
+# backups (PHASE 2 - contain sensitive data)
+backups/*.sql
+backups/*.tar.gz
+backups/*.gpg
+backups/emergency_*/
+!backups/README.md
+!backups/.gitkeep
