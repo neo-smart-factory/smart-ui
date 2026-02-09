@@ -34,6 +34,8 @@ import LoadingButton from './components/ui/LoadingButton';
 import SkeletonLoader from './components/ui/SkeletonLoader';
 import { validateAddress, formatAddress } from './utils/addressValidation';
 import ProgressBar from './components/ui/ProgressBar';
+import { ECOSYSTEM_URLS, getProject } from './config/ecosystem';
+import { deployToken } from './services/deploymentService';
 
 // SEGURANÇA: Sanitização robusta contra XSS
 const sanitizeInput = (val) => {
@@ -578,47 +580,14 @@ export default function SmartMint() {
     }
 
     try {
-      let result;
 
-      const simulateProgress = async () => {
-        setDeployProgress(30);
-        setDeployStatus('Initializing Genesis Block...');
-        await new Promise(r => setTimeout(r, 1000));
-
-        setDeployProgress(60);
-        setDeployStatus('Verifying Neural Uplink...');
-        await new Promise(r => setTimeout(r, 1000));
-
-        setDeployProgress(90);
-        setDeployStatus('Confirming Deployment...');
-        await new Promise(r => setTimeout(r, 1000));
-        setDeployProgress(100);
-      };
-
-      if (isRealTransactionsEnabled && dynamicWallet.signer) {
-        console.info("[WEB3] Real transactions enabled but CLI not yet implemented. Using simulation.");
-        await simulateProgress();
-
-        result = {
-          ...formData,
-          address: '0x' + Array(40).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join(''),
-          txHash: '0x' + Array(64).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join(''),
-          logicHash: 'sha256:' + (Math.random().toString(16) + Math.random().toString(16)).substring(0, 64),
-          status: 'DEPLOYED'
-        };
-
-      } else {
-        await simulateProgress();
-
-        result = {
-          ...formData,
-          address: '0x' + Array(40).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join(''),
-          txHash: '0x' + Array(64).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join(''),
-          logicHash: 'sha256:' + (Math.random().toString(16) + Math.random().toString(16)).substring(0, 64),
-          status: 'DEPLOYED'
-        };
-
-      }
+      // Calls the deployment service (handles both Real and Simulation)
+      const result = await deployToken(formData, effectiveUserAddress, {
+        isRealTransactions: isRealTransactionsEnabled,
+        signer: dynamicWallet.signer,
+        onProgress: setDeployProgress,
+        onStatus: setDeployStatus
+      });
 
       // Atualizar TransactionStatus como confirmed
       if (isRealTransactionsEnabled) {
@@ -1105,7 +1074,7 @@ export default function SmartMint() {
                   <Instagram className="w-4 h-4" />
                 </a>
                 <a
-                  href="https://x.com/neosmartfactory"
+                  href="https://x.com/nsfactory_xyz"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-500 hover:text-[#D8F244] transition-all"
@@ -1114,11 +1083,11 @@ export default function SmartMint() {
                   <Twitter className="w-4 h-4" />
                 </a>
                 <a
-                  href="mailto:team@nsfactory.xyz"
+                  href={`mailto:${getProject('smart-factory')?.hosting?.adminEmail || 'team@nsfactory.xyz'}`}
                   className="flex items-center gap-2 text-[10px] uppercase font-bold text-slate-500 hover:text-[#D8F244] transition-all tracking-widest"
                 >
                   <Mail className="w-4 h-4" />
-                  <span className="hidden md:inline">team@nsfactory.xyz</span>
+                  <span className="hidden md:inline">{getProject('smart-factory')?.hosting?.adminEmail || 'team@nsfactory.xyz'}</span>
                 </a>
               </div>
             </div>
@@ -1132,10 +1101,10 @@ export default function SmartMint() {
               </p>
             </div>
           </div>
-        </footer>
+        </footer >
 
-      </div>
-    </ErrorBoundary>
+      </div >
+    </ErrorBoundary >
   );
 }
 

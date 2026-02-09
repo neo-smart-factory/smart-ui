@@ -106,11 +106,6 @@ export default function WalletConnect({
   const { isEnabled } = useFeatures();
   const isWeb3Enabled = isEnabled('phase2', 'web3');
 
-  // Dynamic.xyz Environment ID
-  const rawId = import.meta.env.VITE_DYNAMIC_ENVIRONMENT_ID;
-  const dynamicEnvironmentId = rawId ? String(rawId).trim() : null;
-
-
   // Se Web3 não está habilitado, mostrar modo simulação
   if (!isWeb3Enabled) {
     return (
@@ -122,23 +117,6 @@ export default function WalletConnect({
         >
           <Wallet className="w-3 h-3" />
           <span>Web3 (Phase 2)</span>
-        </button>
-      </div>
-    );
-  }
-
-  // Se não tem Dynamic Environment ID configurado
-  if (!dynamicEnvironmentId) {
-    console.warn('[WalletConnect] Dynamic.xyz Environment ID not configured');
-    return (
-      <div className={`flex items-center gap-2 ${className}`}>
-        <button
-          disabled
-          className="btn-secondary !py-2 !px-4 !text-xs flex items-center gap-2 opacity-50 cursor-not-allowed"
-          title="Dynamic.xyz not configured"
-        >
-          <Wallet className="w-3 h-3" />
-          <span>Wallet (Not Configured)</span>
         </button>
       </div>
     );
@@ -162,56 +140,13 @@ export default function WalletConnect({
         console.error('[WalletConnect] Error caught by boundary:', error, errorInfo);
       }}
     >
-      <DynamicContextProvider
-        settings={{
-          environmentId: dynamicEnvironmentId,
-          walletConnectors: [EthereumWalletConnectors],
-          appName: 'NΞØ Smart Factory',
-          appLogoUrl: '/brand/logo-main.png',
-          // Disable third-party analytics (Amplitude)
-          disableAnalytics: true,
-          overrides: {
-            evmNetworks: [
-              {
-                chainId: 8453, // Base Mainnet
-                name: 'Base',
-                nativeCurrency: {
-                  name: 'Ethereum',
-                  symbol: 'ETH',
-                  decimals: 18,
-                },
-                rpcUrls: {
-                  default: {
-                    http: ['https://mainnet.base.org'],
-                  },
-                },
-              },
-              {
-                chainId: 137, // Polygon Mainnet
-                name: 'Polygon',
-                nativeCurrency: {
-                  name: 'MATIC',
-                  symbol: 'MATIC',
-                  decimals: 18,
-                },
-                rpcUrls: {
-                  default: {
-                    http: ['https://polygon-rpc.com'],
-                  },
-                },
-              },
-            ],
-          },
-        }}
-      >
-        <WalletConnectInner
-          onConnect={onConnect}
-          onDisconnect={onDisconnect}
-          userAddress={userAddress}
-          setUserAddress={setUserAddress}
-          className={className}
-        />
-      </DynamicContextProvider>
+      <WalletConnectInner
+        onConnect={onConnect}
+        onDisconnect={onDisconnect}
+        userAddress={userAddress}
+        setUserAddress={setUserAddress}
+        className={className}
+      />
     </ErrorBoundary>
   );
 }
