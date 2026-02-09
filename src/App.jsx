@@ -11,7 +11,7 @@ import {
   LayoutDashboard,
   Wallet,
   AlertTriangle,
-  Info,
+
   Instagram,
   Twitter,
   Mail
@@ -34,7 +34,7 @@ import LoadingButton from './components/ui/LoadingButton';
 import SkeletonLoader from './components/ui/SkeletonLoader';
 import { validateAddress, formatAddress } from './utils/addressValidation';
 import ProgressBar from './components/ui/ProgressBar';
-import { ECOSYSTEM_URLS, getProject } from './config/ecosystem';
+import { getProject } from './config/ecosystem';
 import { deployToken } from './services/deploymentService';
 
 // SEGURANÇA: Sanitização robusta contra XSS
@@ -114,7 +114,7 @@ const safeApiCall = async (url, options = {}) => {
 
 export default function SmartMint() {
   // Feature Flags
-  const { isEnabled, phaseInfo } = useFeatures();
+  const { isEnabled } = useFeatures();
   const isWeb3Enabled = isEnabled('phase2', 'web3');
   const isRealTransactionsEnabled = isEnabled('phase2', 'realTransactions');
 
@@ -747,7 +747,7 @@ export default function SmartMint() {
           </div>
         </header>
 
-        <main className="container mx-auto px-6 pt-32 pb-20 max-w-4xl">
+        <main className="container mx-auto px-4 md:px-6 pt-24 md:pt-32 pb-32 md:pb-20 max-w-4xl">
           <AnimatePresence mode="wait">
             {/* Phase Status Badges - Removido para manter o visual limpo e comercial */}
 
@@ -813,13 +813,13 @@ export default function SmartMint() {
                             });
                           }
                         }}
-                        className="btn-launch flex flex-row items-center gap-6 mx-auto text-2xl px-20 py-6 relative z-10 group min-w-[400px]"
+                        className="btn-launch flex flex-col md:flex-row items-center gap-3 md:gap-6 mx-auto text-xl md:text-2xl px-8 md:px-20 py-4 md:py-6 relative z-10 group w-full max-w-[320px] md:max-w-none md:min-w-[400px]"
                       >
                         <div className="relative">
                           <Rocket className="w-8 h-8 group-hover:rotate-12 transition-transform duration-500 relative z-10" />
                           <div className="absolute -inset-2 bg-[#D8F244]/40 blur-lg rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </div>
-                        <span ref={heroButtonRef} className="font-headline font-black tracking-[0.3em]">LAUNCH SMART MINT</span>
+                        <span ref={heroButtonRef} className="font-headline font-black tracking-[0.3em] text-sm md:text-base">LAUNCH SMART MINT</span>
                       </button>
                     </div>
                   </div>
@@ -939,15 +939,18 @@ export default function SmartMint() {
                         <ProgressBar progress={deployProgress} height="h-1" />
                       </div>
                     )}
-                    <LoadingButton
-                      type="submit"
-                      loading={loading}
-                      loadingText="Forging Sequence..."
-                      icon={ArrowRight}
-                      className="w-full md:w-[400px] text-lg"
-                    >
-                      Deploy Protocol
-                    </LoadingButton>
+                    {/* Mobile: Sticky Bottom Action Bar | Desktop: Static */}
+                    <div className="fixed bottom-0 left-0 right-0 p-4 glass border-t border-white/10 z-50 md:static md:p-0 md:bg-transparent md:border-none md:z-auto safe-area-bottom">
+                      <LoadingButton
+                        type="submit"
+                        loading={loading}
+                        loadingText="Forging Sequence..."
+                        icon={ArrowRight}
+                        className="w-full md:w-[400px] text-base md:text-lg h-12 md:h-14 shadow-lg md:shadow-none"
+                      >
+                        Deploy Protocol
+                      </LoadingButton>
+                    </div>
                     <div className="mt-4 p-4 bg-neon-acid/5 border border-neon-acid/20 rounded-xl text-center">
                       <p className="text-xs text-neon-acid font-bold uppercase tracking-wider">Zero Upfront Fee Policy</p>
                       <p className="text-[10px] text-slate-400 mt-1">A 5% protocol fee is embedded. Only network GAS is required for genesis.</p>

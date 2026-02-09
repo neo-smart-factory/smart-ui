@@ -70,7 +70,7 @@
 
   /* Input styles */
   .neo-input {
-    @apply bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-neon-acid/50 transition-colors;
+    @apply bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-base text-white outline-none focus:border-neon-acid/50 transition-colors;
   }
 
   .neo-label {

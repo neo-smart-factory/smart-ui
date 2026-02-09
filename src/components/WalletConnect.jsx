@@ -7,9 +7,8 @@
  */
 
 import { useEffect, useRef } from 'react';
-import { Wallet, Rocket, Zap } from 'lucide-react';
-import { DynamicContextProvider, DynamicWidget, useDynamicContext } from '@dynamic-labs/sdk-react-core';
-import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
+import { Wallet, Zap } from 'lucide-react';
+import { DynamicWidget, useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import useFeatures from '../hooks/useFeatures';
 import ErrorBoundary from './ErrorBoundary';
 import WalletErrorFallback from './WalletErrorFallback';
