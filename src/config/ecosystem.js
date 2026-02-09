@@ -57,6 +57,27 @@ export function getCustomDomain(projectId) {
 }
 
 /**
+ * Obtém a política de resiliência de um projeto
+ * @param {string} projectId 
+ * @returns {Object|null} { failurePolicy, healthCheckUrl, fallbackStrategy }
+ */
+export function getResilienceConfig(projectId) {
+  const project = getProject(projectId);
+  return project?.resilience || null;
+}
+
+/**
+ * Obtém o endereço de contrato para um projeto
+ * @param {string} projectId 
+ * @param {string} type 'mainnet' | 'testnet'
+ * @param {string} contractName 
+ */
+export function getContractAddress(projectId, type = 'mainnet', contractName) {
+  const project = getProject(projectId);
+  return project?.contracts?.[type]?.[contractName] || null;
+}
+
+/**
  * Constantes de URL Prontas para Uso
  */
 export const ECOSYSTEM_URLS = {

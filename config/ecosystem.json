@@ -37,7 +37,11 @@
         "dependsOn": [
             "neo-nexus",
             "mio-system"
-        ]
+        ],
+        "resilience": {
+            "failurePolicy": "DEGRADE_AND_QUEUE",
+            "healthCheckUrl": "https://flowcloser-agent-production.up.railway.app/health"
+        }
     },
     {
         "id": "neo-nexus",
@@ -52,9 +56,11 @@
             "adminEmail": "neo@neoprotocol.space",
             "targetCustomDomain": "nexus.neoprotocol.space"
         },
-        "dependsOn": [
-            "mio-system"
-        ]
+        "resilience": {
+            "failurePolicy": "DEGRADE_AND_QUEUE",
+            "healthCheckUrl": "https://nexus.neoprotocol.space/health",
+            "fallbackStrategy": "LOCAL_EVENT_BUFFER"
+        }
     },
     {
         "id": "mio-system",
