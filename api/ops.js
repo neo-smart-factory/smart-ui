@@ -44,9 +44,9 @@ export default async function handler(req, res) {
         // SEGURANÇA: Não expor detalhes internos em produção
         console.error(`[Ops Hub] Error in ${action || 'unknown'}:`, error);
         console.error('[Ops Hub] Stack:', error.stack);
-        
+
         const isDev = process.env.NODE_ENV === 'development';
-        return res.status(500).json({ 
+        return res.status(500).json({
             error: "Internal server error",
             message: isDev ? error.message : 'An error occurred processing your request',
             ...(isDev && { stack: error.stack })
@@ -58,7 +58,7 @@ export default async function handler(req, res) {
 
 async function handleStatus(req, res) {
     const opsState = {
-        version: process.env.VITE_APP_VERSION || "0.5.5",
+        version: process.env.VITE_APP_VERSION || "0.5.6",
         codename: process.env.VITE_APP_CODENAME || "MULTICHAIN FOUNDATION",
         status: "operational",
         components: {
@@ -81,7 +81,7 @@ async function handleDeploys(req, res) {
 
     if (req.method === 'POST') {
         const { contract_address, owner_address, network, tx_hash, token_name, token_symbol, lead_id, session_id } = req.body;
-        
+
         // SEGURANÇA: Validações rigorosas
         if (!contract_address || !/^0x[a-fA-F0-9]{40}$/.test(contract_address)) {
             return res.status(400).json({ error: "Invalid contract_address" });
@@ -128,7 +128,7 @@ async function handleDrafts(req, res) {
 
     if (req.method === 'POST') {
         const { user_address, token_config, lead_id, session_id } = req.body;
-        
+
         // SEGURANÇA: Validações rigorosas
         if (!user_address || !/^0x[a-fA-F0-9]{40}$/.test(user_address)) {
             return res.status(400).json({ error: "Invalid user_address" });
