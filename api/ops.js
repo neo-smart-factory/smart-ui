@@ -59,7 +59,7 @@ export default async function handler(req, res) {
 async function handleStatus(req, res) {
     const opsState = {
         version: process.env.VITE_APP_VERSION || "0.5.6",
-        codename: process.env.VITE_APP_CODENAME || "MULTICHAIN FOUNDATION",
+        codename: process.env.VITE_APP_CODENAME || "NΞØ PROTOCOL",
         status: "operational",
         components: {
             "Core Engine": { status: "completed", notes: "Core deployed and verified." },
