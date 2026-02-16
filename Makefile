@@ -54,6 +54,12 @@ help:
 install:
 	@echo "📦 Installing dependencies..."
 	npm install
+	@echo "✅ Dependencies installed!"
+
+update:
+	@echo "🔄 Updating dependencies..."
+	npm update
+	@echo "✅ Dependencies updated!"
 
 # ============================================
 # Desenvolvimento
@@ -81,7 +87,12 @@ build: build-dashboard
 
 build-dashboard:
 	@echo "🏗️  Building Dashboard..."
-	cd $(DASHBOARD_DIR) && npm run build
+	@if [ -d "$(DASHBOARD_DIR)/node_modules" ]; then \
+		cd $(DASHBOARD_DIR) && npm run build; \
+	else \
+		echo "❌ node_modules not found. Run 'make install' first."; \
+		exit 1; \
+	fi
 	@echo "✅ Dashboard build complete!"
 
 # ============================================
@@ -178,8 +189,8 @@ validate:
 # ============================================
 
 clean:
-	@echo "🧹 Cleaning build artifacts and dependencies..."
-	rm -rf node_modules .next dist
+	@echo "🧹 Cleaning build artifacts, dependencies, and caches..."
+	rm -rf node_modules .next dist .vercel .npm/_cacache package-lock.json
 	@echo "✅ Clean complete!"
 
 # ============================================
