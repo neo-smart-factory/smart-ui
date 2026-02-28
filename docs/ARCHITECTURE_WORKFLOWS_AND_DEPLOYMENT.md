@@ -89,7 +89,7 @@ Report de saúde do protocolo
   uses: actions/checkout@v4
   continue-on-error: true
   with:
-    repository: neo-smart-token-factory/neo-smart-factory
+    repository: neo-smart-factory/neo-smart-factory
     path: neo-smart-factory
     token: ${{ secrets.NEO_ECOSYSTEM_TOKEN }}
 ```
@@ -97,7 +97,7 @@ Report de saúde do protocolo
 **Requisitos:**
 
 - **Secret Necessário:** `NEO_ECOSYSTEM_TOKEN` (Personal Access Token com scope `repo`)
-- **Repositório Externo:** `neo-smart-token-factory/neo-smart-factory`
+- **Repositório Externo:** `neo-smart-factory/neo-smart-factory`
 - **Comando:** `make health` (deve estar implementado no Makefile)
 
 **Status Atual:** ⚠️ Requer `NEO_ECOSYSTEM_TOKEN` configurado
@@ -229,7 +229,7 @@ Report de saúde do protocolo
 
 | Configuração | Valor |
 |-------------|-------|
-| **Repository** | `neo-smart-token-factory/smart-ui` |
+| **Repository** | `neo-smart-factory/smart-ui` |
 | **Root Directory** | `.` (raiz) |
 | **Framework Preset** | Vite |
 | **Build Command** | `npm run build` (auto-detectado) |
@@ -391,5 +391,5 @@ A arquitetura atual é **sólida e bem estruturada** para um projeto em fase de 
 
 **Última atualização:** Janeiro 2026 (pós-migração multi-repos)  
 **Repositórios Relacionados:**
-- **Landing:** `neo-smart-token-factory/smart-ui-landing`
-- **Mobile:** `neo-smart-token-factory/smart-ui-mobile`
+- **Landing:** `neo-smart-factory/smart-ui-landing`
+- **Mobile:** `neo-smart-factory/smart-ui-mobile`

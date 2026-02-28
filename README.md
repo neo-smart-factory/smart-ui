@@ -169,14 +169,14 @@ Este projeto está licenciado sob a **Licença MIT**.
  ▓▓▓ ECOSSISTEMA NEØ SMART FACTORY                          
 ──────────────────────────────────────────────
  └─ Dashboard (este repo)                                    
-    └─ https://github.com/neo-smart-token-factory/smart-ui   
+    └─ https://github.com/neo-smart-factory/smart-ui   
     └─ Interface de gestão (simulation mode)                 
  └─ Landing Page                                             
-    └─ https://github.com/neo-smart-token-factory/            
+    └─ https://github.com/neo-smart-factory/            
        smart-ui-landing                                       
     └─ Página pública de marketing                           
  └─ Mobile App                                               
-    └─ https://github.com/neo-smart-token-factory/           
+    └─ https://github.com/neo-smart-factory/           
        smart-ui-mobile                                       
    └─ PWA mobile-first                                     
 ──────────────────────────────────────────────
@@ -204,7 +204,7 @@ Sim! Veja a seção "MUDANÇAS PERMITIDAS" no aviso arquitetural.
 **Transformando código em ativos líquidos.**
 
 [![Website](https://img.shields.io/badge/Website-nsfactory.xyz-D8F244?style=flat-square&logo=internet-explorer&logoColor=000)](https://nsfactory.xyz)
-[![GitHub](https://img.shields.io/badge/GitHub-neo--smart--token--factory-C0E030?style=flat-square&logo=github&logoColor=000)](https://github.com/neo-smart-token-factory)
+[![GitHub](https://img.shields.io/badge/GitHub-neo--smart--token--factory-C0E030?style=flat-square&logo=github&logoColor=000)](https://github.com/neo-smart-factory)
 [![Twitter](https://img.shields.io/badge/Twitter-@nsfactory.xyz-A8C81C?style=flat-square&logo=twitter&logoColor=000)](https://x.com/nsfactory_xyz)
 [![Email](https://img.shields.io/badge/Email-team@nsfactory.xyz-90B008?style=flat-square&logo=gmail&logoColor=000)](mailto:team@nsfactory.xyz)
 

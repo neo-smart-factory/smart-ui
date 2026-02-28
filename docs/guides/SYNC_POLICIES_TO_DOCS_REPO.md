@@ -5,7 +5,7 @@
 **Categoria:** Guia  
 **Audiência:** DevOps
 
-**Objetivo:** Enviar ao repositório [neo-smart-token-factory/docs](https://github.com/neo-smart-token-factory/docs) a base de padrões, políticas, auditorias, organização e ADRs mantidos no **smart-ui**.
+**Objetivo:** Enviar ao repositório [neo-smart-factory/docs](https://github.com/neo-smart-factory/docs) a base de padrões, políticas, auditorias, organização e ADRs mantidos no **smart-ui**.
 
 **Quando usar:** Antes de remediar violações ou esboçar visibility-guard; sempre que políticas/audits forem atualizados e precisarem refletir no docs central.
 
@@ -34,7 +34,7 @@ O script também gera `operations/standards/POLICIES_ORIGIN.md` no docs (origem,
 
 ### Pré-requisito
 
-Clone do **docs** como irmão do **smart-ui** (ex.: `.../NEO SMART TOKEN/docs` e `.../NEO SMART TOKEN/smart-ui`), com `origin` apontando para `git@github.com:neo-smart-token-factory/docs.git`.
+Clone do **docs** como irmão do **smart-ui** (ex.: `.../NEO SMART TOKEN/docs` e `.../NEO SMART TOKEN/smart-ui`), com `origin` apontando para `git.com:neo-smart-factory/docs.git`.
 
 ### Comando
 
@@ -107,7 +107,7 @@ Acrescente:
 Se quiser linkar a organização no índice:
 
 ```markdown
-- **[Organização Técnica](ORGANIZATION.md)** — neo-smart-token-factory, repos, governança.
+- **[Organização Técnica](ORGANIZATION.md)** — neo-smart-factory, repos, governança.
 ```
 
 ### Seção 3 — Arquitetura & Decisões
@@ -139,7 +139,7 @@ git push origin main
 3. Atualizar `INDEX.md` no docs com as entradas da seção 4 (e 3, se desejar).
 4. Commit e push no repositório **docs**.
 
-Com isso, a base de padrões, POLICIES e documentos relacionados passa a constar no [repositório docs](https://github.com/neo-smart-token-factory/docs) antes de qualquer remediação ou esboço de automatização.
+Com isso, a base de padrões, POLICIES e documentos relacionados passa a constar no [repositório docs](https://github.com/neo-smart-factory/docs) antes de qualquer remediação ou esboço de automatização.
 
 ---
 

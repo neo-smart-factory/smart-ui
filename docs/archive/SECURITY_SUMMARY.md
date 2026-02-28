@@ -1,7 +1,7 @@
 # Security Summary - Wallet Connection Audit
 
 **Date:** January 26, 2026  
-**Repository:** neo-smart-token-factory/smart-ui  
+**Repository:** neo-smart-factory/smart-ui  
 **Scan Type:** CodeQL + npm audit + Manual Review
 
 ---

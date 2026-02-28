@@ -110,7 +110,7 @@ The wallet address validation implementation (Issue #17) is **complete, working 
 
 ## 🔗 Related Resources
 
-- **Issue #17:** https://github.com/neo-smart-token-factory/smart-ui/issues/17
+- **Issue #17:** https://github.com/neo-smart-factory/smart-ui/issues/17
 - **Manual Test Script:** `../scripts/test-address-validation.js`
 - **Implementation Files:**
   - `../src/utils/addressValidation.js`

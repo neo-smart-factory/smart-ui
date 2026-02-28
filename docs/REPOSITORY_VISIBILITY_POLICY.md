@@ -253,12 +253,12 @@ Updates must:
 ## 🔗 APPROVED PUBLIC REFERENCES
 
 ### Organization
-✓ https://github.com/neo-smart-token-factory (filtered public view)
+✓ https://github.com/neo-smart-factory (filtered public view)
 
 ### Repositories
-✓ https://github.com/neo-smart-token-factory/smart-ui  
-✓ https://github.com/neo-smart-token-factory/landing  
-✓ https://github.com/neo-smart-token-factory/docs
+✓ https://github.com/neo-smart-factory/smart-ui  
+✓ https://github.com/neo-smart-factory/landing  
+✓ https://github.com/neo-smart-factory/docs
 
 ### Documentation
 ✓ Links to files within approved public repositories  
@@ -269,7 +269,7 @@ Updates must:
 
 ## ⚖️ GOVERNANCE
 
-This policy is enforced by the **neo-smart-token-factory** governance team.
+This policy is enforced by the **neo-smart-factory** governance team.
 
 **Compliance is mandatory.**  
 **Security and governance take priority over convenience.**

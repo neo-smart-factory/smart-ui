@@ -228,7 +228,7 @@ This PR modifies code but does not update any documentation.
   uses: actions/checkout@v4
   continue-on-error: true
   with:
-    repository: neo-smart-token-factory/neo-smart-factory
+    repository: neo-smart-factory/neo-smart-factory
     path: neo-smart-factory
     token: ${{ secrets.NEO_ECOSYSTEM_TOKEN }}
 ```
@@ -282,12 +282,12 @@ make health  # Verifica status de todos os componentes do ecossistema
 
 ### Repositórios do Ecossistema NΞØ
 
-O projeto `smart-ui` faz parte de um ecossistema maior coordenado pela organização **`neo-smart-token-factory`** no GitHub.
+O projeto `smart-ui` faz parte de um ecossistema maior coordenado pela organização **`neo-smart-factory`** no GitHub.
 
 #### Repositórios Relacionados
 
 1. **`neo-smart-factory`** (Repositório Principal)
-   - **Organização:** `neo-smart-token-factory/neo-smart-factory`
+   - **Organização:** `neo-smart-factory/neo-smart-factory`
    - **Integração:** Checkout automático no workflow `protocol-health.yml`
    - **Conteúdo esperado:**
      - `smart-core/contracts/` — Contratos inteligentes
@@ -298,15 +298,15 @@ O projeto `smart-ui` faz parte de um ecossistema maior coordenado pela organiza�
 2. **`smart-ui`** (Este repositório)
    - **Produção:** `https://nsfactory.xyz` (ou `nsfactory.xyz/ecosystem-graph.html`)
    - **Local Dev:** `http://localhost:3000`
-   - **Repositório:** `github.com/neo-smart-token-factory/smart-ui`
+   - **Repositório:** `github.com/neo-smart-factory/smart-ui`
    - **Status:** Demo and Intent Layer
 
 3. **`landing`** (Repositório separado)
-   - **Organização:** `neo-smart-token-factory/landing`
+   - **Organização:** `neo-smart-factory/landing`
    - **Propósito:** Landing page pública
 
 4. **`docs`** (Repositório de documentação)
-   - **Organização:** `neo-smart-token-factory/docs`
+   - **Organização:** `neo-smart-factory/docs`
    - **Propósito:** Documentação centralizada
 
 ### Padrões de Integração
@@ -320,7 +320,7 @@ O workflow `protocol-health.yml` utiliza checkout cross-repo:
   uses: actions/checkout@v4
   continue-on-error: true
   with:
-    repository: neo-smart-token-factory/neo-smart-factory
+    repository: neo-smart-factory/neo-smart-factory
     path: neo-smart-factory
     token: ${{ secrets.NEO_ECOSYSTEM_TOKEN }}
 ```
@@ -409,7 +409,7 @@ CORE_CONTRACTS_PATH="../neo-smart-factory/smart-core/contracts"
 ### Ecossistema NΞØ - Organização GitHub
 
 ```
-neo-smart-token-factory/  (Organização GitHub)
+neo-smart-factory/  (Organização GitHub)
 │
 ├── neo-smart-factory/           # Repositório CORE (Principal)
 │   ├── smart-core/
@@ -596,7 +596,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.NEO_ECOSYSTEM_TOKEN }}
-          repository: neo-smart-token-factory/neo-smart-factory
+          repository: neo-smart-factory/neo-smart-factory
           event-type: ui-deployed
           client-payload: |
             {
@@ -647,7 +647,7 @@ jobs:
 ```yaml
 jobs:
   health:
-    uses: neo-smart-token-factory/neo-smart-factory/.github/workflows/shared-health.yml@main
+    uses: neo-smart-factory/neo-smart-factory/.github/workflows/shared-health.yml@main
     with:
       component: "smart-ui"
 ```
@@ -730,7 +730,7 @@ jobs:
 ### Para Administradores
 
 - [ ] Token tem permissões `repo` completas?
-- [ ] Token tem acesso à org `neo-smart-token-factory`?
+- [ ] Token tem acesso à org `neo-smart-factory`?
 - [ ] Token está configurado como secret no repo?
 - [ ] Workflow logs estão sendo monitorados?
 - [ ] Alertas configurados para falhas de health check?
@@ -752,7 +752,7 @@ Error: Resource not accessible by integration
    - Confirmar que existe `NEO_ECOSYSTEM_TOKEN`
 2. Verificar permissões do token:
    - Token deve ter scope `repo` completo
-   - Token deve ter acesso à organização `neo-smart-token-factory`
+   - Token deve ter acesso à organização `neo-smart-factory`
 3. Verificar se token não expirou:
    - Gerar novo token se necessário
    - Atualizar secret no repositório
@@ -826,7 +826,7 @@ Error: Bad credentials
 4. Testar token manualmente:
    ```bash
    curl -H "Authorization: token SEU_TOKEN" \
-        https://api.github.com/repos/neo-smart-token-factory/neo-smart-factory
+        https://api.github.com/repos/neo-smart-factory/neo-smart-factory
    ```
 
 ---
@@ -952,7 +952,7 @@ Para validação completa, teste o onboarding em um ambiente limpo:
 ```bash
 # Opção 1: Docker (isolado)
 docker run -it node:20 bash
-git clone https://github.com/neo-smart-token-factory/smart-ui
+git clone https://github.com/neo-smart-factory/smart-ui
 cd smart-ui
 npm install
 ./validate-onboarding.sh

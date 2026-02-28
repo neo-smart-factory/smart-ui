@@ -6,7 +6,7 @@ Since GitHub Copilot cannot create GitHub issues directly, please follow these s
 
 ## Step 1: Go to GitHub Issues
 
-Navigate to: https://github.com/neo-smart-token-factory/smart-ui/issues/new
+Navigate to: https://github.com/neo-smart-factory/smart-ui/issues/new
 
 ---
 

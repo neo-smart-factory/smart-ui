@@ -1,4 +1,4 @@
-# Auditoria de Visibilidade — Organização neo-smart-token-factory
+# Auditoria de Visibilidade — Organização neo-smart-factory
 
 > **⚠️ ARCHIVED DOCUMENT**  
 > This document is preserved for historical reference. The content reflects the state of the project at the time of archiving and may contain outdated nomenclature (e.g., "forge" instead of "deploy/smart"). Please refer to current documentation for up-to-date information.
@@ -11,7 +11,7 @@
 
 ## 1. Entendimento
 
-Na organização **neo-smart-token-factory**, **nem tudo pode estar público**. A política de visibilidade define:
+Na organização **neo-smart-factory**, **nem tudo pode estar público**. A política de visibilidade define:
 
 | Tipo | Repositórios | Uso |
 |------|--------------|-----|
@@ -63,7 +63,7 @@ Estes arquivos **citam** repos/componentes privados em **contexto de governança
 
 ### 3.4 ⚠️ Configuração de CI (workflows)
 
-- **`.github/workflows/protocol-health.yml`** faz checkout de `neo-smart-token-factory/neo-smart-factory`. O **nome do repo** aparece em YAML versionado publicamente.
+- **`.github/workflows/protocol-health.yml`** faz checkout de `neo-smart-factory/neo-smart-factory`. O **nome do repo** aparece em YAML versionado publicamente.
 
 **Nuance:** Workflows precisam identificar o repo para checkout. Não há “exceção” explícita na política para “config de CI”. Sugestão: **documentar exceção** — configuração de workflow pode referenciar identificadores de repos privados **apenas** para checkout/automação, sem uso user-facing.
 

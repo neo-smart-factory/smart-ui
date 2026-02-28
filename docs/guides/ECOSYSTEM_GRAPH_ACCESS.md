@@ -197,7 +197,7 @@ O gráfico é **público** (não requer autenticação). Se precisar proteger:
 
 - **Produção:** `https://nsfactory.xyz/ecosystem-graph.html`
 - **Local Dev:** `http://localhost:3000/ecosystem-graph.html`
-- **Repositório:** `github.com/neo-smart-token-factory/smart-ui`
+- **Repositório:** `github.com/neo-smart-factory/smart-ui`
 
 ---
 

@@ -16,20 +16,20 @@ Este documento serve como guia operacional para desenvolvedores que acessam o re
 Após a migração para multi-repos, o ecossistema NΞØ Smart Factory está dividido em **3 repositórios independentes**:
 
 ### 1. smart-ui (Dashboard) — Este Repositório
-- **Repositório:** [neo-smart-token-factory/smart-ui](https://github.com/neo-smart-token-factory/smart-ui)
+- **Repositório:** [neo-smart-factory/smart-ui](https://github.com/neo-smart-factory/smart-ui)
 - **Stack:** React + Vite + Tailwind CSS
 - **Uso:** Dashboard interno e visualização da saúde do protocolo. Interface de demonstração (Demo & Intent Layer).
 - **Comando:** `npm run dev` (Porta 3000)
 - **Deploy:** Vercel (smart-ui-dashboard)
 
 ### 2. smart-ui-landing (Landing Page)
-- **Repositório:** [neo-smart-token-factory/smart-ui-landing](https://github.com/neo-smart-token-factory/smart-ui-landing)
+- **Repositório:** [neo-smart-factory/smart-ui-landing](https://github.com/neo-smart-factory/smart-ui-landing)
 - **Stack:** React + Vite
 - **Uso:** Marketing, captura de leads e narrativa do protocolo. Otimizada para SEO.
 - **Status:** Repositório separado
 
 ### 3. smart-ui-mobile (Mobile App)
-- **Repositório:** [neo-smart-token-factory/smart-ui-mobile](https://github.com/neo-smart-token-factory/smart-ui-mobile)
+- **Repositório:** [neo-smart-factory/smart-ui-mobile](https://github.com/neo-smart-factory/smart-ui-mobile)
 - **Stack:** Vue 3 + Nuxt 3
 - **Uso:** Interface de criação de tokens para o usuário final. Focada em PWA e mobile/Telegram.
 - **Status:** Repositório separado

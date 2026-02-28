@@ -75,7 +75,7 @@ INTERNAL_OPS_PATH="../neo-smart-factory/internal-ops/state.json"
 - name: Checkout Smart Factory
   uses: actions/checkout@v4
   with:
-    repository: neo-smart-token-factory/neo-smart-factory
+    repository: neo-smart-factory/neo-smart-factory
     path: neo-smart-factory
 ```
 

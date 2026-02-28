@@ -2,7 +2,7 @@
 ## NΞØ Smart Factory UI - Resumo Executivo
 
 **Data:** 26 de Janeiro de 2026  
-**Repositório:** https://github.com/neo-smart-token-factory/smart-ui  
+**Repositório:** https://github.com/neo-smart-factory/smart-ui  
 **Versão:** 0.5.3  
 **Fase:** Phase 01 (Testes e Desenvolvimento)
 

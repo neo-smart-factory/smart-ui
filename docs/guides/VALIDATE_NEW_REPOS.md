@@ -198,8 +198,8 @@ Adicionar seção no README.md:
 
 Este é o **Landing Page** do ecossistema NEØ Smart Factory.
 
-- **Dashboard**: https://github.com/neo-smart-token-factory/smart-ui
-- **Mobile**: https://github.com/neo-smart-token-factory/smart-ui-mobile
+- **Dashboard**: https://github.com/neo-smart-factory/smart-ui
+- **Mobile**: https://github.com/neo-smart-factory/smart-ui-mobile
 ```
 
 ---
