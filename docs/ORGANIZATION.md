@@ -1,4 +1,4 @@
-# Organização Técnica — neo-smart-token-factory
+# Organização Técnica — neo-smart-factory
 
 **Data:** 2026-01-24  
 **Status:** Ativo  
@@ -6,13 +6,13 @@
 **Audiência:** Todos
 
 > **Tipo**: Organização GitHub Open Source  
-> **URL**: [github.com/neo-smart-token-factory](https://github.com/neo-smart-token-factory)
+> **URL**: [github.com/neo-smart-factory](https://github.com/neo-smart-factory)
 
 ---
 
 ## Sobre
 
-A **neo-smart-token-factory** é uma organização técnica **ativa e pública** que coordena o desenvolvimento, governança e evolução do ecossistema **NΞØ Smart Factory**.
+A **neo-smart-factory** é uma organização técnica **ativa e pública** que coordena o desenvolvimento, governança e evolução do ecossistema **NΞØ Smart Factory**.
 
 ---
 
@@ -81,7 +81,7 @@ Profissionais com histórico relevante nas áreas:
 - Integração Web3
 - PWA-ready
 
-**URL**: [github.com/neo-smart-token-factory/smart-ui](https://github.com/neo-smart-token-factory/smart-ui)
+**URL**: [github.com/neo-smart-factory/smart-ui](https://github.com/neo-smart-factory/smart-ui)
 
 ### 📄 landing
 
@@ -91,7 +91,7 @@ Profissionais com histórico relevante nas áreas:
 - Narrativa do projeto
 - Apresentação institucional
 
-**URL**: [github.com/neo-smart-token-factory/landing](https://github.com/neo-smart-token-factory/landing)
+**URL**: [github.com/neo-smart-factory/landing](https://github.com/neo-smart-factory/landing)
 
 ### 📚 docs
 
@@ -102,7 +102,7 @@ Profissionais com histórico relevante nas áreas:
 - Referências técnicas
 - ADRs (Architecture Decision Records)
 
-**URL**: [github.com/neo-smart-token-factory/docs](https://github.com/neo-smart-token-factory/docs)
+**URL**: [github.com/neo-smart-factory/docs](https://github.com/neo-smart-factory/docs)
 
 ---
 
@@ -194,7 +194,7 @@ Novas liberações de componentes e ferramentas devem ocorrer **a qualquer momen
 
 ### 1. Explore os Repositórios
 
-Visite [github.com/neo-smart-token-factory](https://github.com/neo-smart-token-factory) e explore os projetos disponíveis.
+Visite [github.com/neo-smart-factory](https://github.com/neo-smart-factory) e explore os projetos disponíveis.
 
 ### 2. Leia a Documentação
 
@@ -229,7 +229,7 @@ Familiarize-se com:
 ## Contato
 
 ### GitHub
-- **Organização**: [github.com/neo-smart-token-factory](https://github.com/neo-smart-token-factory)
+- **Organização**: [github.com/neo-smart-factory](https://github.com/neo-smart-factory)
 - **Issues**: Use os repositórios específicos
 - **Discussions**: Disponível nos repositórios principais
 
@@ -254,7 +254,7 @@ Consulte o arquivo `LICENSE` em cada projeto para detalhes.
 
 ## Reconhecimentos
 
-A **neo-smart-token-factory** reconhece e agradece:
+A **neo-smart-factory** reconhece e agradece:
 
 - Todos os contribuidores de código
 - Profissionais que oferecem orientação jurídica e técnica
@@ -266,7 +266,7 @@ A **neo-smart-token-factory** reconhece e agradece:
 
 ## Declaração de Propósito
 
-> A **neo-smart-token-factory** existe para construir infraestrutura descentralizada de qualidade institucional, combinando excelência técnica, responsabilidade jurídica e governança transparente.
+> A **neo-smart-factory** existe para construir infraestrutura descentralizada de qualidade institucional, combinando excelência técnica, responsabilidade jurídica e governança transparente.
 
 > Nosso compromisso é com **segurança de longo prazo**, **inovação responsável** e **sustentabilidade do ecossistema**.
 

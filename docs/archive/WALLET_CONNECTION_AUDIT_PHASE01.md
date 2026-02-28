@@ -3,7 +3,7 @@
 
 **Date:** January 27, 2026  
 **Auditor:** Antigravity AI Agent  
-**Repository:** https://github.com/neo-smart-token-factory/smart-ui  
+**Repository:** https://github.com/neo-smart-factory/smart-ui  
 **Version:** 0.5.4  
 **Phase:** Phase 01 (STABLE - Clean Lint & Security)
 

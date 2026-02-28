@@ -37,14 +37,14 @@
 ## 📦 Repositórios finais
 
 | Repo | Conteúdo | URL |
-| **smart-ui** (Dashboard) | React + Vite + API routes, `src/`, `api/`, `lib/` | `github.com/neo-smart-token-factory/smart-ui` |
-| **smart-ui-landing** | Landing React + Vite (apenas `landing/`) | `github.com/neo-smart-token-factory/smart-ui-landing` |
-| **smart-ui-mobile** | Mobile Vue + Vite (apenas `nuxt-app/`) | `github.com/neo-smart-token-factory/smart-ui-mobile` |
+| **smart-ui** (Dashboard) | React + Vite + API routes, `src/`, `api/`, `lib/` | `github.com/neo-smart-factory/smart-ui` |
+| **smart-ui-landing** | Landing React + Vite (apenas `landing/`) | `github.com/neo-smart-factory/smart-ui-landing` |
+| **smart-ui-mobile** | Mobile Vue + Vite (apenas `nuxt-app/`) | `github.com/neo-smart-factory/smart-ui-mobile` |
 
 **Repos já criados:**
 
-- `git@github.com:neo-smart-token-factory/smart-ui-landing.git`
-- `git@github.com:neo-smart-token-factory/smart-ui-mobile.git`
+- `git.com:neo-smart-factory/smart-ui-landing.git`
+- `git.com:neo-smart-factory/smart-ui-mobile.git`
 
 ---
 
@@ -71,10 +71,10 @@ O script:
 ```bash
 cd /tmp
 rm -rf smart-ui-landing-temp
-git clone https://github.com/neo-smart-token-factory/smart-ui.git smart-ui-landing-temp
+git clone https://github.com/neo-smart-factory/smart-ui.git smart-ui-landing-temp
 cd smart-ui-landing-temp
 git filter-branch --subdirectory-filter landing -- --all
-git remote set-url origin git@github.com:neo-smart-token-factory/smart-ui-landing.git
+git remote set-url origin git.com:neo-smart-factory/smart-ui-landing.git
 git push -u origin main --force
 cd ..
 rm -rf smart-ui-landing-temp
@@ -85,10 +85,10 @@ rm -rf smart-ui-landing-temp
 ```bash
 cd /tmp
 rm -rf smart-ui-mobile-temp
-git clone https://github.com/neo-smart-token-factory/smart-ui.git smart-ui-mobile-temp
+git clone https://github.com/neo-smart-factory/smart-ui.git smart-ui-mobile-temp
 cd smart-ui-mobile-temp
 git filter-branch --subdirectory-filter nuxt-app -- --all
-git remote set-url origin git@github.com:neo-smart-token-factory/smart-ui-mobile.git
+git remote set-url origin git.com:neo-smart-factory/smart-ui-mobile.git
 git push -u origin main --force
 cd ..
 rm -rf smart-ui-mobile-temp
@@ -101,7 +101,7 @@ Em **smart-ui-landing** e **smart-ui-mobile**, o `vercel.json` atual tem `ignore
 **smart-ui-landing:** remover `ignoreCommand` ou deixar só `{}`.
 
 ```bash
-git clone git@github.com:neo-smart-token-factory/smart-ui-landing.git /tmp/smart-ui-landing-fix
+git clone git.com:neo-smart-factory/smart-ui-landing.git /tmp/smart-ui-landing-fix
 cd /tmp/smart-ui-landing-fix
 echo '{}' > vercel.json
 git add vercel.json && git commit -m "chore: remove ignoreCommand (single repo)" && git push
@@ -111,7 +111,7 @@ cd .. && rm -rf smart-ui-landing-fix
 **smart-ui-mobile:** mesmo procedimento.
 
 ```bash
-git clone git@github.com:neo-smart-token-factory/smart-ui-mobile.git /tmp/smart-ui-mobile-fix
+git clone git.com:neo-smart-factory/smart-ui-mobile.git /tmp/smart-ui-mobile-fix
 cd /tmp/smart-ui-mobile-fix
 echo '{}' > vercel.json
 git add vercel.json && git commit -m "chore: remove ignoreCommand (single repo)" && git push
@@ -125,7 +125,7 @@ cd .. && rm -rf smart-ui-mobile-fix
 ### smart-ui-landing
 
 1. Vercel → **Add New** → **Project**.
-2. **Import** `neo-smart-token-factory/smart-ui-landing`.
+2. **Import** `neo-smart-factory/smart-ui-landing`.
 3. **Root Directory:** `.` (raiz).
 4. **Framework Preset:** Vite (auto).
 5. **Build Command / Output Directory / Install Command:** vazios (detecção automática).
@@ -134,7 +134,7 @@ cd .. && rm -rf smart-ui-mobile-fix
 ### smart-ui-mobile
 
 1. Vercel → **Add New** → **Project**.
-2. **Import** `neo-smart-token-factory/smart-ui-mobile`.
+2. **Import** `neo-smart-factory/smart-ui-mobile`.
 3. **Root Directory:** `.` (raiz).
 4. **Framework Preset:** Vite (auto).
 5. **Build / Output / Install:** vazios.
@@ -229,9 +229,9 @@ git push origin main
 
 ## 🔗 Links rápidos
 
-- **Landing:** `git@github.com:neo-smart-token-factory/smart-ui-landing.git`
-- **Mobile:** `git@github.com:neo-smart-token-factory/smart-ui-mobile.git`
-- **Dashboard:** `https://github.com/neo-smart-token-factory/smart-ui` (permanece).
+- **Landing:** `git.com:neo-smart-factory/smart-ui-landing.git`
+- **Mobile:** `git.com:neo-smart-factory/smart-ui-mobile.git`
+- **Dashboard:** `https://github.com/neo-smart-factory/smart-ui` (permanece).
 
 ---
 

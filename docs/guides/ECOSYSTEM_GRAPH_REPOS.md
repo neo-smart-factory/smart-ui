@@ -58,7 +58,7 @@ O grafo vive no **smart-ui** e é servido com o dashboard (Vercel). **Pré-lanç
 
 ### Opção C: **Novo repositório**
 
-- **O quê:** Repo só para “ecosystem graph” (ex.: `neo-smart-token-factory/ecosystem-graph`).
+- **O quê:** Repo só para “ecosystem graph” (ex.: `neo-smart-factory/ecosystem-graph`).
 - **Público:** Só dados públicos (como em smart-ui). Deploy estático (Vercel, Pages).
 - **Privado:** Dados completos (públicos + privados). Deploy **não** público.
 - **Vantagem:** Separação clara; dá para ter dois deploys (um público, um interno).

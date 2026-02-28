@@ -128,7 +128,7 @@
 
 ## 🔗 Links Úteis
 
-- [GitHub Issues](https://github.com/neo-smart-token-factory/smart-ui/issues)
+- [GitHub Issues](https://github.com/neo-smart-factory/smart-ui/issues)
 - [Roadmap (NEXT_STEPS.md)](./NEXT_STEPS.md)
 - [Audit Reports](./WALLET_CONNECTION_AUDIT_PHASE01.md)
 

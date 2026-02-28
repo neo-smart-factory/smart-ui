@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # NΞØ Smart Factory — Sync policies, standards, audits, org & ADRs to docs repo
-# Source: smart-ui (base de padrões, POLICIES). Target: neo-smart-token-factory/docs.
+# Source: smart-ui (base de padrões, POLICIES). Target: neo-smart-factory/docs.
 # Usage: ./scripts/sync-policies-to-docs-repo.sh [DOCS_REPO_PATH]
 
 set -e
@@ -21,7 +21,7 @@ echo ""
 
 if [[ ! -d "$DOCS_REPO" ]]; then
   echo -e "${RED}❌ Docs repo not found: $DOCS_REPO${NC}"
-  echo "   Clone it: git clone git@github.com:neo-smart-token-factory/docs.git $DOCS_REPO"
+  echo "   Clone it: git clone git.com:neo-smart-factory/docs.git $DOCS_REPO"
   exit 1
 fi
 
@@ -76,11 +76,11 @@ cat > "$MANIFEST" << EOF
 
 Estes arquivos em \`operations/standards/\` e relacionados (auditoria, ecosystem, architecture/adr, ORGANIZATION) são **sincronizados** a partir do repositório **smart-ui**.
 
-- **Fonte:** [neo-smart-token-factory/smart-ui](https://github.com/neo-smart-token-factory/smart-ui)
+- **Fonte:** [neo-smart-factory/smart-ui](https://github.com/neo-smart-factory/smart-ui)
 - **Última sincronização:** $(date +%Y-%m-%d)
 - **Script:** \`smart-ui/scripts/sync-policies-to-docs-repo.sh\`
 
-Consulte [SYNC_POLICIES_TO_DOCS_REPO.md](https://github.com/neo-smart-token-factory/smart-ui/blob/main/docs/SYNC_POLICIES_TO_DOCS_REPO.md) no smart-ui para o guia completo.
+Consulte [SYNC_POLICIES_TO_DOCS_REPO.md](https://github.com/neo-smart-factory/smart-ui/blob/main/docs/SYNC_POLICIES_TO_DOCS_REPO.md) no smart-ui para o guia completo.
 EOF
 echo -e "   ${GREEN}✓${NC} Wrote operations/standards/POLICIES_ORIGIN.md"
 

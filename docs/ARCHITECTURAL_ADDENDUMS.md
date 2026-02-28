@@ -195,7 +195,7 @@ Esse posicionamento reforça o compromisso do projeto com:
 
 Existe uma organização técnica **ativa e pública**:
 
-**🔗 [neo-smart-token-factory](https://github.com/neo-smart-token-factory)**
+**🔗 [neo-smart-factory](https://github.com/neo-smart-factory)**
 
 ### Composição
 
@@ -251,8 +251,8 @@ Este documento é mantido pela governança técnica do projeto e deve ser revisa
 
 ## Referências
 
-- [Organização GitHub](https://github.com/neo-smart-token-factory)
-- [Repositório smart-ui](https://github.com/neo-smart-token-factory/smart-ui)
+- [Organização GitHub](https://github.com/neo-smart-factory)
+- [Repositório smart-ui](https://github.com/neo-smart-factory/smart-ui)
 - [Documentação Técnica](./PROJECT_OVERVIEW.md)
 - [Plano Estratégico](./NEO_STRATEGIC_PLAN_V1.md)
 

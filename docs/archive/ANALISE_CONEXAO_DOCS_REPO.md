@@ -1,10 +1,10 @@
-# Análise: Conexão smart-ui ↔ neo-smart-token-factory/docs
+# Análise: Conexão smart-ui ↔ neo-smart-factory/docs
 
 > **⚠️ ARCHIVED DOCUMENT**  
 > This document is preserved for historical reference. The content reflects the state of the project at the time of archiving and may contain outdated nomenclature (e.g., "forge" instead of "deploy/smart"). Please refer to current documentation for up-to-date information.
 
 **Data:** 2026-01-24  
-**Objetivo:** Verificar como o smart-ui se conecta ao repositório `git@github.com:neo-smart-token-factory/docs` e se seguimos os padrões definidos lá.
+**Objetivo:** Verificar como o smart-ui se conecta ao repositório `git.com:neo-smart-factory/docs` e se seguimos os padrões definidos lá.
 
 ---
 
@@ -22,7 +22,7 @@
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ ▓▓▓ REMOTE                                                                  │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ └─ origin → git@github.com:neo-smart-token-factory/smart-ui.git             │
+│ └─ origin → git.com:neo-smart-factory/smart-ui.git             │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ ▓▓▓ WORKFLOWS                                                               │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -42,7 +42,7 @@
 
 ### Referências ao repositório docs
 
-- **Links:** `docs/README.md`, `docs/ORGANIZATION.md`, `docs/REPOSITORY_VISIBILITY_POLICY.md` linkam para `https://github.com/neo-smart-token-factory/docs`.
+- **Links:** `docs/README.md`, `docs/ORGANIZATION.md`, `docs/REPOSITORY_VISIBILITY_POLICY.md` linkam para `https://github.com/neo-smart-factory/docs`.
 - **Autoridade:** `docs/ui-status.md` declara `Authority: docs` — smart-ui não é autoridade; decisões vivem em `smart-core`, `smart-cli`, `docs`.
 - **Política:** `REPOSITORY_VISIBILITY_POLICY` trata `docs` como repositório **público** permitido para ADRs, governança e guidelines.
 
@@ -61,7 +61,7 @@ Portanto, **não é necessário** conectar ao repo docs via git para o fluxo atu
 
 ## 3. Padrões do repositório docs (resumo)
 
-Com base no conteúdo público do `neo-smart-token-factory/docs`:
+Com base no conteúdo público do `neo-smart-factory/docs`:
 
 - **Estrutura:** `architecture/`, `core/`, `ecosystem/`, `operations/`, `registro/`, `strategy/`, etc.
 - **Conteúdo:** INDEX, manifesto, GUIA_OPERACIONAL, NEOTOKENV2, MANUAL_BRIDGE, MINIAPP_INTEGRATION, BASE_AGENTKIT_GUIDE, CONTRIBUTING.md.
@@ -128,7 +128,7 @@ O posicionamento da **NΞØ Smart Factory** como **infraestrutura Web3 industria
 
 ## 7. Resumo
 
-- **Conexão git:** smart-ui **não** se conecta ao `neo-smart-token-factory/docs` via submodule ou workflows. Só há links e uso opcional do Makefile em dev local.
+- **Conexão git:** smart-ui **não** se conecta ao `neo-smart-factory/docs` via submodule ou workflows. Só há links e uso opcional do Makefile em dev local.
 - **Necessidade:** **Não** é necessário conectar ao docs para o fluxo atual; a separação docs (org) vs docs do smart-ui (repo) é intencional.
 - **Padrões:** No geral **sim** — documentação versionada, ADRs, links, autoridade. CONTRIBUTING / contribuição externa **adiado de propósito** para etapa futura do roadmap.
 

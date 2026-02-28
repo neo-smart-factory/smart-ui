@@ -1,7 +1,7 @@
 # NΞØ Smart Factory — Documentação Técnica
 
 > **Repositório**: smart-ui  
-> **Organização**: [neo-smart-token-factory](https://github.com/neo-smart-token-factory)  
+> **Organização**: [neo-smart-factory](https://github.com/neo-smart-factory)  
 > **Status**: Ativo
 
 > 🗺️ **Navegação:** Para um índice visual completo de todos os documentos, veja [NAVIGATION_INDEX.md](./NAVIGATION_INDEX.md)
@@ -29,7 +29,7 @@ Documento crítico que estabelece as posições técnicas e estratégicas do pro
 
 #### [ORGANIZATION.md](./ORGANIZATION.md)
 
-**Organização Técnica neo-smart-token-factory**
+**Organização Técnica neo-smart-factory**
 
 Descrição da organização pública que governa o projeto:
 - Composição e perfil dos membros
@@ -233,7 +233,7 @@ Outros documentos são mais estáveis e requerem revisão formal:
 
 ### Sync para o repositório docs
 
-- [SYNC_POLICIES_TO_DOCS_REPO.md](./SYNC_POLICIES_TO_DOCS_REPO.md) — Envio da base de padrões, políticas, auditorias, organização e ADRs para [neo-smart-token-factory/docs](https://github.com/neo-smart-token-factory/docs).
+- [SYNC_POLICIES_TO_DOCS_REPO.md](./SYNC_POLICIES_TO_DOCS_REPO.md) — Envio da base de padrões, políticas, auditorias, organização e ADRs para [neo-smart-factory/docs](https://github.com/neo-smart-factory/docs).
 
 ---
 
@@ -272,13 +272,13 @@ Outros documentos são mais estáveis e requerem revisão formal:
 
 ### Organização
 
-- [neo-smart-token-factory](https://github.com/neo-smart-token-factory)
+- [neo-smart-factory](https://github.com/neo-smart-factory)
 
 ### Repositórios
 
-- [smart-ui](https://github.com/neo-smart-token-factory/smart-ui)
-- [landing](https://github.com/neo-smart-token-factory/landing)
-- [docs](https://github.com/neo-smart-token-factory/docs)
+- [smart-ui](https://github.com/neo-smart-factory/smart-ui)
+- [landing](https://github.com/neo-smart-factory/landing)
+- [docs](https://github.com/neo-smart-factory/docs)
 
 ### Padrões
 
