@@ -14,7 +14,7 @@ export const PROJECT_IDS = {
   SMART_UI: 'smart-ui',
   SMART_UI_LANDING: 'smart-ui-landing',
   SMART_FACTORY_DOCS: 'smart-factory-docs',
-  NEOBOT: 'neobot-architect',
+  NEOBOT: 'neobot-orchestrator',
   NEO_AGENT_FULL: 'neo-agent-full',
   NEO_NEXUS: 'neo-nexus',
   MIO_SYSTEM: 'mio-system',

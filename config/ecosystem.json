@@ -1,6 +1,7 @@
 [
     {
-        "id": "neobot-architect",
+        "id": "neobot-orchestrator",
+        "aliases": ["neobot-architect"],
         "org": "NEO Protocol",
         "name": "Neobot — Node Warrior / NEO Nexus",
         "description": "Node Warrior: Agente Central do NEO Protocol. Orquestrador soberano (nexus.neoprotocol.space), arquiteto e executor. Contém o Protocol Nexus Event Bus e as identidades mio-system em src/neo/identity/.",
