@@ -1,9 +1,9 @@
 # NΞØ SMART FACTORY — Interface de Gestão e Fábrica de Tokens
-
+```
 ==============================================
       AVISO DE STATUS ARQUITETURAL
 ==============================================
-
+```
 Este repositório está **intencionalmente congelado** em termos de **estrutura e arquitetura**.
 
 O Smart UI é classificado como **Demo and Intent Layer**, conforme definido em:
@@ -20,7 +20,7 @@ Este repositório é um **projeto ativo** para desenvolvimento de UI/UX e featur
 - **Backend como infraestrutura:** Não deve ser expandido como produção
 
 Desenvolvimento permitido: UI/UX, features de interface, tracking/analytics, API routes para demo.
-
+```
 ----------------------------------------------------------------
  MUDANÇAS PERMITIDAS
 ----------------------------------------------------------------
@@ -30,7 +30,8 @@ Desenvolvimento permitido: UI/UX, features de interface, tracking/analytics, API
  [✓] Features de interface (sem lógica de protocolo)
  [✓] Tracking e analytics
  [✓] Rotulagem explícita de demo/simulação
-
+```
+```
 ----------------------------------------------------------------
  MUDANÇAS PROIBIDAS
 ----------------------------------------------------------------
@@ -41,7 +42,7 @@ Desenvolvimento permitido: UI/UX, features de interface, tracking/analytics, API
  [✗] Expandir backend como infraestrutura de produção
 ```
 Qualquer mudança fora deste escopo requer uma decisão arquitetural explícita (ADR).
-```
+
 ==============================================
 
 ## 🌐 Visão Geral
@@ -51,7 +52,7 @@ A **NΞØ Smart Factory** é uma **interface de demonstração** para o ecossist
 **⚠️ Importante:** Esta interface opera em **simulation mode** e não executa transações reais na blockchain. É uma camada de demonstração e coleta de intenção do usuário.
 
 ## 🚀 Estética e Design
-
+```
 ─────────────────────────────────────────────
  ▓▓▓ VISUAL                                                  
 ──────────────────────────────────────────────
@@ -60,9 +61,9 @@ A **NΞØ Smart Factory** é uma **interface de demonstração** para o ecossist
  └─ Efeitos: Glassmorphism e Gradientes Cinéticos            
  └─ Interações: Micro-animações fluidas                      
 ──────────────────────────────────────────────
-
+```
 ## 🛠️ Stack Técnica
-
+```
 ──────────────────────────────────────────────
  ▓▓▓ TECNOLOGIAS                                             
 ──────────────────────────────────────────────
@@ -75,9 +76,9 @@ A **NΞØ Smart Factory** é uma **interface de demonstração** para o ecossist
  └─ Web3: Ethers.js v6 (simulation mode)                     
  └─ Database: Neon PostgreSQL (demo/analytics)               
 ──────────────────────────────────────────────
-
+```
 ## 📦 Funcionalidades Demonstradas
-
+```
 ==============================================
     STATUS DE IMPLEMENTAÇÃO - v0.5.4
 ==============================================
@@ -100,11 +101,12 @@ A **NΞØ Smart Factory** é uma **interface de demonstração** para o ecossist
 [####] MARKETING & ANALYTICS .............................................. OK
        Sistema completo de tracking de leads, eventos e recuperação de usuários
        ✅ Funcional (captura visitantes, eventos, abandono)
-
+```
+```
 ==============================================
 STATUS: 5/5 funcionalidades demonstradas
 ==============================================
-
+```
 ## 🏃 Como Rodar Localmente
 
 ```bash
@@ -118,7 +120,7 @@ make dev          # Apenas frontend (Vite puro)
 **Deploy:** Veja [docs/guides/DEPLOYMENT.md](docs/guides/DEPLOYMENT.md).
 ```
 ## 📐 Arquitetura do Sistema
-
+```
 ┌─────────────────────────────────────────────
 │              ARQUITETURA DO SISTEMA                         
 └─────────────────────────────────────────────
@@ -151,20 +153,20 @@ make dev          # Apenas frontend (Vite puro)
  Neon Database (PostgreSQL)
  ⚠️ Persistência demo/analytics (não autoritativo)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
+```
 
 **Nota sobre APIs e Database:**
 - As API routes (`/api/*`) são **funcionais** e conectam a um **database real** (Neon)
 - Elas servem para: persistir dados de demo, tracking de marketing, analytics
 - **Não** representam autoridade de protocolo ou execução real de transações
 - São componentes **transicionais** para demo e coleta de intenção do usuário
-```
+
 ## 📜 Atribuição e Licença
 
 Este projeto está licenciado sob a **Licença MIT**.
-```
-## 📦 Repositórios Relacionados
 
+## 📦 Repositórios Relacionados
+```
 ──────────────────────────────────────────────
  ▓▓▓ ECOSSISTEMA NEØ SMART FACTORY                          
 ──────────────────────────────────────────────
