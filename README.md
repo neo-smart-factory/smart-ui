@@ -21,6 +21,7 @@ Este repositório é um **projeto ativo** para desenvolvimento de UI/UX e featur
 
 Desenvolvimento permitido: UI/UX, features de interface, tracking/analytics, API routes para demo.
 ```
+```
 ----------------------------------------------------------------
  MUDANÇAS PERMITIDAS
 ----------------------------------------------------------------
@@ -41,7 +42,7 @@ Desenvolvimento permitido: UI/UX, features de interface, tracking/analytics, API
  [✗] Deploy real de contratos (apenas simulação)
  [✗] Expandir backend como infraestrutura de produção
 ```
-Qualquer mudança fora deste escopo requer uma decisão arquitetural explícita (ADR).
+**Qualquer mudança fora deste escopo requer uma decisão arquitetural explícita (ADR).**
 
 ==============================================
 
@@ -121,6 +122,7 @@ make dev          # Apenas frontend (Vite puro)
 ```
 ## 📐 Arquitetura do Sistema
 ```
+```
 ┌─────────────────────────────────────────────
 │              ARQUITETURA DO SISTEMA                         
 └─────────────────────────────────────────────
@@ -154,7 +156,7 @@ make dev          # Apenas frontend (Vite puro)
  ⚠️ Persistência demo/analytics (não autoritativo)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
-
+```
 **Nota sobre APIs e Database:**
 - As API routes (`/api/*`) são **funcionais** e conectam a um **database real** (Neon)
 - Elas servem para: persistir dados de demo, tracking de marketing, analytics
@@ -166,6 +168,7 @@ make dev          # Apenas frontend (Vite puro)
 Este projeto está licenciado sob a **Licença MIT**.
 
 ## 📦 Repositórios Relacionados
+```
 ```
 ──────────────────────────────────────────────
  ▓▓▓ ECOSSISTEMA NEØ SMART FACTORY                          
