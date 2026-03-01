@@ -32,6 +32,7 @@ Documento crítico que estabelece as posições técnicas e estratégicas do pro
 **Organização Técnica neo-smart-factory**
 
 Descrição da organização pública que governa o projeto:
+
 - Composição e perfil dos membros
 - Atividades e repositórios
 - Princípios de governança
@@ -47,6 +48,7 @@ Descrição da organização pública que governa o projeto:
 Decisões arquiteturais documentadas seguindo o padrão ADR.
 
 #### [adr/0001-smart-ui-backend-boundary.md](./adr/0001-smart-ui-backend-boundary.md)
+
 **Fronteira entre Smart UI e Backend**
 
 Define a separação de responsabilidades entre frontend e backend.
@@ -54,6 +56,7 @@ Define a separação de responsabilidades entre frontend e backend.
 ---
 
 #### [adr/0002-ui-as-demo-and-intent-layer.md](./adr/0002-ui-as-demo-and-intent-layer.md)
+
 **UI como Camada de Demo e Intenção**
 
 Estabelece o papel da UI como interface de demonstração e captura de intenção.
@@ -61,9 +64,11 @@ Estabelece o papel da UI como interface de demonstração e captura de intençã
 ---
 
 #### [adr/0003-wallet-extensions-mpc-automation-posture.md](./adr/0003-wallet-extensions-mpc-automation-posture.md)
+
 **Postura sobre Extensões de Carteiras, MPC e Automação**
 
 Formaliza a decisão de não adotar prematuramente:
+
 - Wallet Snaps e extensões de terceiros
 - MPC wallets experimentais
 - Automação sem controle explícito
@@ -74,9 +79,11 @@ Formaliza a decisão de não adotar prematuramente:
 ---
 
 #### [adr/0004-kyc-governance-strategy.md](./adr/0004-kyc-governance-strategy.md)
+
 **Estratégia de KYC e Governança Estruturada**
 
 Documenta a decisão de adotar modelo de início 100% estruturado com:
+
 - KYC progressivo
 - Controles de governança
 - Conformidade regulatória
@@ -89,6 +96,7 @@ Documenta a decisão de adotar modelo de início 100% estruturado com:
 ### 📖 Documentação de Projeto
 
 #### [PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md)
+
 **Visão Geral do Projeto**
 
 Introdução ao projeto, objetivos, arquitetura e componentes principais.
@@ -99,6 +107,7 @@ Introdução ao projeto, objetivos, arquitetura e componentes principais.
 ---
 
 #### [NEO_STRATEGIC_PLAN_V1.md](./NEO_STRATEGIC_PLAN_V1.md)
+
 **Plano Estratégico v1**
 
 Roadmap estratégico, fases de desenvolvimento e objetivos de longo prazo.
@@ -109,6 +118,7 @@ Roadmap estratégico, fases de desenvolvimento e objetivos de longo prazo.
 ---
 
 #### [NEXT_STEPS.md](./NEXT_STEPS.md)
+
 **Próximos Passos**
 
 Lista de tarefas pendentes e próximas ações prioritárias.
@@ -121,9 +131,11 @@ Lista de tarefas pendentes e próximas ações prioritárias.
 ### 🎨 Documentação de Frontend
 
 #### [FRONTEND_MAP.md](./FRONTEND_MAP.md)
+
 **Mapa de Frontends**
 
 Descrição dos múltiplos frontends do projeto:
+
 - Landing Page (React + Vite)
 - Nuxt App (Vue 3 + Vite)
 - App Principal (React + TypeScript + Web3)
@@ -134,6 +146,7 @@ Descrição dos múltiplos frontends do projeto:
 ---
 
 #### [ADR 0002 — UI as Demo and Intent Layer](./adr/0002-ui-as-demo-and-intent-layer.md)
+
 **Status da UI**
 
 Estado atual da interface de usuário, features implementadas e pendentes.
@@ -144,6 +157,7 @@ Estado atual da interface de usuário, features implementadas e pendentes.
 ---
 
 #### [ui-diagnostic-checklist.md](./archive/ui-diagnostic-checklist.md) (Arquivado)
+
 **Checklist de Diagnóstico da UI**
 
 Lista de verificação para diagnóstico e validação da interface.
@@ -154,6 +168,7 @@ Lista de verificação para diagnóstico e validação da interface.
 ---
 
 #### [ECOSYSTEM_GRAPH_REPOS.md](./ECOSYSTEM_GRAPH_REPOS.md)
+
 **Grafo de Repositórios e Conexões**
 
 Nodes (repos da org), conexões e não conectados. Onde hospedar (smart-ui, ops, novo repo). Dados em `public/ecosystem-graph-data.js`.
@@ -166,9 +181,11 @@ Nodes (repos da org), conexões e não conectados. Onde hospedar (smart-ui, ops,
 ### 🗄️ Documentação de Infraestrutura
 
 #### [DATABASE_SCHEMA.sql](./DATABASE_SCHEMA.sql)
+
 **Schema do Banco de Dados**
 
 Definição do schema PostgreSQL (Neon) para:
+
 - Deploys
 - Drafts
 - Leads
@@ -179,6 +196,7 @@ Definição do schema PostgreSQL (Neon) para:
 ---
 
 #### [GITHUB_ACTIONS_SETUP.md](./GITHUB_ACTIONS_SETUP.md)
+
 **Configuração de GitHub Actions**
 
 Guia para configurar CI/CD com GitHub Actions.
@@ -191,21 +209,25 @@ Guia para configurar CI/CD com GitHub Actions.
 ## 🎯 Guia de Leitura por Perfil
 
 ### Para Novos Contribuidores
+
 1. [PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md)
 2. [ORGANIZATION.md](./ORGANIZATION.md)
 3. [FRONTEND_MAP.md](./FRONTEND_MAP.md)
 
 ### Para Decisores Técnicos
+
 1. [ARCHITECTURAL_ADDENDUMS.md](./ARCHITECTURAL_ADDENDUMS.md)
 2. [ADRs completos](./adr/)
 3. [NEO_STRATEGIC_PLAN_V1.md](./NEO_STRATEGIC_PLAN_V1.md)
 
 ### Para Parceiros e Stakeholders
+
 1. [ARCHITECTURAL_ADDENDUMS.md](./ARCHITECTURAL_ADDENDUMS.md)
 2. [ORGANIZATION.md](./ORGANIZATION.md)
 3. [ADR 0004 - KYC Strategy](./adr/0004-kyc-governance-strategy.md)
 
 ### Para Desenvolvedores
+
 1. [FRONTEND_MAP.md](./FRONTEND_MAP.md)
 2. [DATABASE_SCHEMA.sql](./DATABASE_SCHEMA.sql)
 3. [ui-diagnostic-checklist.md](./ui-diagnostic-checklist.md)
@@ -215,18 +237,23 @@ Guia para configurar CI/CD com GitHub Actions.
 ## 🔄 Processo de Atualização
 
 ### Documentos Vivos
+
 Alguns documentos são atualizados frequentemente:
+
 - `NEXT_STEPS.md`
 - `adr/0002-ui-as-demo-and-intent-layer.md` (substitui ui-status.md)
 - `archive/ui-diagnostic-checklist.md` (arquivado - desatualizado após migração multi-repos)
 
 ### Documentos Estáveis
+
 Outros documentos são mais estáveis e requerem revisão formal:
+
 - `ARCHITECTURAL_ADDENDUMS.md`
 - ADRs (Architecture Decision Records)
 - `NEO_STRATEGIC_PLAN_V1.md`
 
 ### Versionamento
+
 - Documentos críticos devem incluir número de versão
 - Mudanças significativas devem ser documentadas
 - ADRs são imutáveis após aceitos (criar novo ADR para mudanças)

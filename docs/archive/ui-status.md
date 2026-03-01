@@ -22,6 +22,7 @@ The Smart UI is officially classified as a:
 **Demo and Intent Layer**
 
 It exists to:
+
 - demonstrate user flows
 - visualize protocol concepts
 - collect configuration intent
@@ -64,6 +65,7 @@ The following elements exist for **demo purposes only**:
 - Cross-repo filesystem reads
 
 These components:
+
 - are non-authoritative
 - must not be expanded
 - must not be reused as backend infrastructure
@@ -81,6 +83,7 @@ Allowed changes:
 - explicit demo labeling
 
 Forbidden changes:
+
 - new features
 - new integrations
 - protocol logic additions
@@ -94,6 +97,7 @@ Any exception requires a new ADR.
 ## 5. Integration Outlook
 
 Future integration with real protocol state will occur only via:
+
 - `smart-cli`
 - explicitly documented read-only contracts
 

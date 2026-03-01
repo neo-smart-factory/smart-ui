@@ -20,21 +20,23 @@ A documentação completa da API está disponível em formato OpenAPI 3.0:
 
 ### Documentação por Tema
 
-| Documento | Descrição |
-|-----------|-----------|
-| [API_MARKETING_ROUTES.md](./API_MARKETING_ROUTES.md) | Rotas de API para marketing e analytics |
-| [MARKETING_SCHEMA_EXPLANATION.md](./MARKETING_SCHEMA_EXPLANATION.md) | Explicação do schema de marketing |
-| [FRONTEND_MARKETING_INTEGRATION.md](./FRONTEND_MARKETING_INTEGRATION.md) | Integração de marketing no frontend |
+| Documento                                                                | Descrição                               |
+| ------------------------------------------------------------------------ | --------------------------------------- |
+| [API_MARKETING_ROUTES.md](./API_MARKETING_ROUTES.md)                     | Rotas de API para marketing e analytics |
+| [MARKETING_SCHEMA_EXPLANATION.md](./MARKETING_SCHEMA_EXPLANATION.md)     | Explicação do schema de marketing       |
+| [FRONTEND_MARKETING_INTEGRATION.md](./FRONTEND_MARKETING_INTEGRATION.md) | Integração de marketing no frontend     |
 
 ---
 
 ## 🚀 Endpoints Disponíveis
 
 ### Deploys
+
 - `GET /api/deploys` — Listar deploys recentes
 - `POST /api/deploys` — Registrar novo deploy
 
 ### Drafts
+
 - `GET /api/drafts?address={address}` — Buscar draft do usuário
 - `POST /api/drafts` — Salvar draft
 
@@ -43,6 +45,7 @@ A documentação completa da API está disponível em formato OpenAPI 3.0:
 - `GET /api/ops-status` — Status operacional
 
 ### Marketing & Analytics
+
 - `GET /api/leads` — Buscar lead
 - `POST /api/leads` — Criar/atualizar lead
 - `GET /api/analytics` — Dados de analytics

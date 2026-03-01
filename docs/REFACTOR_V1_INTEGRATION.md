@@ -27,6 +27,7 @@ src/
 ```
 
 **Total:**
+
 - 4 new hooks
 - 3 new services
 - 1 updated util
@@ -39,6 +40,7 @@ src/
 ```bash
 npm run build
 ```
+
 **Result:** ✓ built in 21.78s
 
 **No errors, no warnings, fully compatible!**
@@ -52,32 +54,30 @@ npm run build
 **Purpose:** Orchestrate token deployment with progress tracking
 
 ```jsx
-import { useDeployment } from './hooks/useDeployment';
+import { useDeployment } from "./hooks/useDeployment";
 
 function DeployButton() {
   const deployment = useDeployment(formData, userAddress, {
     isRealTransactionsEnabled: true,
     signer: walletSigner,
     onSuccess: (result) => {
-      console.log('Deployed to:', result.address);
+      console.log("Deployed to:", result.address);
     },
     onError: (error) => {
-      console.error('Deploy failed:', error);
-    }
+      console.error("Deploy failed:", error);
+    },
   });
 
   return (
-    <button
-      onClick={deployment.deploy}
-      disabled={deployment.loading}
-    >
-      {deployment.loading ? `${deployment.progress}%` : 'Deploy'}
+    <button onClick={deployment.deploy} disabled={deployment.loading}>
+      {deployment.loading ? `${deployment.progress}%` : "Deploy"}
     </button>
   );
 }
 ```
 
 **Returns:**
+
 - `loading` - Deployment in progress
 - `progress` - Progress percentage (0-100)
 - `status` - Current status message
@@ -92,7 +92,7 @@ function DeployButton() {
 **Purpose:** Track user funnel and conversions
 
 ```jsx
-import { useMarketingTracking } from './hooks/useMarketingTracking';
+import { useMarketingTracking } from "./hooks/useMarketingTracking";
 
 function TokenForm() {
   const marketing = useMarketingTracking();
@@ -115,6 +115,7 @@ function TokenForm() {
 ```
 
 **Methods:**
+
 - `trackFormStart()` - User started filling form
 - `trackWalletConnect(address)` - Wallet connected
 - `trackConversion(result)` - Token deployed (conversion!)
@@ -145,6 +146,7 @@ function TokenForm() {
 ```
 
 **Features:**
+
 - Debounced saves (don't spam API)
 - Auto-load on mount
 - Abort controller (cancel pending saves)
@@ -156,17 +158,18 @@ function TokenForm() {
 **Purpose:** Fetch and display deployment history
 
 ```jsx
-import { useDeploymentHistory } from './hooks/useDeploymentHistory';
+import { useDeploymentHistory } from "./hooks/useDeploymentHistory";
 
 function HistoryPanel() {
-  const { deploys, loading, error, refresh } = useDeploymentHistory(userAddress);
+  const { deploys, loading, error, refresh } =
+    useDeploymentHistory(userAddress);
 
   if (loading) return <Spinner />;
   if (error) return <Error message={error} />;
 
   return (
     <div>
-      {deploys.map(deploy => (
+      {deploys.map((deploy) => (
         <DeployCard key={deploy.id} deploy={deploy} />
       ))}
       <button onClick={refresh}>Refresh</button>
@@ -184,24 +187,28 @@ function HistoryPanel() {
 **HTTP client with resilience:**
 
 ```js
-import { safeApiCall, sendBeacon } from './services/apiService';
+import { safeApiCall, sendBeacon } from "./services/apiService";
 
 // Safe API call (returns null on failure, never throws)
-const data = await safeApiCall('/api/ops?action=status');
+const data = await safeApiCall("/api/ops?action=status");
 
 // Send beacon (fire-and-forget analytics)
-sendBeacon('/api/marketing?action=event', { event: 'click' });
+sendBeacon("/api/marketing?action=event", { event: "click" });
 ```
 
 ### deploymentService.js
 
 ```js
-import { deployToken, recordDeployment, saveDraft } from './services/deploymentService';
+import {
+  deployToken,
+  recordDeployment,
+  saveDraft,
+} from "./services/deploymentService";
 
 // Deploy token (simulation or real)
 const result = await deployToken(formData, userAddress, {
   isRealTransactions: false,
-  signer: null
+  signer: null,
 });
 
 // Save to backend
@@ -214,16 +221,20 @@ await saveDraft(formData, userAddress);
 ### marketingService.js
 
 ```js
-import { createLead, updateLeadStatus, recordEvent } from './services/marketingService';
+import {
+  createLead,
+  updateLeadStatus,
+  recordEvent,
+} from "./services/marketingService";
 
 // Create lead
 const lead = await createLead(sessionId);
 
 // Track event
-await recordEvent(leadId, sessionId, 'form_start', { page: '/' });
+await recordEvent(leadId, sessionId, "form_start", { page: "/" });
 
 // Update status
-await updateLeadStatus(leadId, 'converted');
+await updateLeadStatus(leadId, "converted");
 ```
 
 ---
@@ -233,16 +244,18 @@ await updateLeadStatus(leadId, 'converted');
 ### Gradual Migration Plan
 
 **Step 1:** Use new hooks in App.jsx (keep existing structure)
+
 ```jsx
 // In App.jsx, replace inline logic with:
 const deployment = useDeployment(formData, userAddress, {
-  onSuccess: handleDeploySuccess
+  onSuccess: handleDeploySuccess,
 });
 
 // Then use: deployment.deploy(), deployment.loading, etc
 ```
 
 **Step 2:** Extract components (optional, future)
+
 - NetworkSelector
 - AssetPack
 - LandingSection
@@ -256,21 +269,25 @@ const deployment = useDeployment(formData, userAddress, {
 ## 📊 Benefits Achieved
 
 ✅ **Separation of Concerns**
+
 - UI logic separate from business logic
 - Services testable in isolation
 - Hooks reusable across components
 
 ✅ **Code Quality**
+
 - No breaking changes
 - Build passes (21.78s)
 - Zero errors/warnings
 
 ✅ **Future-Proof**
+
 - Easy to test (unit tests for hooks/services)
 - Easy to extend (add new hooks/services)
 - Easy to maintain (small, focused files)
 
 ✅ **Aligned with ADRs**
+
 - ADR 0001: Backend remains minimal
 - ADR 0002: Demo and Intent Layer
 - Clean Architecture principles

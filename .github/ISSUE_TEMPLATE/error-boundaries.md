@@ -22,12 +22,14 @@ Currently, the application has **no error boundaries** to catch and handle React
 ### Impact
 
 **User Experience:**
+
 - Poor error recovery
 - Lost user progress
 - Confusing blank screens
 - No way to retry failed operations
 
 **Development:**
+
 - Difficult to debug production errors
 - No error tracking/analytics
 - Missing error context
@@ -60,6 +62,7 @@ Currently, the application has **no error boundaries** to catch and handle React
 **File:** `src/components/ErrorBoundary.jsx`
 
 **Features:**
+
 - Class component with `componentDidCatch` and `getDerivedStateFromError`
 - Configurable fallback UI
 - Error logging to console and Sentry
@@ -67,6 +70,7 @@ Currently, the application has **no error boundaries** to catch and handle React
 - Customizable error messages
 
 **Props:**
+
 ```jsx
 <ErrorBoundary
   fallback={<CustomErrorUI />}
@@ -81,6 +85,7 @@ Currently, the application has **no error boundaries** to catch and handle React
 ### Phase 2: Wrap Critical Components
 
 **Components to wrap:**
+
 1. `WalletConnect` - Wallet connection errors
 2. `TransactionStatus` - Transaction errors
 3. `App.jsx` (main SmartMint) - Global fallback
@@ -88,11 +93,12 @@ Currently, the application has **no error boundaries** to catch and handle React
 5. `AssetPack` - Asset loading errors
 
 **Implementation:**
+
 ```jsx
 // Example: WalletConnect
 <ErrorBoundary
   fallback={<WalletErrorFallback onRetry={handleRetry} />}
-  onError={(error) => logToSentry(error, { component: 'WalletConnect' })}
+  onError={(error) => logToSentry(error, { component: "WalletConnect" })}
 >
   <WalletConnect {...props} />
 </ErrorBoundary>
@@ -103,12 +109,14 @@ Currently, the application has **no error boundaries** to catch and handle React
 **Create specific fallback components:**
 
 1. **WalletErrorFallback**
+
    - Shows wallet connection error
    - Button to retry connection
    - Link to documentation
    - Option to use simulation mode
 
 2. **TransactionErrorFallback**
+
    - Shows transaction error details
    - Retry button
    - Link to transaction on explorer
@@ -122,6 +130,7 @@ Currently, the application has **no error boundaries** to catch and handle React
 ### Phase 4: Error Logging & Monitoring
 
 **Integrate with Sentry:**
+
 ```jsx
 componentDidCatch(error, errorInfo) {
   if (window.Sentry) {
@@ -143,6 +152,7 @@ componentDidCatch(error, errorInfo) {
 ### Phase 5: Testing
 
 **Test scenarios:**
+
 - [ ] Wallet connection failure
 - [ ] Transaction rejection
 - [ ] API timeout
@@ -158,16 +168,16 @@ componentDidCatch(error, errorInfo) {
 
 ```jsx
 // src/components/ErrorBoundary.jsx
-import { Component } from 'react';
-import { AlertTriangle, RefreshCw } from 'lucide-react';
+import { Component } from "react";
+import { AlertTriangle, RefreshCw } from "lucide-react";
 
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      hasError: false, 
+    this.state = {
+      hasError: false,
       error: null,
-      errorInfo: null 
+      errorInfo: null,
     };
   }
 
@@ -177,18 +187,18 @@ class ErrorBoundary extends Component {
 
   componentDidCatch(error, errorInfo) {
     this.setState({ errorInfo });
-    
+
     // Log to console
-    console.error('[ErrorBoundary]', error, errorInfo);
-    
+    console.error("[ErrorBoundary]", error, errorInfo);
+
     // Log to Sentry if available
     if (window.Sentry) {
       window.Sentry.captureException(error, {
         contexts: { react: { componentStack: errorInfo.componentStack } },
-        tags: { component: this.props.componentName || 'Unknown' }
+        tags: { component: this.props.componentName || "Unknown" },
       });
     }
-    
+
     // Call custom error handler
     if (this.props.onError) {
       this.props.onError(error, errorInfo);
@@ -208,21 +218,22 @@ class ErrorBoundary extends Component {
       if (this.props.fallback) {
         return this.props.fallback;
       }
-      
+
       // Default fallback UI
       return (
         <div className="error-boundary glass-card border-red-500/20 bg-black/60 p-6">
           <div className="flex items-center gap-3 mb-4">
             <AlertTriangle className="w-5 h-5 text-red-400" />
             <h3 className="text-sm font-bold uppercase tracking-widest text-red-400">
-              {this.props.title || 'Algo deu errado'}
+              {this.props.title || "Algo deu errado"}
             </h3>
           </div>
-          
+
           <p className="text-xs text-slate-400 mb-4">
-            {this.props.message || 'Ocorreu um erro inesperado. Por favor, tente novamente.'}
+            {this.props.message ||
+              "Ocorreu um erro inesperado. Por favor, tente novamente."}
           </p>
-          
+
           {this.props.showDetails && this.state.error && (
             <details className="mb-4">
               <summary className="text-xs text-slate-500 cursor-pointer mb-2">
@@ -234,7 +245,7 @@ class ErrorBoundary extends Component {
               </pre>
             </details>
           )}
-          
+
           <div className="flex gap-2">
             <button
               onClick={this.handleReset}
@@ -243,7 +254,7 @@ class ErrorBoundary extends Component {
               <RefreshCw className="w-3 h-3" />
               Tentar Novamente
             </button>
-            
+
             {this.props.onReload && (
               <button
                 onClick={() => window.location.reload()}
@@ -268,9 +279,13 @@ export default ErrorBoundary;
 
 ```jsx
 // src/components/WalletErrorFallback.jsx
-import { Wallet, AlertTriangle, RefreshCw } from 'lucide-react';
+import { Wallet, AlertTriangle, RefreshCw } from "lucide-react";
 
-export default function WalletErrorFallback({ error, onRetry, onUseSimulation }) {
+export default function WalletErrorFallback({
+  error,
+  onRetry,
+  onUseSimulation,
+}) {
   return (
     <div className="wallet-error-fallback glass-card border-orange-500/20 p-6">
       <div className="flex items-center gap-3 mb-4">
@@ -279,17 +294,17 @@ export default function WalletErrorFallback({ error, onRetry, onUseSimulation })
           Erro na Conexão da Carteira
         </h3>
       </div>
-      
+
       <p className="text-xs text-slate-400 mb-4">
         Não foi possível conectar sua carteira. Isso pode acontecer se:
       </p>
-      
+
       <ul className="text-xs text-slate-500 mb-4 space-y-1 list-disc list-inside">
         <li>A extensão da carteira não está instalada</li>
         <li>A conexão foi rejeitada</li>
         <li>Há um problema com a rede</li>
       </ul>
-      
+
       <div className="flex gap-2">
         {onRetry && (
           <button
@@ -300,7 +315,7 @@ export default function WalletErrorFallback({ error, onRetry, onUseSimulation })
             Tentar Novamente
           </button>
         )}
-        
+
         {onUseSimulation && (
           <button
             onClick={onUseSimulation}
@@ -348,12 +363,14 @@ export default function WalletErrorFallback({ error, onRetry, onUseSimulation })
 ## 📊 Expected Impact
 
 **Before:**
+
 - ❌ Errors crash entire app
 - ❌ Users see blank screen
 - ❌ No error context
 - ❌ Poor UX
 
 **After:**
+
 - ✅ Errors caught gracefully
 - ✅ Users see helpful error messages
 - ✅ Errors logged and tracked

@@ -10,13 +10,16 @@ Esta pasta contém documentos históricos e relatórios de processos concluídos
 ## 📋 Documentos Disponíveis
 
 ### Migração
+
 - **[MIGRATION_TO_MULTI_REPOS.md](./MIGRATION_TO_MULTI_REPOS.md)**
   - **Data:** 2026-01-23
   - **Status:** Concluída
   - **Descrição:** Processo de migração do monorepo para 3 repositórios separados
 
 ### Validação
+
 - **[VALIDATION_REPORT.md](./VALIDATION_REPORT.md)**
+
   - **Data:** Janeiro 2026
   - **Status:** Relatório intermediário
   - **Descrição:** Relatório de validação dos repositórios (substituído por VALIDATION_FINAL_REPORT.md)
@@ -27,7 +30,9 @@ Esta pasta contém documentos históricos e relatórios de processos concluídos
   - **Descrição:** Relatório final de validação de todos os repositórios
 
 ### Análises
+
 - **[ANALISE_CONEXAO_DOCS_REPO.md](./ANALISE_CONEXAO_DOCS_REPO.md)**
+
   - **Data:** 2026-01-24
   - **Status:** Concluída
   - **Descrição:** Análise da conexão entre smart-ui e repositório docs
@@ -38,7 +43,9 @@ Esta pasta contém documentos históricos e relatórios de processos concluídos
   - **Descrição:** Auditoria de visibilidade da organização (política criada)
 
 ### Documentos Desatualizados
+
 - **[ui-status.md](./ui-status.md)**
+
   - **Data:** 2026-01-24
   - **Status:** Arquivado
   - **Descrição:** Status do Smart UI (redundante com ADR 0002, substituído)

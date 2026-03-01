@@ -13,28 +13,28 @@ Este documento rastreia versões de documentos críticos do projeto.
 
 ### Architecture Decision Records (ADRs)
 
-| ADR | Título | Versão | Data | Status |
-|-----|--------|--------|------|--------|
-| [0001](../adr/0001-smart-ui-backend-boundary.md) | Smart UI Backend Boundary | 1.0.0 | 2026-01-21 | ✅ Aceito |
-| [0002](../adr/0002-ui-as-demo-and-intent-layer.md) | UI as Demo and Intent Layer | 1.0.0 | 2026-01-21 | ✅ Aceito |
-| [0003](../adr/0003-wallet-extensions-mpc-automation-posture.md) | Wallet Extensions & MPC Automation | 1.0.0 | 2026-01-21 | ✅ Aceito |
-| [0004](../adr/0004-kyc-governance-strategy.md) | KYC & Governance Strategy | 1.0.0 | 2026-01-21 | ✅ Aceito |
+| ADR                                                             | Título                             | Versão | Data       | Status    |
+| --------------------------------------------------------------- | ---------------------------------- | ------ | ---------- | --------- |
+| [0001](../adr/0001-smart-ui-backend-boundary.md)                | Smart UI Backend Boundary          | 1.0.0  | 2026-01-21 | ✅ Aceito |
+| [0002](../adr/0002-ui-as-demo-and-intent-layer.md)              | UI as Demo and Intent Layer        | 1.0.0  | 2026-01-21 | ✅ Aceito |
+| [0003](../adr/0003-wallet-extensions-mpc-automation-posture.md) | Wallet Extensions & MPC Automation | 1.0.0  | 2026-01-21 | ✅ Aceito |
+| [0004](../adr/0004-kyc-governance-strategy.md)                  | KYC & Governance Strategy          | 1.0.0  | 2026-01-21 | ✅ Aceito |
 
 ### Documentos Arquiteturais
 
-| Documento | Versão | Data | Status | Mudanças Principais |
-|-----------|--------|------|--------|---------------------|
-| [ADR 0002](../adr/0002-ui-as-demo-and-intent-layer.md) | 1.0.0 | 2026-01-21 | ✅ Aceito | UI as Demo and Intent Layer |
-| [ARCHITECTURAL_ADDENDUMS.md](../ARCHITECTURAL_ADDENDUMS.md) | 1.0.0 | 2026-01-24 | ✅ Ativo | Adendos arquiteturais fundamentais |
-| [REPOSITORY_VISIBILITY_POLICY.md](../REPOSITORY_VISIBILITY_POLICY.md) | 1.0.0 | 2026-01-22 | ✅ Ativo | Política de visibilidade de repositórios |
-| [NEO_STRATEGIC_PLAN_V1.md](../NEO_STRATEGIC_PLAN_V1.md) | 1.0.0 | 2026-01-24 | ✅ Ativo | Plano estratégico de arquitetura |
+| Documento                                                             | Versão | Data       | Status    | Mudanças Principais                      |
+| --------------------------------------------------------------------- | ------ | ---------- | --------- | ---------------------------------------- |
+| [ADR 0002](../adr/0002-ui-as-demo-and-intent-layer.md)                | 1.0.0  | 2026-01-21 | ✅ Aceito | UI as Demo and Intent Layer              |
+| [ARCHITECTURAL_ADDENDUMS.md](../ARCHITECTURAL_ADDENDUMS.md)           | 1.0.0  | 2026-01-24 | ✅ Ativo  | Adendos arquiteturais fundamentais       |
+| [REPOSITORY_VISIBILITY_POLICY.md](../REPOSITORY_VISIBILITY_POLICY.md) | 1.0.0  | 2026-01-22 | ✅ Ativo  | Política de visibilidade de repositórios |
+| [NEO_STRATEGIC_PLAN_V1.md](../NEO_STRATEGIC_PLAN_V1.md)               | 1.0.0  | 2026-01-24 | ✅ Ativo  | Plano estratégico de arquitetura         |
 
 ### Documentação de API
 
-| Documento | Versão | Data | Status |
-|-----------|--------|------|--------|
-| [openapi.yaml](../api/openapi.yaml) | 1.0.0 | 2026-01-24 | ✅ Ativo |
-| [API_MARKETING_ROUTES.md](../api/API_MARKETING_ROUTES.md) | 1.0.0 | 2026-01-24 | ✅ Ativo |
+| Documento                                                 | Versão | Data       | Status   |
+| --------------------------------------------------------- | ------ | ---------- | -------- |
+| [openapi.yaml](../api/openapi.yaml)                       | 1.0.0  | 2026-01-24 | ✅ Ativo |
+| [API_MARKETING_ROUTES.md](../api/API_MARKETING_ROUTES.md) | 1.0.0  | 2026-01-24 | ✅ Ativo |
 
 ---
 
@@ -43,6 +43,7 @@ Este documento rastreia versões de documentos críticos do projeto.
 ### Quando Versionar
 
 Documentos críticos devem ser versionados quando:
+
 - Há mudanças que afetam decisões arquiteturais
 - Há mudanças em políticas ou padrões
 - Há mudanças em contratos de API
@@ -51,6 +52,7 @@ Documentos críticos devem ser versionados quando:
 ### Formato de Versão
 
 Seguimos [Semantic Versioning](https://semver.org/):
+
 - **MAJOR** (X.0.0): Mudanças incompatíveis
 - **MINOR** (0.X.0): Novas funcionalidades compatíveis
 - **PATCH** (0.0.X): Correções e ajustes
@@ -63,10 +65,12 @@ Para documentos com múltiplas versões, manter histórico:
 ## Changelog
 
 ### v1.1.0 (2026-XX-XX)
+
 - Adicionada nova seção X
 - Atualizada política Y
 
 ### v1.0.0 (2026-01-24)
+
 - Versão inicial
 ```
 

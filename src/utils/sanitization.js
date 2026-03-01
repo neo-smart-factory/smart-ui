@@ -7,11 +7,11 @@
 
 // XSS Protection Matrix
 const XSS_ENTITIES = {
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  "'": '&#x27;',
-  '&': '&amp;'
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#x27;",
+  "&": "&amp;",
 };
 
 /**
@@ -20,12 +20,12 @@ const XSS_ENTITIES = {
  * @returns {string} Sanitized output
  */
 export const sanitizeInput = (value) => {
-  if (!value) return '';
-  
+  if (!value) return "";
+
   return String(value)
     .replace(/[<>'"&]/g, (char) => XSS_ENTITIES[char] || char)
-    .replace(/javascript:/gi, '')
-    .replace(/on\w+\s*=/gi, '')
+    .replace(/javascript:/gi, "")
+    .replace(/on\w+\s*=/gi, "")
     .slice(0, 1000); // DoS protection
 };
 
@@ -41,14 +41,14 @@ export const sanitizeForStorage = (value) => {
  */
 export const sanitizeObject = (obj, fields) => {
   const sanitized = {};
-  
-  fields.forEach(field => {
+
+  fields.forEach((field) => {
     if (obj[field]) {
-      sanitized[field] = field.includes('address') 
-        ? obj[field].toLowerCase() 
+      sanitized[field] = field.includes("address")
+        ? obj[field].toLowerCase()
         : sanitizeForStorage(obj[field]);
     }
   });
-  
+
   return sanitized;
 };

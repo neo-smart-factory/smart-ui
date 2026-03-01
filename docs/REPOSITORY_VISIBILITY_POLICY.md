@@ -23,14 +23,17 @@ This policy defines **NON-NEGOTIABLE** rules regarding which repositories and in
 The following repositories are **ALLOWED** to be referenced publicly:
 
 ### 1. `smart-ui`
+
 **Scope**: Demo and narrative layer only  
 **Allowed Content**:
+
 - User interface demonstrations
 - Frontend code (no secrets)
 - Public-facing documentation
 - Architectural decisions (ADRs)
 
 **FORBIDDEN Content**:
+
 - Operational logic
 - Security assumptions
 - Internal state management
@@ -39,14 +42,17 @@ The following repositories are **ALLOWED** to be referenced publicly:
 ---
 
 ### 2. `landing`
+
 **Scope**: Marketing and narrative only  
 **Allowed Content**:
+
 - Marketing materials
 - Public narrative
 - Brand assets
 - General project description
 
 **FORBIDDEN Content**:
+
 - Technical implementation details
 - Internal architecture
 - Operational components
@@ -54,14 +60,17 @@ The following repositories are **ALLOWED** to be referenced publicly:
 ---
 
 ### 3. `docs`
+
 **Scope**: Architectural decisions and governance only  
 **Allowed Content**:
+
 - Architecture Decision Records (ADRs)
 - Governance documentation
 - Public policies
 - Contribution guidelines
 
 **FORBIDDEN Content**:
+
 - Internal operational procedures
 - Security-sensitive architecture details
 - Infrastructure specifications
@@ -74,18 +83,22 @@ The following repositories are **ALLOWED** to be referenced publicly:
 The following repositories **MUST NEVER BE EXPOSED** publicly:
 
 ### ❌ `smart-core`
+
 **Classification**: PRIVATE  
 **Reason**: Contains operational logic and security assumptions
 
 ### ❌ `smart-cli`
+
 **Classification**: PRIVATE  
 **Reason**: Contains internal automation and operational tools
 
 ### ❌ `internal-ops`
+
 **Classification**: PRIVATE  
 **Reason**: Contains operational procedures and infrastructure details
 
 ### ❌ Any repository containing:
+
 - Operational logic
 - Security assumptions
 - Keys, endpoints or infrastructure details
@@ -120,18 +133,21 @@ Private/restricted repositories **MUST NOT** be:
 Public repositories may be referenced in:
 
 ### Landing Pages
+
 - ✓ Link to `smart-ui` repository
 - ✓ Link to `landing` repository
 - ✓ Link to `docs` repository
 - ✓ Link to organization page (filtered view)
 
 ### Pitch Materials
+
 - ✓ General project description
 - ✓ Public architectural decisions
 - ✓ Governance model
 - ✓ Demo screenshots/videos
 
 ### Public Documentation
+
 - ✓ ADRs (Architecture Decision Records)
 - ✓ Contribution guidelines
 - ✓ Code of conduct
@@ -144,10 +160,13 @@ Public repositories may be referenced in:
 ## 📋 CRITICAL RULES FOR `smart-ui`
 
 ### 1. Demo and Narrative Layer Only
+
 The UI is a **DEMO and NARRATIVE layer** only. It demonstrates concepts and captures user intent. It does NOT expose internal operations.
 
 ### 2. Forbidden Exposures
+
 The UI **MUST NOT** expose:
+
 - ❌ Internal repositories
 - ❌ Operational components
 - ❌ CLI existence or details
@@ -157,12 +176,15 @@ The UI **MUST NOT** expose:
 - ❌ Deployment configurations
 
 ### 3. Footer Content Restrictions
+
 Footer content must reference **ONLY**:
+
 - ✓ The public organization page
 - ✓ Explicitly public repositories (`smart-ui`, `landing`, `docs`)
 - ✓ Public documentation within scope
 
 ### 4. No Exceptions
+
 **No exceptions** to these rules are permitted without explicit governance approval.
 
 ---
@@ -170,21 +192,25 @@ Footer content must reference **ONLY**:
 ## 🔒 ENFORCEMENT MECHANISMS
 
 ### Code Review
+
 - All pull requests must be reviewed for compliance
 - Reviewers must verify no private references are exposed
 - Automated checks should flag potential violations
 
 ### Documentation Review
+
 - All public documentation must be reviewed
 - Links must be validated against this policy
 - References to repositories must be verified
 
 ### UI/Frontend Review
+
 - Footer links must be validated
 - Public-facing content must be audited
 - No internal references in client-side code
 
 ### Automated Scanning
+
 - Repository references should be scanned
 - Links should be validated against allowlist
 - Violations should trigger alerts
@@ -238,11 +264,13 @@ Before any public release or deployment:
 ## 📝 POLICY UPDATES
 
 This policy may only be updated by:
+
 - Governance approval
 - Security team authorization
 - Documented decision process
 
 Updates must:
+
 - Maintain or strengthen security posture
 - Be documented with rationale
 - Be communicated to all stakeholders
@@ -253,14 +281,17 @@ Updates must:
 ## 🔗 APPROVED PUBLIC REFERENCES
 
 ### Organization
+
 ✓ https://github.com/neo-smart-factory (filtered public view)
 
 ### Repositories
+
 ✓ https://github.com/neo-smart-factory/smart-ui  
 ✓ https://github.com/neo-smart-factory/landing  
 ✓ https://github.com/neo-smart-factory/docs
 
 ### Documentation
+
 ✓ Links to files within approved public repositories  
 ✓ ADRs within `docs` repository  
 ✓ Public architectural documentation

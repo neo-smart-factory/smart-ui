@@ -41,11 +41,13 @@ Currently, wallet addresses are not validated before use, which could lead to:
 ## 🎯 Objectives
 
 1. **Validate wallet addresses**
+
    - Use `ethers.isAddress()` for validation
    - Validate format (0x prefix, 42 chars, hex)
    - Validate checksum (EIP-55)
 
 2. **Show validation feedback**
+
    - Real-time validation in forms
    - Clear error messages
    - Visual indicators (valid/invalid)
@@ -71,11 +73,12 @@ Currently, wallet addresses are not validated before use, which could lead to:
 **File:** `src/utils/addressValidation.js`
 
 ```jsx
-import { isAddress, getAddress } from 'ethers';
+import { isAddress, getAddress } from "ethers";
 
 export function validateAddress(address) {
-  if (!address) return { valid: false, error: 'Address is required' };
-  if (!isAddress(address)) return { valid: false, error: 'Invalid address format' };
+  if (!address) return { valid: false, error: "Address is required" };
+  if (!isAddress(address))
+    return { valid: false, error: "Invalid address format" };
   return { valid: true, normalized: getAddress(address) };
 }
 

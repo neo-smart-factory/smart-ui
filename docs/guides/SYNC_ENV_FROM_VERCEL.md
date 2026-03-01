@@ -19,6 +19,7 @@ make sync-env
 ```
 
 Isso irá:
+
 1. ✅ Verificar se o projeto está linkado ao Vercel
 2. ✅ Baixar todas as variáveis de ambiente do Vercel
 3. ✅ Criar/atualizar o arquivo `.env` local
@@ -61,6 +62,7 @@ cat .env
 ```
 
 O script criará um arquivo `.env` com:
+
 - ✅ Todas as variáveis do Vercel (com valores reais)
 - ✅ Variáveis opcionais do `.env.example` (com comentários)
 - ✅ Header informativo
@@ -120,12 +122,14 @@ O script criará um arquivo `.env` com:
 ### Sobrescrita
 
 Se você já tem um arquivo `.env`:
+
 - O script perguntará antes de sobrescrever
 - Responda `s` para confirmar ou `N` para cancelar
 
 ### Variáveis Faltantes
 
 Se alguma variável do `.env.example` não estiver no Vercel:
+
 - Ela será adicionada ao `.env` com o valor padrão/comentário
 - Você pode preenchê-la manualmente depois
 
@@ -136,6 +140,7 @@ Se alguma variável do `.env.example` não estiver no Vercel:
 ### Erro: "Projeto não está linkado ao Vercel"
 
 **Solução:**
+
 ```bash
 vercel link
 ```
@@ -143,11 +148,13 @@ vercel link
 ### Erro: "Erro ao baixar variáveis do Vercel"
 
 **Causas possíveis:**
+
 1. Não está autenticado: `vercel login`
 2. Projeto não existe no Vercel: Crie o projeto primeiro
 3. Sem permissão: Verifique acesso ao projeto
 
 **Solução:**
+
 ```bash
 vercel login
 vercel link
@@ -157,6 +164,7 @@ make sync-env
 ### Variáveis não aparecem
 
 **Verifique:**
+
 1. As variáveis estão configuradas no Vercel?
    - Acesse: https://vercel.com → Seu projeto → Settings → Environment Variables
 2. As variáveis estão marcadas para o ambiente correto?

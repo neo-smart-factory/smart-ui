@@ -22,13 +22,13 @@
 
 ## 🎯 Por que separar?
 
-| Critério | Monorepo atual | Multi-repos |
-|----------|----------------|-------------|
-| **Código compartilhado** | Quase nenhum (apenas `packages/shared` mínimo) | N/A |
-| **Ciclos de deploy** | Dashboard ≠ Landing ≠ Mobile | Independentes |
-| **Config Vercel** | Root Directory, ignoreCommand, .vercelignore | Root = `.` em todos |
-| **Onboarding** | Explicar workspaces, 3 frontends, pastas | 1 repo = 1 app |
-| **Build minutes** | 3 builds por push (ou lógica de skip) | 1 build por push por repo |
+| Critério                 | Monorepo atual                                 | Multi-repos               |
+| ------------------------ | ---------------------------------------------- | ------------------------- |
+| **Código compartilhado** | Quase nenhum (apenas `packages/shared` mínimo) | N/A                       |
+| **Ciclos de deploy**     | Dashboard ≠ Landing ≠ Mobile                   | Independentes             |
+| **Config Vercel**        | Root Directory, ignoreCommand, .vercelignore   | Root = `.` em todos       |
+| **Onboarding**           | Explicar workspaces, 3 frontends, pastas       | 1 repo = 1 app            |
+| **Build minutes**        | 3 builds por push (ou lógica de skip)          | 1 build por push por repo |
 
 **Recomendação:** Separar em 3 repositórios.
 

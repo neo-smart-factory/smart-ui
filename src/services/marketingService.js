@@ -5,21 +5,23 @@
  * ╚═══════════════════════════════════════════════════════════╝
  */
 
-import { safeApiCall, sendBeacon } from './apiService';
+import { safeApiCall, sendBeacon } from "./apiService";
 
 /**
  * Generate or retrieve session ID
  */
 export const getOrCreateSessionId = () => {
-  if (typeof window === 'undefined') return null;
-  
-  let sessionId = localStorage.getItem('neosmart_session_id');
-  
+  if (typeof window === "undefined") return null;
+
+  let sessionId = localStorage.getItem("neosmart_session_id");
+
   if (!sessionId) {
-    sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    localStorage.setItem('neosmart_session_id', sessionId);
+    sessionId = `session_${Date.now()}_${Math.random()
+      .toString(36)
+      .substr(2, 9)}`;
+    localStorage.setItem("neosmart_session_id", sessionId);
   }
-  
+
   return sessionId;
 };
 
@@ -28,11 +30,11 @@ export const getOrCreateSessionId = () => {
  */
 const extractUtmParams = () => {
   const params = new URLSearchParams(window.location.search);
-  
+
   return {
-    utm_source: params.get('utm_source'),
-    utm_medium: params.get('utm_medium'),
-    utm_campaign: params.get('utm_campaign')
+    utm_source: params.get("utm_source"),
+    utm_medium: params.get("utm_medium"),
+    utm_campaign: params.get("utm_campaign"),
   };
 };
 
@@ -41,64 +43,78 @@ const extractUtmParams = () => {
  */
 export const createLead = async (sessionId) => {
   const utm = extractUtmParams();
-  
-  return await safeApiCall('/api/marketing?action=lead-sync', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+
+  return await safeApiCall("/api/marketing?action=lead-sync", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       session_id: sessionId,
       user_agent: navigator.userAgent,
       referrer: document.referrer || null,
       ...utm,
-      conversion_status: 'visitor'
-    })
+      conversion_status: "visitor",
+    }),
   });
 };
 
 /**
  * Update lead status
  */
-export const updateLeadStatus = async (sessionId, status, additionalData = {}) => {
-  return await safeApiCall('/api/marketing?action=lead-sync', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+export const updateLeadStatus = async (
+  sessionId,
+  status,
+  additionalData = {}
+) => {
+  return await safeApiCall("/api/marketing?action=lead-sync", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       session_id: sessionId,
       conversion_status: status,
-      ...additionalData
-    })
+      ...additionalData,
+    }),
   });
 };
 
 /**
  * Record analytics event
  */
-export const recordEvent = async (leadId, sessionId, eventType, eventData = {}) => {
-  return await safeApiCall('/api/marketing?action=event-record', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+export const recordEvent = async (
+  leadId,
+  sessionId,
+  eventType,
+  eventData = {}
+) => {
+  return await safeApiCall("/api/marketing?action=event-record", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       lead_id: leadId,
       session_id: sessionId,
       event_type: eventType,
-      event_data: eventData
-    })
+      event_data: eventData,
+    }),
   });
 };
 
 /**
  * Update session progress
  */
-export const updateSession = async (leadId, sessionId, stepReached, formSnapshot = null) => {
-  return await safeApiCall('/api/marketing?action=session-sync', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+export const updateSession = async (
+  leadId,
+  sessionId,
+  stepReached,
+  formSnapshot = null
+) => {
+  return await safeApiCall("/api/marketing?action=session-sync", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       lead_id: leadId,
       session_id: sessionId,
       step_reached: stepReached,
-      form_data_snapshot: formSnapshot
-    })
+      form_data_snapshot: formSnapshot,
+    }),
   });
 };
 
@@ -118,20 +134,20 @@ export const calculateFunnelStep = (formData) => {
  */
 export const recordAbandonment = (sessionId, leadId, stepReached) => {
   // Session sync
-  sendBeacon('/api/marketing', {
-    action: 'session-sync',
+  sendBeacon("/api/marketing", {
+    action: "session-sync",
     session_id: sessionId,
     abandoned_at: new Date().toISOString(),
-    step_reached: stepReached
+    step_reached: stepReached,
   });
-  
+
   // Abandonment event
-  sendBeacon('/api/marketing', {
-    action: 'event-record',
+  sendBeacon("/api/marketing", {
+    action: "event-record",
     lead_id: leadId,
     session_id: sessionId,
-    event_type: 'form_abandon',
-    event_data: { step_reached: stepReached }
+    event_type: "form_abandon",
+    event_data: { step_reached: stepReached },
   });
 };
 
@@ -140,15 +156,15 @@ export const recordAbandonment = (sessionId, leadId, stepReached) => {
  */
 export const recordConversion = async (sessionId, leadId, deploymentData) => {
   // Update lead to converted
-  await updateLeadStatus(sessionId, 'token_created');
-  
+  await updateLeadStatus(sessionId, "token_created");
+
   // Mark session as completed
   await updateSession(leadId, sessionId, 4);
-  
+
   // Record conversion event
-  await recordEvent(leadId, sessionId, 'token_created', {
+  await recordEvent(leadId, sessionId, "token_created", {
     contract_address: deploymentData.address,
     network: deploymentData.network,
-    tx_hash: deploymentData.txHash
+    tx_hash: deploymentData.txHash,
   });
 };

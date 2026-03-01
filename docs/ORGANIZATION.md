@@ -169,16 +169,19 @@ Novas liberações de componentes e ferramentas devem ocorrer **a qualquer momen
 ### Critérios de Liberação
 
 1. **Amadurecimento técnico**
+
    - Código estável e testado
    - Documentação completa
    - Segurança validada
 
 2. **Amadurecimento regulatório**
+
    - Conformidade verificada
    - Riscos legais mitigados
    - Responsabilidades claras
 
 3. **Validação de segurança**
+
    - Testes de segurança realizados
    - Vulnerabilidades corrigidas
    - Auditorias quando aplicável
@@ -199,6 +202,7 @@ Visite [github.com/neo-smart-factory](https://github.com/neo-smart-factory) e ex
 ### 2. Leia a Documentação
 
 Familiarize-se com:
+
 - Arquitetura de sistemas
 - Padrões de código
 - Processos de contribuição
@@ -229,6 +233,7 @@ Familiarize-se com:
 ## Contato
 
 ### GitHub
+
 - **Organização**: [github.com/neo-smart-factory](https://github.com/neo-smart-factory)
 - **Issues**: Use os repositórios específicos
 - **Discussions**: Disponível nos repositórios principais

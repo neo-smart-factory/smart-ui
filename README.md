@@ -1,13 +1,14 @@
 # NΞØ SMART FACTORY — Interface de Gestão e Fábrica de Tokens
 
 ==============================================
-      AVISO DE STATUS ARQUITETURAL
+AVISO DE STATUS ARQUITETURAL
 ==============================================
 
 Este repositório está **intencionalmente congelado** em termos de **estrutura e arquitetura**.
 
 O Smart UI é classificado como **Demo and Intent Layer**, conforme definido em:
 • `ADR 0002 — Smart UI as Demo and Intent Layer` (ver `docs/adr/0002-ui-as-demo-and-intent-layer.md`)
+
 ```
 ----------------------------------------------------------------
  O QUE ISSO SIGNIFICA
@@ -40,8 +41,10 @@ Desenvolvimento permitido: UI/UX, features de interface, tracking/analytics, API
  [✗] Deploy real de contratos (apenas simulação)
  [✗] Expandir backend como infraestrutura de produção
 ```
+
 Qualquer mudança fora deste escopo requer uma decisão arquitetural explícita (ADR).
-```
+
+````
 ==============================================
 
 ## 🌐 Visão Geral
@@ -53,27 +56,27 @@ A **NΞØ Smart Factory** é uma **interface de demonstração** para o ecossist
 ## 🚀 Estética e Design
 
 ─────────────────────────────────────────────
- ▓▓▓ VISUAL                                                  
+ ▓▓▓ VISUAL
 ──────────────────────────────────────────────
- └─ Tema: Modo Escuro (Obsidian)                             
- └─ Destaque: Neon Acid (#D8F244)                            
- └─ Efeitos: Glassmorphism e Gradientes Cinéticos            
- └─ Interações: Micro-animações fluidas                      
+ └─ Tema: Modo Escuro (Obsidian)
+ └─ Destaque: Neon Acid (#D8F244)
+ └─ Efeitos: Glassmorphism e Gradientes Cinéticos
+ └─ Interações: Micro-animações fluidas
 ──────────────────────────────────────────────
 
 ## 🛠️ Stack Técnica
 
 ──────────────────────────────────────────────
- ▓▓▓ TECNOLOGIAS                                             
+ ▓▓▓ TECNOLOGIAS
 ──────────────────────────────────────────────
- └─ Build Tool: Vite 7.3.1 (ultra-rápido HMR)               
- └─ Framework: React 18 + Vite                               
+ └─ Build Tool: Vite 7.3.1 (ultra-rápido HMR)
+ └─ Framework: React 18 + Vite
  └─ Escopo: Dashboard Principal (src/)
-      + API routes (api/)   
- └─ Estilo: Tailwind CSS + Design Tokens Customizados        
- └─ Ícones: Lucide React                                     
- └─ Web3: Ethers.js v6 (simulation mode)                     
- └─ Database: Neon PostgreSQL (demo/analytics)               
+      + API routes (api/)
+ └─ Estilo: Tailwind CSS + Design Tokens Customizados
+ └─ Ícones: Lucide React
+ └─ Web3: Ethers.js v6 (simulation mode)
+ └─ Database: Neon PostgreSQL (demo/analytics)
 ──────────────────────────────────────────────
 
 ## 📦 Funcionalidades Demonstradas
@@ -111,16 +114,17 @@ STATUS: 5/5 funcionalidades demonstradas
 make install
 make dev-vercel   # Inicia com API routes (Recomendado)
 make dev          # Apenas frontend (Vite puro)
-```
+````
 
 **Guia Detalhado:** Veja [docs/guides/DEVELOPMENT.md](docs/guides/DEVELOPMENT.md).
 
 **Deploy:** Veja [docs/guides/DEPLOYMENT.md](docs/guides/DEPLOYMENT.md).
+
 ```
 ## 📐 Arquitetura do Sistema
 
 ┌─────────────────────────────────────────────
-│              ARQUITETURA DO SISTEMA                         
+│              ARQUITETURA DO SISTEMA
 └─────────────────────────────────────────────
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -128,7 +132,7 @@ make dev          # Apenas frontend (Vite puro)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Dashboard NΞØ Smart UI
  (React 18 + Vite 7.3.1)
- Simulation Mode (não executa transações reais) 
+ Simulation Mode (não executa transações reais)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
                     │
                     ▼
@@ -159,28 +163,31 @@ make dev          # Apenas frontend (Vite puro)
 - **Não** representam autoridade de protocolo ou execução real de transações
 - São componentes **transicionais** para demo e coleta de intenção do usuário
 ```
+
 ## 📜 Atribuição e Licença
 
 Este projeto está licenciado sob a **Licença MIT**.
+
 ```
 ## 📦 Repositórios Relacionados
 
 ──────────────────────────────────────────────
- ▓▓▓ ECOSSISTEMA NEØ SMART FACTORY                          
+ ▓▓▓ ECOSSISTEMA NEØ SMART FACTORY
 ──────────────────────────────────────────────
- └─ Dashboard (este repo)                                    
-    └─ https://github.com/neo-smart-factory/smart-ui   
-    └─ Interface de gestão (simulation mode)                 
- └─ Landing Page                                             
-    └─ https://github.com/neo-smart-factory/            
-       smart-ui-landing                                       
-    └─ Página pública de marketing                           
- └─ Mobile App                                               
-    └─ https://github.com/neo-smart-factory/           
-       smart-ui-mobile                                       
-   └─ PWA mobile-first                                     
+ └─ Dashboard (este repo)
+    └─ https://github.com/neo-smart-factory/smart-ui
+    └─ Interface de gestão (simulation mode)
+ └─ Landing Page
+    └─ https://github.com/neo-smart-factory/
+       smart-ui-landing
+    └─ Página pública de marketing
+ └─ Mobile App
+    └─ https://github.com/neo-smart-factory/
+       smart-ui-mobile
+   └─ PWA mobile-first
 ──────────────────────────────────────────────
 ```
+
 ## ❓ Perguntas Frequentes
 
 **Este dashboard executa transações reais?**  
@@ -212,6 +219,6 @@ Sim! Veja a seção "MUDANÇAS PERMITIDAS" no aviso arquitetural.
 
 ---
 
-**Build v0.5.5** — *Demonstrando a transformação de código em ativos.*  
+**Build v0.5.5** — _Demonstrando a transformação de código em ativos._  
 **Status:** Demo and Intent Layer — Simulation Mode
 **Official Domain:** [www.nsfactory.xyz](https://www.nsfactory.xyz)

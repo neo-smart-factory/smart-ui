@@ -12,6 +12,7 @@
 ### DeprecationWarning: `url.parse()`
 
 **Mensagem:**
+
 ```
 (node:4) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead.
 ```
@@ -76,6 +77,7 @@ O `vercel dev` pode demorar 30-60 segundos na primeira inicialização porque pr
    - Tentar novamente: `make dev-vercel`
 
 **Tempo esperado:**
+
 - Primeira vez: 30-60 segundos
 - Próximas vezes: 10-20 segundos
 
@@ -95,6 +97,7 @@ O `vercel dev` pode demorar 30-60 segundos na primeira inicialização porque pr
 Usando `vite dev` em vez de `vercel dev`
 
 **Solução:**
+
 ```bash
 # Parar vite dev (Ctrl+C)
 make dev-vercel
@@ -110,21 +113,26 @@ As rotas `/api/*` são **Vercel Serverless Functions** e só funcionam com `verc
 ### Erro: "Database connection not authenticated"
 
 **Sintomas:**
+
 - `503 Service Unavailable`
 - Mensagem: "Database connection not authenticated"
 
 **Causa:**
+
 - `DATABASE_URL` não configurada no `.env`
 - Database inativo no Neon.tech
 - URL inválida
 
 **Solução:**
+
 1. Verificar `.env`:
+
    ```bash
    grep DATABASE_URL .env
    ```
 
 2. Verificar se database está ativo:
+
    - Acesse: https://console.neon.tech
    - Verifique se o projeto está ativo
 
@@ -138,6 +146,7 @@ As rotas `/api/*` são **Vercel Serverless Functions** e só funcionam com `verc
 ### Erro: "TAVILY_API_KEY não configurada"
 
 **Sintomas:**
+
 - APIs Tavily retornam erro
 - `{ "error": "TAVILY_API_KEY não configurada", "fallback": true }`
 
@@ -147,12 +156,14 @@ Variável de ambiente `TAVILY_API_KEY` não configurada
 **Solução:**
 
 **Local:**
+
 ```bash
 # Adicionar ao .env
 echo 'TAVILY_API_KEY="sua-key-aqui"' >> .env
 ```
 
 **Vercel (Produção):**
+
 ```bash
 vercel env add TAVILY_API_KEY production
 vercel env add TAVILY_API_KEY preview
@@ -164,10 +175,12 @@ vercel env add TAVILY_API_KEY development
 ### Erro: "vercel: command not found"
 
 **Sintomas:**
+
 - `make dev-vercel` falha
 - Comando `vercel` não encontrado
 
 **Solução:**
+
 ```bash
 npm i -g vercel
 vercel login
@@ -178,19 +191,24 @@ vercel login
 ### Erro: "Build failed" no Vercel
 
 **Sintomas:**
+
 - Deploy falha no Vercel
 - Logs mostram erro de build
 
 **Solução:**
+
 1. Testar build localmente:
+
    ```bash
    npm run build
    ```
 
 2. Verificar logs no Vercel Dashboard:
+
    - Deployments → último deploy → Building
 
 3. Verificar variáveis de ambiente:
+
    - Settings → Environment Variables
 
 4. Verificar se todas as dependências estão no `package.json`
@@ -200,10 +218,12 @@ vercel login
 ### Erro: "Cannot find module"
 
 **Sintomas:**
+
 - Erro ao executar scripts
 - Módulo não encontrado
 
 **Solução:**
+
 ```bash
 # Reinstalar dependências
 rm -rf node_modules package-lock.json

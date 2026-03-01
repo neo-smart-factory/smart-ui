@@ -23,7 +23,9 @@ Antes de alterar os feature flags, os seguintes itens devem estar concluídos no
 ## 2. Roadmap de Implementação Técnica
 
 ### Passo 2.1: Configuração de Ambiente (Vercel & Local)
+
 Configurar as variáveis reais que hoje estão como placeholder.
+
 ```env
 VITE_ENABLE_WEB3=true
 VITE_CHAIN_ID=8453 # Base Mainnet
@@ -31,17 +33,22 @@ VITE_FACTORY_ADDRESS=0x...
 ```
 
 ### Passo 2.2: Atualização de Feature Flags
+
 Arquivo: `src/config/features.js`
+
 - Mudar `phase2.realTransactions` de `false` para `true`.
 - Garantir que `phase1.simulationMode` seja forçado para `false` quando em produção.
 
 ### Passo 2.3: Integração do Provider Ethers.js
+
 No arquivo `src/App.jsx`, substituir a lógica de simulação em `handleDeploy` pelo envio real da transação:
+
 1. Instanciar o contrato usando `dynamicWallet.signer`.
 2. Chamar a função `deployToken` (ou equivalente) no contrato Factory.
 3. Monitorar o recibo da transação e o evento de criação do token.
 
 ### Passo 2.4: Gerenciamento de Rede (Switching)
+
 Implementar lógica no `WalletConnect.jsx` para forçar o usuário a mudar para a rede correta (ex: Base) se ele estiver em uma rede não suportada antes de permitir o deploy.
 
 ---
@@ -58,7 +65,7 @@ Implementar lógica no `WalletConnect.jsx` para forçar o usuário a mudar para 
 
 ## 4. Estratégia de Rollout
 
-1. **Beta Interno:** Ativar Phase 2 via override de ambiente (`VITE_FEATURE_PHASE2_REALTRANSACTIONS=true`) apenas no deploy de *staging*.
+1. **Beta Interno:** Ativar Phase 2 via override de ambiente (`VITE_FEATURE_PHASE2_REALTRANSACTIONS=true`) apenas no deploy de _staging_.
 2. **Audit Final:** Testar deploy em Base Sepolia (Testnet).
 3. **Mainnet Launch:** Atualizar `src/config/features.js` no branch `main` e fazer o deploy final.
 

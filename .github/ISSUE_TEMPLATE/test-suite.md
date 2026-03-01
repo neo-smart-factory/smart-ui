@@ -39,17 +39,20 @@ Currently, the application has **zero test coverage** for wallet connection and 
 ## 🎯 Objectives
 
 1. **Set up test infrastructure**
+
    - Choose testing framework (Vitest recommended for Vite)
    - Configure test environment
    - Set up test utilities
 
 2. **Create unit tests**
+
    - Test ErrorBoundary component
    - Test wallet hooks (useDynamicWallet)
    - Test utility functions
    - Test validation functions
 
 3. **Create integration tests**
+
    - Test wallet connection flow
    - Test transaction flow
    - Test API integration
@@ -76,22 +79,24 @@ Currently, the application has **zero test coverage** for wallet connection and 
 ### Phase 1: Test Infrastructure Setup
 
 **Install dependencies:**
+
 ```bash
 npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
 ```
 
 **Create `vitest.config.js`:**
+
 ```js
-import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vitest/config";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'jsdom',
+    environment: "jsdom",
     globals: true,
-    setupFiles: './src/test/setup.js'
-  }
+    setupFiles: "./src/test/setup.js",
+  },
 });
 ```
 
@@ -136,13 +141,13 @@ export default defineConfig({
 
 ## 📊 Test Coverage Goals
 
-| Component | Target Coverage |
-|-----------|----------------|
-| ErrorBoundary | 90% |
-| WalletConnect | 80% |
-| TransactionStatus | 80% |
-| Hooks | 85% |
-| Utils | 95% |
+| Component         | Target Coverage |
+| ----------------- | --------------- |
+| ErrorBoundary     | 90%             |
+| WalletConnect     | 80%             |
+| TransactionStatus | 80%             |
+| Hooks             | 85%             |
+| Utils             | 95%             |
 
 ---
 

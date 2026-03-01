@@ -12,16 +12,16 @@ Este diretório contém a configuração de **Feature Flags** do NΞØ Smart Fac
 ### Em Componentes React
 
 ```jsx
-import useFeatures from '../hooks/useFeatures';
+import useFeatures from "../hooks/useFeatures";
 
 function MyComponent() {
   const { isEnabled, currentPhase, phaseInfo } = useFeatures();
-  
+
   // Verificar se uma feature está habilitada
-  if (isEnabled('phase2', 'web3')) {
+  if (isEnabled("phase2", "web3")) {
     return <WalletConnect />;
   }
-  
+
   // Mostrar mensagem de feature bloqueada
   return (
     <div>
@@ -34,9 +34,9 @@ function MyComponent() {
 ### Verificação Direta
 
 ```javascript
-import { isFeatureEnabled } from './config/features';
+import { isFeatureEnabled } from "./config/features";
 
-if (isFeatureEnabled('phase1', 'dashboard')) {
+if (isFeatureEnabled("phase1", "dashboard")) {
   // Feature disponível
 }
 ```

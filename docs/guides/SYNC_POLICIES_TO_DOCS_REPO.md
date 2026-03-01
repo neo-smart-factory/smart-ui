@@ -13,18 +13,18 @@
 
 ## 1. O que é sincronizado
 
-| Origem (smart-ui) | Destino (docs) |
-|-------------------|----------------|
-| `docs/REPOSITORY_VISIBILITY_POLICY.md` | `operations/standards/REPOSITORY_VISIBILITY_POLICY.md` |
-| `docs/SECURITY_ENFORCEMENT_REPORT.md` | `operations/standards/SECURITY_ENFORCEMENT_REPORT.md` |
-| `docs/archive/AUDITORIA_VISIBILIDADE_ORGANIZACAO.md` | `auditoria/AUDITORIA_VISIBILIDADE_ORGANIZACAO.md` |
-| `docs/ANALISE_CONEXAO_DOCS_REPO.md` | `ecosystem/ANALISE_CONEXAO_DOCS_REPO.md` |
-| `docs/ORGANIZATION.md` | `ORGANIZATION.md` (raiz) |
-| `docs/ARCHITECTURAL_ADDENDUMS.md` | `architecture/ARCHITECTURAL_ADDENDUMS.md` |
-| `docs/adr/0001-smart-ui-backend-boundary.md` | `architecture/adr/0001-smart-ui-backend-boundary.md` |
-| `docs/adr/0002-ui-as-demo-and-intent-layer.md` | `architecture/adr/0002-ui-as-demo-and-intent-layer.md` |
+| Origem (smart-ui)                                           | Destino (docs)                                                      |
+| ----------------------------------------------------------- | ------------------------------------------------------------------- |
+| `docs/REPOSITORY_VISIBILITY_POLICY.md`                      | `operations/standards/REPOSITORY_VISIBILITY_POLICY.md`              |
+| `docs/SECURITY_ENFORCEMENT_REPORT.md`                       | `operations/standards/SECURITY_ENFORCEMENT_REPORT.md`               |
+| `docs/archive/AUDITORIA_VISIBILIDADE_ORGANIZACAO.md`        | `auditoria/AUDITORIA_VISIBILIDADE_ORGANIZACAO.md`                   |
+| `docs/ANALISE_CONEXAO_DOCS_REPO.md`                         | `ecosystem/ANALISE_CONEXAO_DOCS_REPO.md`                            |
+| `docs/ORGANIZATION.md`                                      | `ORGANIZATION.md` (raiz)                                            |
+| `docs/ARCHITECTURAL_ADDENDUMS.md`                           | `architecture/ARCHITECTURAL_ADDENDUMS.md`                           |
+| `docs/adr/0001-smart-ui-backend-boundary.md`                | `architecture/adr/0001-smart-ui-backend-boundary.md`                |
+| `docs/adr/0002-ui-as-demo-and-intent-layer.md`              | `architecture/adr/0002-ui-as-demo-and-intent-layer.md`              |
 | `docs/adr/0003-wallet-extensions-mpc-automation-posture.md` | `architecture/adr/0003-wallet-extensions-mpc-automation-posture.md` |
-| `docs/adr/0004-kyc-governance-strategy.md` | `architecture/adr/0004-kyc-governance-strategy.md` |
+| `docs/adr/0004-kyc-governance-strategy.md`                  | `architecture/adr/0004-kyc-governance-strategy.md`                  |
 
 O script também gera `operations/standards/POLICIES_ORIGIN.md` no docs (origem, data do sync, link para este guia).
 
@@ -62,13 +62,13 @@ Os arquivos no smart-ui usam paths relativos como `./ARCHITECTURAL_ADDENDUMS.md`
 
 Na seção **RELATED POLICIES**, troque:
 
-| De | Para |
-|----|------|
-| `./ARCHITECTURAL_ADDENDUMS.md` | `../../architecture/ARCHITECTURAL_ADDENDUMS.md` |
+| De                                                       | Para                                                                      |
+| -------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `./ARCHITECTURAL_ADDENDUMS.md`                           | `../../architecture/ARCHITECTURAL_ADDENDUMS.md`                           |
 | `./adr/0003-wallet-extensions-mpc-automation-posture.md` | `../../architecture/adr/0003-wallet-extensions-mpc-automation-posture.md` |
-| `./adr/0004-kyc-governance-strategy.md` | `../../architecture/adr/0004-kyc-governance-strategy.md` |
-| `./ORGANIZATION.md` | `../../ORGANIZATION.md` |
-| `./archive/AUDITORIA_VISIBILIDADE_ORGANIZACAO.md` | `../../auditoria/AUDITORIA_VISIBILIDADE_ORGANIZACAO.md` |
+| `./adr/0004-kyc-governance-strategy.md`                  | `../../architecture/adr/0004-kyc-governance-strategy.md`                  |
+| `./ORGANIZATION.md`                                      | `../../ORGANIZATION.md`                                                   |
+| `./archive/AUDITORIA_VISIBILIDADE_ORGANIZACAO.md`        | `../../auditoria/AUDITORIA_VISIBILIDADE_ORGANIZACAO.md`                   |
 
 ### `operations/standards/SECURITY_ENFORCEMENT_REPORT.md`
 
@@ -90,8 +90,8 @@ Em **Padrões de Repositório (Standards)**, acrescente **antes** dos itens exis
 
 ```markdown
 - **Políticas e conformidade:**
-    - [Repository Visibility Policy](operations/standards/REPOSITORY_VISIBILITY_POLICY.md) — Público vs privado, compliance.
-    - [Security Enforcement Report](operations/standards/SECURITY_ENFORCEMENT_REPORT.md) — Enforcement e checklist.
+  - [Repository Visibility Policy](operations/standards/REPOSITORY_VISIBILITY_POLICY.md) — Público vs privado, compliance.
+  - [Security Enforcement Report](operations/standards/SECURITY_ENFORCEMENT_REPORT.md) — Enforcement e checklist.
 ```
 
 ### Seção 5 — Histórico & Auditoria

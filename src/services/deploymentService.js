@@ -5,9 +5,9 @@
  * ╚═══════════════════════════════════════════════════════════╝
  */
 
-import { safeApiCall } from './apiService';
-import { ethers } from 'ethers';
-import { StandardToken } from '../config/StandardToken';
+import { safeApiCall } from "./apiService";
+import { ethers } from "ethers";
+import { StandardToken } from "../config/StandardToken";
 
 /**
  * Generate mock deployment result (for simulation)
@@ -15,15 +15,25 @@ import { StandardToken } from '../config/StandardToken';
 const generateMockDeployment = (formData) => {
   return {
     ...formData,
-    address: '0x' + Array(40).fill(0)
-      .map(() => Math.floor(Math.random() * 16).toString(16))
-      .join(''),
-    txHash: '0x' + Array(64).fill(0)
-      .map(() => Math.floor(Math.random() * 16).toString(16))
-      .join(''),
-    logicHash: 'sha256:' + (Math.random().toString(16) + Math.random().toString(16))
-      .substring(0, 64),
-    status: 'DEPLOYED'
+    address:
+      "0x" +
+      Array(40)
+        .fill(0)
+        .map(() => Math.floor(Math.random() * 16).toString(16))
+        .join(""),
+    txHash:
+      "0x" +
+      Array(64)
+        .fill(0)
+        .map(() => Math.floor(Math.random() * 16).toString(16))
+        .join(""),
+    logicHash:
+      "sha256:" +
+      (Math.random().toString(16) + Math.random().toString(16)).substring(
+        0,
+        64
+      ),
+    status: "DEPLOYED",
   };
 };
 
@@ -34,16 +44,16 @@ export const simulateDeploymentProgress = async (callbacks) => {
   const { onProgress, onStatus } = callbacks;
 
   onProgress(30);
-  onStatus('Initializing Genesis Block...');
-  await new Promise(r => setTimeout(r, 1000));
+  onStatus("Initializing Genesis Block...");
+  await new Promise((r) => setTimeout(r, 1000));
 
   onProgress(60);
-  onStatus('Verifying Neural Uplink...');
-  await new Promise(r => setTimeout(r, 1000));
+  onStatus("Verifying Neural Uplink...");
+  await new Promise((r) => setTimeout(r, 1000));
 
   onProgress(90);
-  onStatus('Confirming Deployment...');
-  await new Promise(r => setTimeout(r, 1000));
+  onStatus("Confirming Deployment...");
+  await new Promise((r) => setTimeout(r, 1000));
 
   onProgress(100);
 };
@@ -58,9 +68,9 @@ export const deployToken = async (formData, userAddress, options = {}) => {
   if (isRealTransactions && signer) {
     try {
       if (onProgress) onProgress(10);
-      if (onStatus) onStatus('Preparing Transaction...');
+      if (onStatus) onStatus("Preparing Transaction...");
 
-      console.info('[WEB3] Starting deployment for:', formData.tokenName);
+      console.info("[WEB3] Starting deployment for:", formData.tokenName);
 
       // 1. Prepare Factory
       const factory = new ethers.ContractFactory(
@@ -70,7 +80,7 @@ export const deployToken = async (formData, userAddress, options = {}) => {
       );
 
       if (onProgress) onProgress(30);
-      if (onStatus) onStatus('Please confirm transaction in your wallet...');
+      if (onStatus) onStatus("Please confirm transaction in your wallet...");
 
       // 2. Prepare Arguments
       // Default to 18 decimals if not specified (StandardToken checks this?)
@@ -86,7 +96,8 @@ export const deployToken = async (formData, userAddress, options = {}) => {
       );
 
       if (onProgress) onProgress(60);
-      if (onStatus) onStatus('Transaction Broadcasted. Waiting for confirmation...');
+      if (onStatus)
+        onStatus("Transaction Broadcasted. Waiting for confirmation...");
 
       const txHash = contract.deploymentTransaction()?.hash;
       console.log("[WEB3] Deployment Tx:", txHash);
@@ -98,17 +109,16 @@ export const deployToken = async (formData, userAddress, options = {}) => {
       console.log("[WEB3] Contract Deployed at:", address);
 
       if (onProgress) onProgress(100);
-      if (onStatus) onStatus('Deployment Successful!');
+      if (onStatus) onStatus("Deployment Successful!");
 
       return {
         ...formData,
         address: address,
         txHash: txHash,
-        logicHash: 'standard-erc20-v1', // Placeholder for verification
-        status: 'DEPLOYED',
-        network: formData.network
+        logicHash: "standard-erc20-v1", // Placeholder for verification
+        status: "DEPLOYED",
+        network: formData.network,
       };
-
     } catch (error) {
       console.error("[WEB3] Deployment Failed:", error);
       throw error;
@@ -117,8 +127,8 @@ export const deployToken = async (formData, userAddress, options = {}) => {
 
   // Simulation mode
   await simulateDeploymentProgress({
-    onProgress: onProgress || (() => { }),
-    onStatus: onStatus || (() => { })
+    onProgress: onProgress || (() => {}),
+    onStatus: onStatus || (() => {}),
   });
 
   return generateMockDeployment(formData);
@@ -127,10 +137,14 @@ export const deployToken = async (formData, userAddress, options = {}) => {
 /**
  * Record deployment in database
  */
-export const recordDeployment = async (deploymentData, userAddress, metadata = {}) => {
-  return await safeApiCall('/api/ops?action=deploys', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+export const recordDeployment = async (
+  deploymentData,
+  userAddress,
+  metadata = {}
+) => {
+  return await safeApiCall("/api/ops?action=deploys", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       contract_address: deploymentData.address,
       owner_address: userAddress,
@@ -139,8 +153,8 @@ export const recordDeployment = async (deploymentData, userAddress, metadata = {
       token_name: deploymentData.tokenName,
       token_symbol: deploymentData.tokenSymbol.toUpperCase(),
       lead_id: metadata.leadId,
-      session_id: metadata.sessionId
-    })
+      session_id: metadata.sessionId,
+    }),
   });
 };
 
@@ -148,7 +162,7 @@ export const recordDeployment = async (deploymentData, userAddress, metadata = {
  * Fetch deployment history
  */
 export const fetchDeploymentHistory = async () => {
-  const data = await safeApiCall('/api/ops?action=deploys');
+  const data = await safeApiCall("/api/ops?action=deploys");
   return Array.isArray(data) ? data : [];
 };
 
@@ -156,15 +170,15 @@ export const fetchDeploymentHistory = async () => {
  * Save deployment draft
  */
 export const saveDraft = async (userAddress, formData, metadata = {}) => {
-  return await safeApiCall('/api/ops?action=drafts', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  return await safeApiCall("/api/ops?action=drafts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       user_address: userAddress,
       token_config: formData,
       lead_id: metadata.leadId,
-      session_id: metadata.sessionId
-    })
+      session_id: metadata.sessionId,
+    }),
   });
 };
 
@@ -172,5 +186,7 @@ export const saveDraft = async (userAddress, formData, metadata = {}) => {
  * Load deployment draft
  */
 export const loadDraft = async (userAddress, signal) => {
-  return await safeApiCall(`/api/ops?action=drafts&address=${userAddress}`, { signal });
+  return await safeApiCall(`/api/ops?action=drafts&address=${userAddress}`, {
+    signal,
+  });
 };

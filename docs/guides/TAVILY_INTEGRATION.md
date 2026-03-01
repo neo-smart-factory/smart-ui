@@ -35,22 +35,22 @@ A **Tavily API** será integrada ao NΞØ Smart Factory para fornecer capacidade
 // api/tavily/validate-token-name.js
 export default async function handler(req, res) {
   const { tokenName, symbol } = req.body;
-  
+
   if (!process.env.TAVILY_API_KEY) {
-    return res.status(500).json({ error: 'TAVILY_API_KEY não configurada' });
+    return res.status(500).json({ error: "TAVILY_API_KEY não configurada" });
   }
 
   const query = `token ${tokenName} ${symbol} cryptocurrency blockchain`;
-  
-  const response = await fetch('https://api.tavily.com/search', {
-    method: 'POST',
+
+  const response = await fetch("https://api.tavily.com/search", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       api_key: process.env.TAVILY_API_KEY,
       query,
-      search_depth: 'basic',
+      search_depth: "basic",
       include_answer: true,
       include_raw_content: false,
       max_results: 10,
@@ -58,21 +58,23 @@ export default async function handler(req, res) {
   });
 
   const data = await response.json();
-  
+
   // Analisar resultados para detectar conflitos
-  const conflicts = data.results.filter(result => 
-    result.title.toLowerCase().includes(tokenName.toLowerCase()) ||
-    result.title.toLowerCase().includes(symbol.toLowerCase())
+  const conflicts = data.results.filter(
+    (result) =>
+      result.title.toLowerCase().includes(tokenName.toLowerCase()) ||
+      result.title.toLowerCase().includes(symbol.toLowerCase())
   );
 
   return res.json({
     valid: conflicts.length === 0,
-    conflicts: conflicts.map(c => ({
+    conflicts: conflicts.map((c) => ({
       title: c.title,
       url: c.url,
       score: c.score,
     })),
-    suggestions: conflicts.length > 0 ? generateSuggestions(tokenName, symbol) : [],
+    suggestions:
+      conflicts.length > 0 ? generateSuggestions(tokenName, symbol) : [],
   });
 }
 ```
@@ -82,16 +84,18 @@ export default async function handler(req, res) {
 ```javascript
 // src/components/TokenForm.jsx
 const validateTokenName = async (name, symbol) => {
-  const response = await fetch('/api/tavily/validate-token-name', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  const response = await fetch("/api/tavily/validate-token-name", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ tokenName: name, symbol }),
   });
-  
+
   const { valid, conflicts, suggestions } = await response.json();
-  
+
   if (!valid) {
-    setValidationError(`Nome/símbolo pode ter conflitos: ${conflicts.length} resultados encontrados`);
+    setValidationError(
+      `Nome/símbolo pode ter conflitos: ${conflicts.length} resultados encontrados`
+    );
     setSuggestions(suggestions);
   }
 };
@@ -109,18 +113,18 @@ const validateTokenName = async (name, symbol) => {
 // api/tavily/market-research.js
 export default async function handler(req, res) {
   const { category, keywords } = req.body;
-  
+
   const query = `${category} ${keywords} token launch trends 2026`;
-  
-  const response = await fetch('https://api.tavily.com/search', {
-    method: 'POST',
+
+  const response = await fetch("https://api.tavily.com/search", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       api_key: process.env.TAVILY_API_KEY,
       query,
-      search_depth: 'advanced',
+      search_depth: "advanced",
       include_answer: true,
       include_raw_content: true,
       max_results: 15,
@@ -128,11 +132,11 @@ export default async function handler(req, res) {
   });
 
   const data = await response.json();
-  
+
   // Extrair insights relevantes
   const insights = {
     trends: extractTrends(data.answer),
-    competitors: data.results.slice(0, 5).map(r => ({
+    competitors: data.results.slice(0, 5).map((r) => ({
       name: r.title,
       url: r.url,
       relevance: r.score,
@@ -150,23 +154,27 @@ export default async function handler(req, res) {
 // Exibir insights de mercado no dashboard
 const MarketInsights = ({ category, keywords }) => {
   const [insights, setInsights] = useState(null);
-  
+
   useEffect(() => {
-    fetch('/api/tavily/market-research', {
-      method: 'POST',
+    fetch("/api/tavily/market-research", {
+      method: "POST",
       body: JSON.stringify({ category, keywords }),
     })
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(setInsights);
   }, [category, keywords]);
-  
+
   return (
     <div className="market-insights">
       <h3>📊 Insights de Mercado</h3>
       {insights?.trends && (
         <div>
           <h4>Tendências:</h4>
-          <ul>{insights.trends.map(t => <li key={t}>{t}</li>)}</ul>
+          <ul>
+            {insights.trends.map((t) => (
+              <li key={t}>{t}</li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
@@ -186,42 +194,42 @@ const MarketInsights = ({ category, keywords }) => {
 // api/tavily/generate-whitepaper-base.js
 export default async function handler(req, res) {
   const { tokenName, category, useCase, targetAudience } = req.body;
-  
+
   // Pesquisa multi-query para diferentes seções
   const queries = [
     `${tokenName} ${category} tokenomics model`,
     `${useCase} blockchain implementation`,
     `${targetAudience} cryptocurrency adoption`,
   ];
-  
-  const researchPromises = queries.map(query =>
-    fetch('https://api.tavily.com/search', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+
+  const researchPromises = queries.map((query) =>
+    fetch("https://api.tavily.com/search", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         api_key: process.env.TAVILY_API_KEY,
         query,
-        search_depth: 'advanced',
+        search_depth: "advanced",
         include_answer: true,
         include_raw_content: true,
         max_results: 10,
       }),
-    }).then(res => res.json())
+    }).then((res) => res.json())
   );
-  
+
   const researchResults = await Promise.all(researchPromises);
-  
+
   // Estruturar base do whitepaper
   const whitepaperBase = {
     introduction: researchResults[0].answer,
     tokenomics: extractTokenomics(researchResults[0].answer),
     useCase: researchResults[1].answer,
     marketAnalysis: researchResults[2].answer,
-    references: researchResults.flatMap(r => 
-      r.results.map(ref => ({ title: ref.title, url: ref.url }))
+    references: researchResults.flatMap((r) =>
+      r.results.map((ref) => ({ title: ref.title, url: ref.url }))
     ),
   };
-  
+
   return res.json(whitepaperBase);
 }
 ```
@@ -233,11 +241,11 @@ export default async function handler(req, res) {
 const WhitepaperGenerator = ({ tokenConfig }) => {
   const [whitepaper, setWhitepaper] = useState(null);
   const [loading, setLoading] = useState(false);
-  
+
   const generateBase = async () => {
     setLoading(true);
-    const response = await fetch('/api/tavily/generate-whitepaper-base', {
-      method: 'POST',
+    const response = await fetch("/api/tavily/generate-whitepaper-base", {
+      method: "POST",
       body: JSON.stringify({
         tokenName: tokenConfig.name,
         category: tokenConfig.category,
@@ -245,20 +253,18 @@ const WhitepaperGenerator = ({ tokenConfig }) => {
         targetAudience: tokenConfig.audience,
       }),
     });
-    
+
     const base = await response.json();
     setWhitepaper(base);
     setLoading(false);
   };
-  
+
   return (
     <div className="whitepaper-generator">
       <button onClick={generateBase} disabled={loading}>
-        {loading ? 'Gerando...' : 'Gerar Base de Whitepaper (Premium)'}
+        {loading ? "Gerando..." : "Gerar Base de Whitepaper (Premium)"}
       </button>
-      {whitepaper && (
-        <Editor initialContent={whitepaper} />
-      )}
+      {whitepaper && <Editor initialContent={whitepaper} />}
     </div>
   );
 };
@@ -276,24 +282,29 @@ const WhitepaperGenerator = ({ tokenConfig }) => {
 // api/tavily/marketing-suggestions.js
 export default async function handler(req, res) {
   const { tokenName, category, launchDate } = req.body;
-  
+
   const query = `${category} token launch marketing strategy social media campaigns 2026`;
-  
-  const response = await fetch('https://api.tavily.com/search', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+
+  const response = await fetch("https://api.tavily.com/search", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       api_key: process.env.TAVILY_API_KEY,
       query,
-      search_depth: 'advanced',
+      search_depth: "advanced",
       include_answer: true,
-      include_domains: ['twitter.com', 'reddit.com', 'medium.com', 'coindesk.com'],
+      include_domains: [
+        "twitter.com",
+        "reddit.com",
+        "medium.com",
+        "coindesk.com",
+      ],
       max_results: 20,
     }),
   });
 
   const data = await response.json();
-  
+
   // Extrair estratégias de marketing
   const marketingSuggestions = {
     socialMedia: extractSocialMediaStrategies(data.answer),
@@ -302,7 +313,7 @@ export default async function handler(req, res) {
     channels: identifyBestChannels(data.results),
     messaging: extractMessagingPatterns(data.answer),
   };
-  
+
   return res.json(marketingSuggestions);
 }
 ```
@@ -312,11 +323,11 @@ export default async function handler(req, res) {
 ```javascript
 // Integrar com api/events.js para tracking
 const trackMarketingSuggestion = async (suggestion, userId) => {
-  await fetch('/api/events', {
-    method: 'POST',
+  await fetch("/api/events", {
+    method: "POST",
     body: JSON.stringify({
       user_id: userId,
-      event_type: 'marketing_suggestion_viewed',
+      event_type: "marketing_suggestion_viewed",
       metadata: { suggestion_type: suggestion.type },
     }),
   });
@@ -353,15 +364,15 @@ api/
 // api/tavily/utils.js
 export async function searchTavily(query, options = {}) {
   const {
-    search_depth = 'basic',
+    search_depth = "basic",
     include_answer = true,
     max_results = 10,
     include_domains = [],
   } = options;
 
-  const response = await fetch('https://api.tavily.com/search', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  const response = await fetch("https://api.tavily.com/search", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       api_key: process.env.TAVILY_API_KEY,
       query,
@@ -382,19 +393,31 @@ export async function searchTavily(query, options = {}) {
 
 export function extractTrends(answer) {
   // Extrair tendências do texto de resposta
-  const trendKeywords = ['trending', 'growing', 'increasing', 'popular', 'emerging'];
+  const trendKeywords = [
+    "trending",
+    "growing",
+    "increasing",
+    "popular",
+    "emerging",
+  ];
   return answer
-    .split('.')
-    .filter(sentence => trendKeywords.some(keyword => sentence.toLowerCase().includes(keyword)))
+    .split(".")
+    .filter((sentence) =>
+      trendKeywords.some((keyword) => sentence.toLowerCase().includes(keyword))
+    )
     .slice(0, 5);
 }
 
 export function identifyMarketGaps(answer) {
   // Identificar gaps de mercado mencionados
-  const gapIndicators = ['lack of', 'missing', 'opportunity', 'gap', 'unmet'];
+  const gapIndicators = ["lack of", "missing", "opportunity", "gap", "unmet"];
   return answer
-    .split('.')
-    .filter(sentence => gapIndicators.some(indicator => sentence.toLowerCase().includes(indicator)))
+    .split(".")
+    .filter((sentence) =>
+      gapIndicators.some((indicator) =>
+        sentence.toLowerCase().includes(indicator)
+      )
+    )
     .slice(0, 3);
 }
 ```
@@ -409,18 +432,18 @@ As sugestões de marketing podem ser integradas com as rotas existentes:
 
 ```javascript
 // api/tavily/marketing-suggestions.js
-import { createEvent } from '../events.js';
+import { createEvent } from "../events.js";
 
 export default async function handler(req, res) {
   // ... lógica de pesquisa ...
-  
+
   // Registrar evento de uso
   await createEvent({
-    user_id: req.headers['x-user-id'],
-    event_type: 'tavily_marketing_suggestion_generated',
+    user_id: req.headers["x-user-id"],
+    event_type: "tavily_marketing_suggestion_generated",
     metadata: { token_name: req.body.tokenName },
   });
-  
+
   return res.json(marketingSuggestions);
 }
 ```
@@ -431,7 +454,11 @@ Salvar pesquisas como parte do draft do token:
 
 ```javascript
 // api/drafts.js (atualização)
-const saveDraftWithResearch = async (userAddress, tokenConfig, researchData) => {
+const saveDraftWithResearch = async (
+  userAddress,
+  tokenConfig,
+  researchData
+) => {
   const draft = {
     user_address: userAddress,
     token_config: {
@@ -444,7 +471,7 @@ const saveDraftWithResearch = async (userAddress, tokenConfig, researchData) => 
     },
     updated_at: new Date().toISOString(),
   };
-  
+
   // ... salvar no banco ...
 };
 ```
@@ -454,21 +481,25 @@ const saveDraftWithResearch = async (userAddress, tokenConfig, researchData) => 
 ## 🚀 Roadmap de Implementação
 
 ### Phase 1: Validação Básica (Beta Launch)
+
 - [ ] Implementar `/api/tavily/validate-token-name`
 - [ ] Integrar validação no formulário de criação de token
 - [ ] Testes com casos reais
 
 ### Phase 2: Pesquisa de Mercado
+
 - [ ] Implementar `/api/tavily/market-research`
 - [ ] Componente de insights no dashboard
 - [ ] Cache de pesquisas para otimização
 
 ### Phase 3: Upsells Premium
+
 - [ ] Whitepaper Generator (Premium)
 - [ ] Marketing Intelligence (Premium)
 - [ ] Integração com sistema de pagamento
 
 ### Phase 4: Otimizações
+
 - [ ] Rate limiting e cache
 - [ ] Análise de custos de API
 - [ ] Monitoramento de uso
@@ -481,12 +512,12 @@ const saveDraftWithResearch = async (userAddress, tokenConfig, researchData) => 
 
 ```javascript
 // Implementar rate limiting para evitar custos excessivos
-import rateLimit from 'express-rate-limit';
+import rateLimit from "express-rate-limit";
 
 const tavilyLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
   max: 10, // 10 requisições por usuário
-  message: 'Muitas requisições. Tente novamente em alguns minutos.',
+  message: "Muitas requisições. Tente novamente em alguns minutos.",
 });
 ```
 
@@ -494,7 +525,7 @@ const tavilyLimiter = rateLimit({
 
 ```javascript
 // Cache de pesquisas similares
-import { sql } from '../lib/db.js';
+import { sql } from "../lib/db.js";
 
 const getCachedResearch = async (queryHash) => {
   const result = await sql`
@@ -515,11 +546,11 @@ try {
   const data = await searchTavily(query);
   return res.json(data);
 } catch (error) {
-  console.error('Tavily API error:', error);
-  
+  console.error("Tavily API error:", error);
+
   // Fallback para não quebrar a UX
   return res.status(500).json({
-    error: 'Serviço de pesquisa temporariamente indisponível',
+    error: "Serviço de pesquisa temporariamente indisponível",
     fallback: true,
   });
 }
@@ -541,9 +572,9 @@ try {
 ```javascript
 // api/tavily/utils.js
 export async function trackTavilyUsage(eventType, metadata) {
-  await fetch('/api/events', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  await fetch("/api/events", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       event_type: `tavily_${eventType}`,
       metadata,
@@ -562,10 +593,10 @@ export async function trackTavilyUsage(eventType, metadata) {
 // Validar inputs antes de fazer requisições
 const validateTokenNameInput = (tokenName, symbol) => {
   if (!tokenName || tokenName.length < 2 || tokenName.length > 50) {
-    throw new Error('Nome do token inválido');
+    throw new Error("Nome do token inválido");
   }
   if (!symbol || symbol.length < 2 || symbol.length > 10) {
-    throw new Error('Símbolo inválido');
+    throw new Error("Símbolo inválido");
   }
   return true;
 };

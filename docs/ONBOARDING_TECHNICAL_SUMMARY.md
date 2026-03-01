@@ -18,6 +18,7 @@
 4. ✅ **Teste em ambiente isolado primeiro** - Não execute em produção sem validação
 
 **Status de Validação:**
+
 - [x] Estrutura de arquivos verificada
 - [x] Workflows GitHub Actions analisados
 - [x] Dependências documentadas
@@ -62,17 +63,17 @@ A **NΞØ Smart Factory UI** é uma interface de gestão e fábrica de tokens mu
 
 ```json
 {
-  "@dynamic-labs/ethers-v6": "^4.57.2",   // Abstração Ethers para Dynamic
+  "@dynamic-labs/ethers-v6": "^4.57.2", // Abstração Ethers para Dynamic
   "@dynamic-labs/sdk-react-core": "^4.57.2", // SDK de Autenticação Web3
-  "@neondatabase/serverless": "^1.0.2",    // Cliente Neon Database (serverless)
-  "clsx": "^2.1.0",                        // Utilitário para classes CSS condicionais
-  "ethers": "^6.10.0",                     // Biblioteca Web3 - Ethereum (v6)
-  "framer-motion": "^11.0.0",              // Biblioteca de animações
-  "lucide-react": "^0.300.0",              // Ícones React
-  "postgres": "^3.4.8",                    // Cliente PostgreSQL
-  "react": "^18.0.0",                      // React Framework
-  "react-dom": "^18.0.0",                  // React DOM Renderer
-  "tailwind-merge": "^2.2.0"               // Merge de classes Tailwind
+  "@neondatabase/serverless": "^1.0.2", // Cliente Neon Database (serverless)
+  "clsx": "^2.1.0", // Utilitário para classes CSS condicionais
+  "ethers": "^6.10.0", // Biblioteca Web3 - Ethereum (v6)
+  "framer-motion": "^11.0.0", // Biblioteca de animações
+  "lucide-react": "^0.300.0", // Ícones React
+  "postgres": "^3.4.8", // Cliente PostgreSQL
+  "react": "^18.0.0", // React Framework
+  "react-dom": "^18.0.0", // React DOM Renderer
+  "tailwind-merge": "^2.2.0" // Merge de classes Tailwind
 }
 ```
 
@@ -80,20 +81,20 @@ A **NΞØ Smart Factory UI** é uma interface de gestão e fábrica de tokens mu
 
 ```json
 {
-  "@types/node": "^20.0.0",                 // TypeScript types para Node.js
-  "@types/react": "^18.0.0",               // TypeScript types para React
-  "@types/react-dom": "^18.0.0",           // TypeScript types para React DOM
-  "@vitejs/plugin-react": "^5.1.2",        // Plugin Vite para React
-  "autoprefixer": "^10.0.1",               // Autoprefixer para CSS
-  "eslint": "^9.39.2",                     // Linter JavaScript/TypeScript
-  "eslint-plugin-react": "^7.37.5",        // Plugin ESLint para React
-  "eslint-plugin-react-hooks": "^7.0.1",  // Plugin ESLint para React Hooks
+  "@types/node": "^20.0.0", // TypeScript types para Node.js
+  "@types/react": "^18.0.0", // TypeScript types para React
+  "@types/react-dom": "^18.0.0", // TypeScript types para React DOM
+  "@vitejs/plugin-react": "^5.1.2", // Plugin Vite para React
+  "autoprefixer": "^10.0.1", // Autoprefixer para CSS
+  "eslint": "^9.39.2", // Linter JavaScript/TypeScript
+  "eslint-plugin-react": "^7.37.5", // Plugin ESLint para React
+  "eslint-plugin-react-hooks": "^7.0.1", // Plugin ESLint para React Hooks
   "eslint-plugin-react-refresh": "^0.4.26", // Plugin ESLint para React Refresh
-  "globals": "^17.0.0",                    // Globals para ESLint
-  "postcss": "^8.4.1",                     // PostCSS
-  "tailwindcss": "^3.3.0",                 // Tailwind CSS Framework
-  "typescript": "^5.0.0",                  // TypeScript Compiler
-  "vite": "^7.3.1"                         // Build Tool e Dev Server
+  "globals": "^17.0.0", // Globals para ESLint
+  "postcss": "^8.4.1", // PostCSS
+  "tailwindcss": "^3.3.0", // Tailwind CSS Framework
+  "typescript": "^5.0.0", // TypeScript Compiler
+  "vite": "^7.3.1" // Build Tool e Dev Server
 }
 ```
 
@@ -190,16 +191,19 @@ src/
 **Propósito:** Garante que mudanças de código sejam acompanhadas de atualizações na documentação.
 
 **Funcionamento:**
+
 - Analisa arquivos alterados no PR
 - Categoriza em arquivos de código vs. documentação
 - **Falha se:** Código foi alterado mas nenhuma documentação foi atualizada
 - **Sugestões automáticas:** Indica quais arquivos de documentação devem ser atualizados baseado nos arquivos alterados
 
 **Arquivos monitorados:**
+
 - Código: `src/*`, `api/*`, `scripts/*`, `*.config.*`, `package.json`
 - Documentação: `docs/*`, `*.md`, `README.md`
 
 **Exemplo de falha:**
+
 ```
 ❌ DOCUMENTATION CHECK FAILED
 This PR modifies code but does not update any documentation.
@@ -211,18 +215,21 @@ This PR modifies code but does not update any documentation.
 #### 2. **Protocol Health Check** (`.github/workflows/protocol-health.yml`)
 
 **Triggers:**
+
 - Push para `main` ou `master`
 - Pull Requests para `main` ou `master`
 
 **Propósito:** Verifica a integridade do ecossistema NΞØ, incluindo integração com outros repositórios.
 
 **Funcionamento:**
+
 1. Faz checkout do repositório `smart-ui` (atual)
 2. Faz checkout do repositório `neo-smart-factory` (cross-repo)
 3. Instala dependências
 4. Executa `make health` para verificação de integridade
 
 **Integração Cross-Repo:**
+
 ```yaml
 - name: Checkout Smart Factory (Core/Docs/Ops)
   uses: actions/checkout@v4
@@ -234,10 +241,12 @@ This PR modifies code but does not update any documentation.
 ```
 
 **Secrets Necessários:**
+
 - `NEO_ECOSYSTEM_TOKEN` (Personal Access Token com acesso ao repositório `neo-smart-factory`)
   - **Nota:** Se não configurado, o workflow continua mas sem acesso ao repositório externo (`continue-on-error: true`)
 
 **Comando executado:**
+
 ```bash
 make health  # Verifica status de todos os componentes do ecossistema
 ```
@@ -251,16 +260,19 @@ make health  # Verifica status de todos os componentes do ecossistema
 **Fluxo de Trabalho:**
 
 1. **Verificação de Alinhamento (Core)**
+
    - Quando alterar interação com contrato, verificar última versão em:
      - `/Users/nettomello/CODIGOS/neo-smart-factory/smart-core/contracts/`
    - Garantir que ABI no frontend corresponde ao deploy atual
 
 2. **Registro em Documentação (Docs)**
+
    - Após tarefa significativa, atualizar:
      - `/Users/nettomello/CODIGOS/neo-smart-factory/docs/changelog.md`
      - `/Users/nettomello/CODIGOS/neo-smart-factory/docs/patch-v0.5.1.md` (se mudança de versão)
 
 3. **Reporte de Operações (Internal Ops)**
+
    - Atualizar estado em:
      - `/Users/nettomello/CODIGOS/neo-smart-factory/internal-ops/state.json`
    - Opcionalmente gerar snippet de marketing em:
@@ -272,6 +284,7 @@ make health  # Verifica status de todos os componentes do ecossistema
    - Testar se `neo-smart-factory status` reflete mudanças
 
 **Comandos de Atalho:**
+
 - `NEO::doc <mensagem>` → Adicionar ao changelog
 - `NEO::sync` → Verificar integridade entre UI e Core
 - `NEO::ops <status>` → Atualizar status no Internal Ops
@@ -287,6 +300,7 @@ O projeto `smart-ui` faz parte de um ecossistema maior coordenado pela organiza�
 #### Repositórios Relacionados
 
 1. **`neo-smart-factory`** (Repositório Principal)
+
    - **Organização:** `neo-smart-factory/neo-smart-factory`
    - **Integração:** Checkout automático no workflow `protocol-health.yml`
    - **Conteúdo esperado:**
@@ -296,12 +310,14 @@ O projeto `smart-ui` faz parte de um ecossistema maior coordenado pela organiza�
      - `smart-cli/` — CLI do ecossistema
 
 2. **`smart-ui`** (Este repositório)
+
    - **Produção:** `https://nsfactory.xyz` (ou `nsfactory.xyz/ecosystem-graph.html`)
    - **Local Dev:** `http://localhost:3000`
    - **Repositório:** `github.com/neo-smart-factory/smart-ui`
    - **Status:** Demo and Intent Layer
 
 3. **`landing`** (Repositório separado)
+
    - **Organização:** `neo-smart-factory/landing`
    - **Propósito:** Landing page pública
 
@@ -326,6 +342,7 @@ O workflow `protocol-health.yml` utiliza checkout cross-repo:
 ```
 
 **Requisitos:**
+
 - Personal Access Token (PAT) com permissões de leitura no repositório `neo-smart-factory`
 - Secret configurado: `NEO_ECOSYSTEM_TOKEN`
 
@@ -341,6 +358,7 @@ OPS_DIR = ../../neo_smart_factory/internal-ops
 ```
 
 **Comandos relacionados:**
+
 - `make health` — Verifica integridade de todos os componentes
 - `make ops-sync` — Sincroniza com Internal Ops e Docs
 
@@ -360,11 +378,12 @@ CORE_CONTRACTS_PATH="../neo-smart-factory/smart-core/contracts"
 
 #### GitHub Secrets
 
-| Secret | Propósito | Obrigatório | Workflow |
-|--------|-----------|-------------|----------|
+| Secret                | Propósito                                                              | Obrigatório                          | Workflow              |
+| --------------------- | ---------------------------------------------------------------------- | ------------------------------------ | --------------------- |
 | `NEO_ECOSYSTEM_TOKEN` | Personal Access Token para checkout do repositório `neo-smart-factory` | Opcional (workflow continua sem ele) | `protocol-health.yml` |
 
 **Como configurar `NEO_ECOSYSTEM_TOKEN`:**
+
 1. Gerar Personal Access Token (classic) no GitHub
 2. Permissões necessárias: `repo` (acesso a repositórios privados da organização)
 3. Adicionar como secret no repositório `smart-ui`:
@@ -374,31 +393,31 @@ CORE_CONTRACTS_PATH="../neo-smart-factory/smart-core/contracts"
 
 #### Variáveis de Ambiente (Aplicação)
 
-| Variável | Propósito | Obrigatório | Serviço |
-|----------|-----------|-------------|---------|
-| `MODAL_TOKEN_ID` | Token ID para integração com Modal.com (IA) | Opcional | Modal.com |
-| `MODAL_TOKEN_SECRET` | Token Secret para integração com Modal.com | Opcional | Modal.com |
-| `DATABASE_URL` | URL de conexão com Neon Database | Sim (produção) | Neon.tech |
-| `VITE_DYNAMIC_ENVIRONMENT_ID` | ID do ambiente Dynamic.xyz (Auth) | Opcional | Dynamic.xyz |
-| `VITE_DRPC_API_KEY` | API Key do dRPC (RPC Provider) | Opcional | dRPC |
-| `VITE_ALCHEMY_ID` | ID do Alchemy (RPC Provider) | Opcional | Alchemy |
+| Variável                      | Propósito                                   | Obrigatório    | Serviço     |
+| ----------------------------- | ------------------------------------------- | -------------- | ----------- |
+| `MODAL_TOKEN_ID`              | Token ID para integração com Modal.com (IA) | Opcional       | Modal.com   |
+| `MODAL_TOKEN_SECRET`          | Token Secret para integração com Modal.com  | Opcional       | Modal.com   |
+| `DATABASE_URL`                | URL de conexão com Neon Database            | Sim (produção) | Neon.tech   |
+| `VITE_DYNAMIC_ENVIRONMENT_ID` | ID do ambiente Dynamic.xyz (Auth)           | Opcional       | Dynamic.xyz |
+| `VITE_DRPC_API_KEY`           | API Key do dRPC (RPC Provider)              | Opcional       | dRPC        |
+| `VITE_ALCHEMY_ID`             | ID do Alchemy (RPC Provider)                | Opcional       | Alchemy     |
 
 ### Triggers e Actions Configurados
 
 #### Triggers de Workflow
 
-| Workflow | Trigger | Condição |
-|----------|---------|----------|
-| `docs-guard.yml` | `pull_request` | Branch: `main` |
-| `protocol-health.yml` | `push` | Branches: `main`, `master` |
+| Workflow              | Trigger        | Condição                   |
+| --------------------- | -------------- | -------------------------- |
+| `docs-guard.yml`      | `pull_request` | Branch: `main`             |
+| `protocol-health.yml` | `push`         | Branches: `main`, `master` |
 | `protocol-health.yml` | `pull_request` | Branches: `main`, `master` |
 
 #### Actions Utilizadas
 
-| Action | Versão | Uso |
-|--------|--------|-----|
-| `actions/checkout@v4` | v4 | Checkout de código (próprio repo e cross-repo) |
-| `actions/setup-node@v4` | v4 | Setup Node.js com cache de npm |
+| Action                  | Versão | Uso                                            |
+| ----------------------- | ------ | ---------------------------------------------- |
+| `actions/checkout@v4`   | v4     | Checkout de código (próprio repo e cross-repo) |
+| `actions/setup-node@v4` | v4     | Setup Node.js com cache de npm                 |
 
 **Nota:** Não há uso de `repository_dispatch` ou `workflow_dispatch` configurados atualmente. As integrações são unidirecionais (smart-ui → neo-smart-factory).
 
@@ -479,6 +498,7 @@ neo-smart-factory/  (Organização GitHub)
 **Tipo:** GitHub Personal Access Token (PAT) - Classic
 
 **Permissões Necessárias:**
+
 ```
 ✅ repo (Full control of private repositories)
    ├── repo:status
@@ -488,6 +508,7 @@ neo-smart-factory/  (Organização GitHub)
 ```
 
 **Como Gerar:**
+
 1. GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
 2. Generate new token (classic)
 3. Scopes:
@@ -496,6 +517,7 @@ neo-smart-factory/  (Organização GitHub)
 4. Gerar token e copiar (não será exibido novamente)
 
 **Como Configurar no Repositório:**
+
 1. Ir em `smart-ui` repository no GitHub
 2. Settings → Secrets and variables → Actions
 3. New repository secret:
@@ -504,9 +526,11 @@ neo-smart-factory/  (Organização GitHub)
 4. Add secret
 
 **⚠️ Comportamento:**
+
 ```yaml
-continue-on-error: true  # Workflow não falha se token ausente
+continue-on-error: true # Workflow não falha se token ausente
 ```
+
 - Workflow continua mesmo sem token, mas pula integração cross-repo
 - Ideal para forks/contribuidores externos que não têm acesso ao repositório privado
 
@@ -563,6 +587,7 @@ health:
 ```
 
 **Validações Realizadas:**
+
 1. ✅ Verifica se `smart-ui` está operacional
 2. ✅ Verifica se `neo-smart-factory` foi clonado (via workflow)
 3. ✅ Verifica existência de contratos em `smart-core/contracts/`
@@ -571,6 +596,7 @@ health:
 6. ✅ Verifica existência de estado operacional em `internal-ops/state.json`
 
 **Teste Local:**
+
 ```bash
 # Simular estrutura (desenvolvimento local)
 mkdir -p neo-smart-factory/{smart-core/contracts,smart-cli,docs,internal-ops}
@@ -586,6 +612,7 @@ make health
 ### 1. Repository Dispatch (Não Implementado)
 
 **O que falta:**
+
 ```yaml
 # smart-ui poderia notificar neo-smart-factory após deploy
 jobs:
@@ -610,15 +637,16 @@ jobs:
 ### 2. Workflow Dispatch (Não Implementado)
 
 **O que falta:**
+
 ```yaml
 # Permitir trigger manual de health check
 on:
   workflow_dispatch:
     inputs:
       deep_check:
-        description: 'Run deep integration tests'
+        description: "Run deep integration tests"
         required: false
-        default: 'false'
+        default: "false"
 ```
 
 **Benefício:** Desenvolvedores poderiam rodar health check manualmente via GitHub UI
@@ -626,6 +654,7 @@ on:
 ### 3. Reusable Workflows (Não Implementado)
 
 **O que falta:**
+
 ```yaml
 # neo-smart-factory/.github/workflows/shared-health.yml
 name: Shared Health Check (Reusable)
@@ -644,6 +673,7 @@ jobs:
 ```
 
 **Uso em smart-ui:**
+
 ```yaml
 jobs:
   health:
@@ -661,11 +691,13 @@ jobs:
 ### Prioridade Alta 🔴
 
 1. **Implementar `make health` completo**
+
    - ✅ Já existe no Makefile atual
    - ⚠️ Validar que funciona com e sem `neo-smart-factory` clonado
    - ⚠️ Adicionar validações mais robustas (ABIs, versões)
 
 2. **Documentar `NEO_ECOSYSTEM_TOKEN` setup**
+
    - Criar `docs/CROSS_REPO_SETUP.md`
    - Incluir screenshots do processo
    - Troubleshooting comum
@@ -686,10 +718,12 @@ jobs:
 ### Prioridade Média 🟡
 
 4. **Implementar Repository Dispatch**
+
    - Notificar `neo-smart-factory` após deploy bem-sucedido
    - Criar workflow receptor em `neo-smart-factory`
 
 5. **Adicionar Workflow Dispatch**
+
    - Permitir trigger manual de health check
    - Adicionar input para deep checks
 
@@ -702,6 +736,7 @@ jobs:
 ### Prioridade Baixa 🟢
 
 7. **Implementar Reusable Workflows**
+
    - Criar workflows compartilhados em `neo-smart-factory`
    - Migrar lógica duplicada
 
@@ -742,11 +777,13 @@ jobs:
 ### Problema: Workflow não clona `neo-smart-factory`
 
 **Sintomas:**
+
 ```
 Error: Resource not accessible by integration
 ```
 
 **Soluções:**
+
 1. Verificar se `NEO_ECOSYSTEM_TOKEN` está configurado:
    - Settings → Secrets and variables → Actions
    - Confirmar que existe `NEO_ECOSYSTEM_TOKEN`
@@ -758,6 +795,7 @@ Error: Resource not accessible by integration
    - Atualizar secret no repositório
 
 **Workaround:**
+
 - Workflow continua mesmo sem token (`continue-on-error: true`)
 - Health check roda apenas com `smart-ui` local
 
@@ -766,17 +804,20 @@ Error: Resource not accessible by integration
 ### Problema: `make health` não encontra factory
 
 **Sintomas:**
+
 ```
 make: *** No rule to make target 'health'. Stop.
 ```
 
 **Soluções:**
+
 1. Verificar se `Makefile` existe na raiz do projeto
 2. Verificar se comando `health` está definido no Makefile
 3. Executar `make -n health` para debug (dry-run)
 4. Verificar se está no diretório correto (raiz do projeto)
 
 **Teste:**
+
 ```bash
 # Verificar Makefile
 cat Makefile | grep -A 5 "health:"
@@ -790,12 +831,14 @@ make -n health
 ### Problema: Workflow passa mas não valida integridade
 
 **Sintomas:**
+
 ```
 ✅ Health check completo
 (mas sem verificações reais)
 ```
 
 **Soluções:**
+
 1. Adicionar `set -e` no script (fail on error)
 2. Validar que `make health` retorna exit code correto:
    ```bash
@@ -815,11 +858,13 @@ make -n health
 ### Problema: Token configurado mas ainda falha
 
 **Sintomas:**
+
 ```
 Error: Bad credentials
 ```
 
 **Soluções:**
+
 1. Verificar se token não foi revogado
 2. Verificar se nome do secret está correto: `NEO_ECOSYSTEM_TOKEN` (case-sensitive)
 3. Verificar se repositório `neo-smart-factory` existe e é acessível
@@ -836,6 +881,7 @@ Error: Bad credentials
 ### Documentação
 
 1. **Criar `docs/CROSS_REPO_INTEGRATION.md`**
+
    - Documentar fluxo completo de integração
    - Diagramas de integração detalhados
    - Guia passo-a-passo de setup
@@ -849,11 +895,13 @@ Error: Bad credentials
 ### Implementação
 
 3. **Implementar testes de integração**
+
    - Validar ABIs sincronizados entre UI e Core
    - Validar versões compatíveis
    - Validar estado operacional
 
 4. **Criar dashboard de health**
+
    - Badge no README mostrando status
    - Status page automático
    - Alertas proativos para falhas
@@ -921,6 +969,7 @@ $ ./validate-onboarding.sh
 Antes de compartilhar o documento, execute este checklist:
 
 #### Documentação
+
 - [ ] README.md corrigido (Vite em vez de Next.js)
 - [ ] .env.example criado e completo
 - [ ] Caminhos hardcoded removidos
@@ -928,18 +977,21 @@ Antes de compartilhar o documento, execute este checklist:
 - [ ] Versões exatas de dependências documentadas (se aplicável)
 
 #### Código
+
 - [ ] Makefile testado e funcional (`make health`)
 - [ ] Workflows testados localmente (usando `act` se possível)
 - [ ] Scripts executáveis (`chmod +x scripts/*.sh`)
 - [ ] .gitignore atualizado
 
 #### Testes
+
 - [ ] Onboarding testado em ambiente fresh (opcional, mas recomendado)
 - [ ] Comandos npm testados (`npm install`, `npm run dev`)
 - [ ] Comandos make testados (`make health`, `make install`)
 - [ ] Workflows testados com/sem token (se possível)
 
 #### Segurança
+
 - [ ] Nenhum token/secret real no código
 - [ ] .env.example com valores seguros (placeholders)
 - [ ] Instruções de segurança claras
@@ -967,6 +1019,7 @@ make health
 **Última validação:** Janeiro 2026
 
 **Status:**
+
 - ✅ Estrutura de arquivos verificada
 - ✅ Workflows GitHub Actions analisados
 - ✅ Dependências documentadas
@@ -975,6 +1028,7 @@ make health
 - ⚠️ Onboarding completo precisa ser testado em ambiente fresh
 
 **Ações Recomendadas:**
+
 1. Executar `./validate-onboarding.sh` antes de compartilhar
 2. Testar `make health` localmente
 3. Validar workflows em ambiente de teste
@@ -989,10 +1043,12 @@ make health
 O projeto inclui um script automatizado para deploy seguro que:
 
 1. **Verificação de Segurança:**
+
    - Executa `npm audit` (nível crítico)
    - Executa linter (`npm run lint`)
 
 2. **Build Inteligente:**
+
    - Detecta arquivos alterados via `git diff`
    - Builda apenas módulos afetados:
      - Dashboard (raiz): se `src/`, `public/`, ou configs mudaram
@@ -1000,6 +1056,7 @@ O projeto inclui um script automatizado para deploy seguro que:
      - Mobile (Nuxt): se `nuxt-app/` mudou
 
 3. **Commit e Push:**
+
    - Faz commit com mensagem fornecida
    - Push para `main` (dispara deploy automático na Vercel)
 
@@ -1011,6 +1068,7 @@ O projeto inclui um script automatizado para deploy seguro que:
      - Mobile: `https://nuxt-app-vert.vercel.app`
 
 **Uso:**
+
 ```bash
 make deploy msg="feat: adiciona nova funcionalidade"
 ```
@@ -1023,6 +1081,7 @@ make deploy msg="feat: adiciona nova funcionalidade"
 - **Ambiente:** Variáveis de ambiente configuradas no painel Vercel
 
 **Comandos Vercel:**
+
 ```bash
 vercel dev          # Desenvolvimento local com serverless functions
 vercel deploy       # Deploy preview
@@ -1035,12 +1094,13 @@ vercel deploy --prod # Deploy forçado (bypass Git)
 
 ### README.md Principal
 
-```markdown
+````markdown
 ## ⚠️ Architectural Status Notice
 
 This repository is **intentionally frozen**.
 
 The Smart UI is classified as a **Demo and Intent Layer**, as defined in:
+
 - `docs/ui-status.md`
 - `ADR 0002 — Smart UI as Demo and Intent Layer`
 
@@ -1073,17 +1133,20 @@ Any change outside this scope requires an explicit architectural decision (ADR).
 # NΞØ SMART FACTORY — Interface de Gestão e Fábrica de Tokens
 
 ## 🌐 Visão Geral
+
 A **NΞØ Smart Factory** é a interface definitiva para o ecossistema de criação de ativos da NEO. Desenvolvida como uma fábrica de tokens multichain, ela permite que usuários compilem e publiquem contratos inteligentes com precisão técnica e segurança.
 
 Documentação detalhada: [PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md)
 
 ## 🚀 Estética e Design
+
 - **Tema**: Modo Escuro (Obsidian)
 - **Destaque**: Neon Acid (`#D8F244`)
 - **Efeitos**: Glassmorphism e Gradientes Cinéticos.
 - **Interações**: Micro-animações fluidas.
 
 ## 🛠️ Stack Técnica
+
 - **Build Tool**: Vite 7.3.1 (ultra-rápido HMR)
 - **Framework Principal**: React 18 + Vite
 - **Workspaces**:
@@ -1095,26 +1158,32 @@ Documentação detalhada: [PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md)
 - **Web3**: Ethers.js v6 (Viem mencionado como opção futura, não instalado)
 
 ## 📦 Funcionalidades
+
 - [x] **Fábrica Multichain**: Suporte integrado para Base, Polygon e outras redes EVM.
 - [x] **Compilação de Contratos**: Interface para configurar e compilar novos tokens sem código.
 - [x] **Gerador de Ativos**: Criação automática de planos de marketing e rascunhos de whitepaper.
 - [x] **Pronto para MiniApp**: Design responsivo otimizado para frames do Telegram MiniApp.
 
 ## 🏃 Como Rodar Localmente
+
 ```bash
 # Para a interface principal
 npm install
 npm run dev
 ```
+````
 
 ## 📜 Atribuição e Licença
+
 Este projeto está licenciado sob a **Licença MIT**.
 
 Se você utilizar esta UI como base para seu projeto, solicitamos a **Atribuição** ao Protocolo NΞØ, mantendo os créditos de design e referência à fábrica original.
 
 ---
-**Build v0.5.3** — *Transformando código em ativos líquidos.*
-```
+
+**Build v0.5.3** — _Transformando código em ativos líquidos._
+
+````
 
 ---
 
@@ -1249,20 +1318,20 @@ npm run preview      # Preview do build de produção
 
 # Linting
 npm run lint         # Executa ESLint
-```
+````
 
 ---
 
 ## 📋 Resumo de Integrações
 
-| Categoria | Biblioteca | Versão | Status |
-|-----------|-----------|--------|--------|
-| **Web3 (Auth)** | Dynamic.xyz | ^4.57.2 | ✅ Ativo e Configurado |
-| **Web3 (Core)** | Ethers.js | ^6.10.0 | ✅ Ativo (Validações/Checksum) |
-| **Integrations** | Alchemy SDK | - | ✅ Ativo (Intelligence Modal) |
-| **UI** | Tailwind CSS | ^3.3.0 | ✅ Ativo e customizado |
-| **UI** | Framer Motion | ^11.0.0 | ✅ Ativo (Animações/Loading) |
-| **UI** | Lucide React | ^0.300.0 | ✅ Ativo |
+| Categoria        | Biblioteca    | Versão   | Status                         |
+| ---------------- | ------------- | -------- | ------------------------------ |
+| **Web3 (Auth)**  | Dynamic.xyz   | ^4.57.2  | ✅ Ativo e Configurado         |
+| **Web3 (Core)**  | Ethers.js     | ^6.10.0  | ✅ Ativo (Validações/Checksum) |
+| **Integrations** | Alchemy SDK   | -        | ✅ Ativo (Intelligence Modal)  |
+| **UI**           | Tailwind CSS  | ^3.3.0   | ✅ Ativo e customizado         |
+| **UI**           | Framer Motion | ^11.0.0  | ✅ Ativo (Animações/Loading)   |
+| **UI**           | Lucide React  | ^0.300.0 | ✅ Ativo                       |
 
 ---
 

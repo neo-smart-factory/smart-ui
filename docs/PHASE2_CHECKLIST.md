@@ -17,6 +17,7 @@ make pre-deploy-check
 **Expected Result:** ✅ All checks passed
 
 **If Failed:**
+
 - [ ] Fix all errors before proceeding
 - [ ] Review warnings and assess risk
 - [ ] Document any exceptions
@@ -30,11 +31,13 @@ make backup-db
 ```
 
 **Verify:**
+
 - [ ] Backup file created in `backups/` directory
 - [ ] File size > 0 bytes
 - [ ] Timestamp in filename is current
 
 **Expected Output:**
+
 ```
 ✅ BACKUP COMPLETE
 📁 Backup saved to: backups/db_backup_[timestamp].sql
@@ -49,11 +52,13 @@ make snapshot-config
 ```
 
 **Verify:**
+
 - [ ] Snapshot archive created in `backups/` directory
 - [ ] Archive contains all critical config files
 - [ ] Git status captured
 
 **Expected Output:**
+
 ```
 ✅ SNAPSHOT COMPLETE
 📁 Snapshot saved to: backups/config_snapshot_[timestamp].tar.gz
@@ -64,13 +69,15 @@ make snapshot-config
 ### 4. Document Change
 
 **Record the following:**
+
 - [ ] Git commit hash of current state: `git rev-parse HEAD`
-- [ ] Purpose of change: _____________________
-- [ ] Expected impact: _____________________
-- [ ] Rollback plan: _____________________
-- [ ] Estimated time: _____________________
+- [ ] Purpose of change: **********\_**********
+- [ ] Expected impact: **********\_**********
+- [ ] Rollback plan: **********\_**********
+- [ ] Estimated time: **********\_**********
 
 **Save to:**
+
 - Deployment log (manual or automated)
 - Team communication channel (Slack, email)
 
@@ -79,12 +86,14 @@ make snapshot-config
 ### 5. Communication
 
 **Notify team:**
+
 - [ ] Change description
 - [ ] Time window
 - [ ] Expected impact
 - [ ] Point of contact
 
 **Template:**
+
 ```
 🚀 DEPLOYMENT NOTICE
 
@@ -109,12 +118,14 @@ Contact: [Your name]
 ### Rollback Readiness
 
 **Have ready:**
+
 - [ ] Terminal window with project open
 - [ ] Git commit hash documented
 - [ ] Database backup path documented
 - [ ] Rollback command ready to execute
 
 **Rollback Command:**
+
 ```bash
 make rollback commit=[last-good-commit] backup=[db-backup-file]
 ```
@@ -131,6 +142,7 @@ make rollback commit=[last-good-commit] backup=[db-backup-file]
 - [ ] No error spikes in logs
 
 **Quick Test:**
+
 ```bash
 # Test API health
 curl https://smart-ui-delta.vercel.app/api/ops?action=status
@@ -141,6 +153,7 @@ curl https://smart-ui-delta.vercel.app/api/ops?action=status
 ### 2. Monitoring Period
 
 **Monitor for 15 minutes:**
+
 - [ ] No errors in Vercel logs
 - [ ] No user complaints
 - [ ] Normal traffic patterns
@@ -149,6 +162,7 @@ curl https://smart-ui-delta.vercel.app/api/ops?action=status
 ### 3. Documentation
 
 **Update:**
+
 - [ ] Deployment log with results
 - [ ] Team notification (success/failure)
 - [ ] Document any issues encountered
@@ -157,6 +171,7 @@ curl https://smart-ui-delta.vercel.app/api/ops?action=status
 ### 4. Cleanup (After 7 Days)
 
 **If deployment successful:**
+
 - [ ] Keep last 3 database backups
 - [ ] Keep last 3 config snapshots
 - [ ] Archive older backups to long-term storage
@@ -203,15 +218,15 @@ git push origin main --force
 
 ## 📋 Quick Reference
 
-| Situation | Command |
-|-----------|---------|
-| **Pre-deploy validation** | `make pre-deploy-check` |
-| **Backup database** | `make backup-db` |
-| **Snapshot config** | `make snapshot-config` |
-| **Deploy** | `make deploy msg="..."` |
-| **Rollback** | `make rollback commit=HASH` |
-| **Test APIs** | `make test-apis-prod` |
-| **Check health** | `make health` |
+| Situation                 | Command                     |
+| ------------------------- | --------------------------- |
+| **Pre-deploy validation** | `make pre-deploy-check`     |
+| **Backup database**       | `make backup-db`            |
+| **Snapshot config**       | `make snapshot-config`      |
+| **Deploy**                | `make deploy msg="..."`     |
+| **Rollback**              | `make rollback commit=HASH` |
+| **Test APIs**             | `make test-apis-prod`       |
+| **Check health**          | `make health`               |
 
 ---
 
@@ -224,6 +239,7 @@ git push origin main --force
 ---
 
 **Remember:**
+
 - ✅ Backup BEFORE every change
 - ✅ Validate BEFORE every deployment
 - ✅ Monitor DURING every deployment

@@ -13,6 +13,7 @@
 Desde as fases iniciais do projeto, a questão de **KYC** (Know Your Customer) foi considerada como parte da visão de conformidade e responsabilidade institucional.
 
 Inicialmente, optou-se por **não implementar KYC completo** para evitar:
+
 - Fricção operacional
 - Complexidade excessiva
 - Atrasos no time-to-market
@@ -32,6 +33,7 @@ Contudo, interlocuções qualificadas com profissionais do campo jurídico e de 
 4. **Rastreabilidade** é elemento estruturante, não acessório
 
 **Esta decisão é:**
+
 - ✓ Escolha estratégica consciente
 - ✓ Não decorre de imposição externa
 - ✓ Alinhada à maturidade do projeto
@@ -52,6 +54,7 @@ Mecanismos de identificação e rastreabilidade não devem ser vistos apenas com
 ### 2. Interlocuções Qualificadas
 
 Diálogos com profissionais envolvidos em:
+
 - Segurança cibernética
 - Integridade digital
 - Aplicação do direito em ambientes tecnológicos complexos no Brasil
@@ -61,6 +64,7 @@ Demonstraram que **segurança jurídica e técnica não são obstáculos à inov
 ### 3. Maturidade do Projeto
 
 O projeto atingiu maturidade suficiente para:
+
 - Implementar controles de forma proporcional
 - Integrar governança sem comprometer eficiência
 - Escalar em ambientes regulatórios diversos
@@ -68,6 +72,7 @@ O projeto atingiu maturidade suficiente para:
 ### 4. Responsabilidade Institucional
 
 Como infraestrutura crítica, o projeto deve:
+
 - Antecipar requisitos regulatórios
 - Construir confiança desde o início
 - Estabelecer precedentes de responsabilidade
@@ -144,6 +149,7 @@ Implementação **gradual**, permitindo adaptação de usuários e infraestrutur
 ### 3. Transparência
 
 **Comunicação clara** sobre:
+
 - Por que implementamos
 - Como funciona
 - Quais dados coletamos
@@ -164,6 +170,7 @@ Manter **autonomia técnica** e **controle arquitetural**.
 ### Alternativa 1: Sem KYC (Decisão Inicial)
 
 **Rejeitada** porque:
+
 - Risco regulatório crescente
 - Limitação de parcerias institucionais
 - Atração de uso indevido
@@ -172,6 +179,7 @@ Manter **autonomia técnica** e **controle arquitetural**.
 ### Alternativa 2: KYC Completo Imediato
 
 **Rejeitada** porque:
+
 - Fricção excessiva
 - Complexidade prematura
 - Custos incompatíveis com fase atual
@@ -180,6 +188,7 @@ Manter **autonomia técnica** e **controle arquitetural**.
 ### Alternativa 3: KYC Opcional
 
 **Considerada** mas:
+
 - Pode criar duas classes de usuários
 - Complexidade de implementação
 - Possível arbitragem regulatória
@@ -187,6 +196,7 @@ Manter **autonomia técnica** e **controle arquitetural**.
 ### Alternativa 4: Modelo Progressivo (Escolhida)
 
 **Aceita** porque:
+
 - Balanceia fricção e conformidade
 - Permite adaptação gradual
 - Escalável conforme maturidade
@@ -240,6 +250,7 @@ Esta decisão reflete **maturidade estratégica** do projeto e reconhecimento de
 > **Segurança jurídica e técnica não são obstáculos à inovação, mas fundamentos para sua sustentabilidade.**
 
 A implementação será **progressiva, proporcional e tecnicamente coerente**, sem comprometer:
+
 - Eficiência
 - Autonomia técnica
 - Proposta de valor central

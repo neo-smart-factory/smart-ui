@@ -16,8 +16,8 @@ O painel de monitoramento está integrado diretamente na interface principal.
 - **Localização:** Seção "Protocol Intel" no Dashboard.
 - **Função:** Exibe o status em tempo real dos componentes (Core Engine, Web3, AI, Database).
 - **Ação:** Clique em **"Neural Link Active"** ou no ícone da **Cérebro (BrainCircuit)** para abrir o **Intelligence Modal**.
-    - **Alchemy Pulse:** Mostra o preço do gás na rede Base e o número do bloco atual.
-    - **Tavily Research:** Mostra gaps de mercado e fontes de inteligência detectadas por IA.
+  - **Alchemy Pulse:** Mostra o preço do gás na rede Base e o número do bloco atual.
+  - **Tavily Research:** Mostra gaps de mercado e fontes de inteligência detectadas por IA.
 
 ---
 
@@ -26,16 +26,19 @@ O painel de monitoramento está integrado diretamente na interface principal.
 As credenciais são gerenciadas via variáveis de ambiente.
 
 ### 2.1 Alchemy (Blockchain)
+
 - **Console:** [Alchemy Dashboard](https://dashboard.alchemy.com/)
 - **Variável:** `NEXT_PUBLIC_ALCHEMY_ID`
 - **Uso:** RPC para redes Base e monitoramento on-chain.
 
 ### 2.2 Tavily (AI Research)
+
 - **Console:** [Tavily Dashboard](https://tavily.com/dashboard)
 - **Variável:** `TAVILY_API_KEY`
 - **Uso:** Pesquisa de mercado, validação de nomes de tokens e geração de whitepapers.
 
 ### 2.3 Modal (AI Compute)
+
 - **Console:** [Modal Dashboard](https://modal.com/)
 - **Variáveis:** `MODAL_TOKEN_ID`, `MODAL_TOKEN_SECRET`, `MODAL_API_URL`
 - **Uso:** Execução de modelos de IA para análise de código e diagnósticos do "Doctor AI".
@@ -48,9 +51,9 @@ Utilizamos o **Neon.tech** para PostgreSQL Serverless.
 
 - **Console:** [Neon Console](https://console.neon.tech/)
 - **Ações Comuns:**
-    - **Logs:** Ver logs de consultas lentas ou erros de conexão.
-    - **Snapshot:** Restaurar o banco de dados em caso de falha crítica.
-    - **Variável:** `DATABASE_URL` (Sempre use a versão com `?sslmode=require`).
+  - **Logs:** Ver logs de consultas lentas ou erros de conexão.
+  - **Snapshot:** Restaurar o banco de dados em caso de falha crítica.
+  - **Variável:** `DATABASE_URL` (Sempre use a versão com `?sslmode=require`).
 
 ---
 
@@ -73,7 +76,7 @@ O painel da Vercel é o hub central para gerenciamento do site.
 
 - **Console:** [Vercel Dashboard](https://vercel.com/)
 - **Logs de Produção:** [Vercel Logs](https://vercel.com/dashboard/logs)
-- **Sincronização Local:** 
+- **Sincronização Local:**
   Para puxar as variáveis de ambiente mais recentes da produção para o seu `.env.local`:
   ```bash
   vercel env pull .env.local

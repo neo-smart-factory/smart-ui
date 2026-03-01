@@ -19,23 +19,27 @@ O `vercel dev` carrega automaticamente as variáveis de ambiente do Vercel, ent�
 ### Passo a Passo:
 
 1. **Fazer login no Vercel (se ainda não fez):**
+
    ```bash
    vercel login
    ```
 
 2. **Linkar o projeto (se ainda não linkou):**
+
    ```bash
    cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
    vercel link
    ```
+
    - Escolha o projeto `smart-ui-dashboard`
    - Aceite as configurações padrão
 
 3. **Executar migrations via Vercel Dev:**
+
    ```bash
    # O vercel dev carrega as variáveis do Vercel automaticamente
    vercel dev --listen 3000 &
-   
+
    # Em outro terminal, executar migrations
    # (as variáveis estarão disponíveis via vercel dev)
    DATABASE_URL=$(vercel env pull --yes | grep DATABASE_URL | cut -d'=' -f2) npm run migrate
@@ -52,21 +56,25 @@ Criar `.env` local apenas para executar migrations, depois pode deletar.
 ### Passo a Passo:
 
 1. **Obter DATABASE_URL do Vercel:**
+
    - Acesse: https://vercel.com → Seu projeto → Settings → Environment Variables
    - Copie o valor de `DATABASE_URL`
 
 2. **Criar .env:**
+
    ```bash
    cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
    echo 'DATABASE_URL="cole-aqui-sua-url-do-vercel"' > .env
    ```
 
 3. **Executar migrations:**
+
    ```bash
    make migratedb
    ```
 
 4. **Verificar sucesso:**
+
    ```text
    ✅ Tabelas "deploys" e "drafts" criadas ou já existem.
    📊 Status: 0 deploy(s) registrado(s).
@@ -86,6 +94,7 @@ Executar migrations diretamente passando a DATABASE_URL como variável de ambien
 ### Passo a Passo:
 
 1. **Obter DATABASE_URL do Vercel:**
+
    - Acesse: https://vercel.com → Seu projeto → Settings → Environment Variables
    - Copie o valor de `DATABASE_URL`
 
@@ -131,9 +140,10 @@ CREATE TABLE IF NOT EXISTS drafts (
 ```
 
 4. Verificar:
+
 ```sql
-SELECT table_name 
-FROM information_schema.tables 
+SELECT table_name
+FROM information_schema.tables
 WHERE table_schema = 'public';
 ```
 
@@ -154,12 +164,14 @@ Deve mostrar: `deploys` e `drafts`.
 Após executar migrations, verifique:
 
 ### Via Neon Console:
+
 ```sql
 SELECT * FROM deploys LIMIT 1;
 SELECT * FROM drafts LIMIT 1;
 ```
 
 ### Via API (após deploy):
+
 ```bash
 curl https://seu-projeto.vercel.app/api/deploys
 # Deve retornar: []
@@ -170,14 +182,17 @@ curl https://seu-projeto.vercel.app/api/deploys
 ## 🐛 Troubleshooting
 
 ### Erro: "DATABASE_URL não definida"
+
 - Verifique se copiou a URL completa do Vercel
 - Verifique se a URL tem `?sslmode=require` no final
 
 ### Erro: "Connection refused"
+
 - Verifique se o projeto Neon está ativo (não pausado)
 - Verifique se a URL está correta
 
 ### Erro: "relation already exists"
+
 - ✅ **Isso é OK!** Significa que as tabelas já existem
 - As migrations são idempotentes (podem rodar múltiplas vezes)
 

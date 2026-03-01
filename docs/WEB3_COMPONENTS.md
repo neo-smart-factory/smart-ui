@@ -29,7 +29,7 @@ Componente para conexão de wallet usando **Dynamic.xyz**.
 **Uso Básico:**
 
 ```jsx
-import WalletConnect from './components/WalletConnect';
+import WalletConnect from "./components/WalletConnect";
 
 function MyComponent() {
   const [userAddress, setUserAddress] = useState(null);
@@ -39,10 +39,10 @@ function MyComponent() {
       userAddress={userAddress}
       setUserAddress={setUserAddress}
       onConnect={(address) => {
-        console.log('Wallet connected:', address);
+        console.log("Wallet connected:", address);
       }}
       onDisconnect={() => {
-        console.log('Wallet disconnected');
+        console.log("Wallet disconnected");
       }}
     />
   );
@@ -51,13 +51,13 @@ function MyComponent() {
 
 **Props:**
 
-| Prop | Tipo | Obrigatório | Descrição |
-|------|------|-------------|-----------|
-| `className` | `string` | Não | Classes CSS adicionais |
-| `onConnect` | `Function` | Não | Callback quando wallet conecta |
-| `onDisconnect` | `Function` | Não | Callback quando wallet desconecta |
-| `userAddress` | `string` | Não | Endereço da wallet (controlado) |
-| `setUserAddress` | `Function` | Não | Setter para endereço (controlado) |
+| Prop             | Tipo       | Obrigatório | Descrição                         |
+| ---------------- | ---------- | ----------- | --------------------------------- |
+| `className`      | `string`   | Não         | Classes CSS adicionais            |
+| `onConnect`      | `Function` | Não         | Callback quando wallet conecta    |
+| `onDisconnect`   | `Function` | Não         | Callback quando wallet desconecta |
+| `userAddress`    | `string`   | Não         | Endereço da wallet (controlado)   |
+| `setUserAddress` | `Function` | Não         | Setter para endereço (controlado) |
 
 **Comportamento:**
 
@@ -69,11 +69,11 @@ function MyComponent() {
 **Hook Relacionado:**
 
 ```jsx
-import { useDynamicWallet } from './components/WalletConnect';
+import { useDynamicWallet } from "./components/WalletConnect";
 
 function MyComponent() {
   const { address, isConnected, provider, signer } = useDynamicWallet();
-  
+
   // Usar provider/signer para interações blockchain
 }
 ```
@@ -89,30 +89,33 @@ Componente para exibir status de transações blockchain.
 **Uso Básico:**
 
 ```jsx
-import TransactionStatus, { useTransactionStatus } from './components/TransactionStatus';
-import { TRANSACTION_STATUS } from '../types/cli';
+import TransactionStatus, {
+  useTransactionStatus,
+} from "./components/TransactionStatus";
+import { TRANSACTION_STATUS } from "../types/cli";
 
 function MyComponent() {
-  const { transaction, setTransaction, clearTransaction } = useTransactionStatus();
+  const { transaction, setTransaction, clearTransaction } =
+    useTransactionStatus();
 
   const handleDeploy = async () => {
     // Iniciar transação
     setTransaction({
       status: TRANSACTION_STATUS.PENDING,
       txHash: null,
-      network: 'base',
+      network: "base",
     });
 
     try {
       // Executar deploy...
       const result = await deployToken();
-      
+
       // Atualizar status
       setTransaction({
         status: TRANSACTION_STATUS.CONFIRMED,
         txHash: result.txHash,
         contractAddress: result.contractAddress,
-        network: 'base',
+        network: "base",
         blockNumber: result.blockNumber,
       });
     } catch (error) {
@@ -143,16 +146,16 @@ function MyComponent() {
 
 **Props:**
 
-| Prop | Tipo | Obrigatório | Descrição |
-|------|------|-------------|-----------|
-| `status` | `string` | Sim | Status (pending, confirmed, failed, rejected) |
-| `txHash` | `string` | Não | Hash da transação |
-| `network` | `string` | Não | Rede (base, polygon, ethereum) |
-| `contractAddress` | `string` | Não | Endereço do contrato |
-| `error` | `string` | Não | Mensagem de erro |
-| `blockNumber` | `number` | Não | Número do bloco |
-| `onDismiss` | `Function` | Não | Callback para fechar |
-| `className` | `string` | Não | Classes CSS adicionais |
+| Prop              | Tipo       | Obrigatório | Descrição                                     |
+| ----------------- | ---------- | ----------- | --------------------------------------------- |
+| `status`          | `string`   | Sim         | Status (pending, confirmed, failed, rejected) |
+| `txHash`          | `string`   | Não         | Hash da transação                             |
+| `network`         | `string`   | Não         | Rede (base, polygon, ethereum)                |
+| `contractAddress` | `string`   | Não         | Endereço do contrato                          |
+| `error`           | `string`   | Não         | Mensagem de erro                              |
+| `blockNumber`     | `number`   | Não         | Número do bloco                               |
+| `onDismiss`       | `Function` | Não         | Callback para fechar                          |
+| `className`       | `string`   | Não         | Classes CSS adicionais                        |
 
 **Status Suportados:**
 
@@ -247,22 +250,22 @@ Todos os tipos estão definidos em `src/types/cli.js`:
 **Exemplo de uso:**
 
 ```jsx
-import { TokenConfig, DeployRequest, CLIClient } from '../types/cli';
+import { TokenConfig, DeployRequest, CLIClient } from "../types/cli";
 
-const cliClient = new CLIClient('/api/cli');
+const cliClient = new CLIClient("/api/cli");
 
 const tokenConfig = new TokenConfig({
-  tokenName: 'My Token',
-  tokenSymbol: 'MTK',
-  tokenSupply: '1000000',
-  network: 'base',
-  description: 'My awesome token',
+  tokenName: "My Token",
+  tokenSymbol: "MTK",
+  tokenSupply: "1000000",
+  network: "base",
+  description: "My awesome token",
 });
 
 const request = new DeployRequest({
   tokenConfig,
-  userAddress: '0x...',
-  sessionId: 'session_123',
+  userAddress: "0x...",
+  sessionId: "session_123",
 });
 
 const response = await cliClient.deployToken(request);

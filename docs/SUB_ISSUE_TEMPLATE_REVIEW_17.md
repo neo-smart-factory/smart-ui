@@ -20,12 +20,14 @@ Issue #17 (Wallet Address Validation) has been implemented. This sub-issue track
 The following components were successfully implemented:
 
 1. **Address Validation Utilities** (`src/utils/addressValidation.js`)
+
    - ✅ `validateAddress()` - Validates Ethereum addresses with EIP-55 checksum
    - ✅ `formatAddress()` - Formats addresses for display
    - ✅ `isSameAddress()` - Case-insensitive address comparison
    - ✅ `formatHash()` - Formats transaction hashes
 
 2. **UI Component** (`src/components/ui/AddressInput.jsx`)
+
    - ✅ Real-time validation with visual feedback
    - ✅ Error messages for invalid addresses
    - ✅ Copy to clipboard functionality
@@ -42,12 +44,14 @@ The following components were successfully implemented:
 ### Code Quality Review
 
 - [ ] Review `src/utils/addressValidation.js`
+
   - [ ] Verify all validation logic is correct
   - [ ] Check error messages are user-friendly
   - [ ] Ensure proper use of ethers.js functions
   - [ ] Verify EIP-55 checksum compliance
 
 - [ ] Review `src/components/ui/AddressInput.jsx`
+
   - [ ] Check component follows React best practices
   - [ ] Verify accessibility (ARIA labels, keyboard navigation)
   - [ ] Test visual feedback on validation
@@ -114,13 +118,16 @@ Create `src/__tests__/components/ui/AddressInput.test.jsx`:
 ## ⚠️ Known Issues to Address
 
 ### Critical
+
 - **Missing Test Coverage** - No tests exist for the validation functionality
 
 ### Medium Priority
+
 - **Accessibility** - AddressInput could use better ARIA labels
 - **Animation** - No support for `prefers-reduced-motion`
 
 ### Low Priority
+
 - **Internationalization** - Error messages are hardcoded in English
 - **Performance** - Consider debouncing validation if needed
 

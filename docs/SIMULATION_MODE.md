@@ -16,6 +16,7 @@ The NΞØ Smart Factory UI includes a **Simulation Mode** that allows users to e
 ### 1. Wallet Connection
 
 When no Web3 wallet (like MetaMask) is detected in the browser:
+
 - A random Ethereum-style address is generated
 - Format: `0x` followed by 40 hexadecimal characters
 - **Important**: This is NOT a real wallet address and cannot hold actual funds
@@ -80,6 +81,7 @@ To implement real blockchain deployments, the following changes are needed:
    ```
 
 3. **Network Configuration**
+
    - Configure RPC endpoints for each supported network
    - Use dRPC or Alchemy API keys from environment variables
    - Handle network switching requests
@@ -92,6 +94,7 @@ To implement real blockchain deployments, the following changes are needed:
 ## Environment Variables
 
 Required for real Web3 integration (see `.env.example`):
+
 ```
 VITE_DYNAMIC_ENVIRONMENT_ID=""         # For Social Login + Wallet
 VITE_DRPC_API_KEY=""                   # RPC Provider
@@ -143,11 +146,13 @@ vercel deploy --prod
 ## Security Considerations
 
 1. **Database Pollution**: Simulated deployments are saved to the database
+
    - Consider adding `is_simulated` flag to `deploys` table
    - Filter simulated deployments from production analytics
    - Add cleanup script for test deployments
 
 2. **User Expectations**: Users might not realize deployments are simulated
+
    - Warning banner is shown in simulation mode
    - Console warnings are logged
    - Consider adding watermark or stronger visual indicators

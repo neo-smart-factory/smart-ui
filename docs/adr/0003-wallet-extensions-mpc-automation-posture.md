@@ -124,6 +124,7 @@ Esta decisão será reavaliada quando:
 ### Alternativa 1: Adoção Imediata
 
 **Rejeitada** porque:
+
 - Risco sistêmico alto
 - Maturidade técnica insuficiente
 - Responsabilidade legal não clara
@@ -131,6 +132,7 @@ Esta decisão será reavaliada quando:
 ### Alternativa 2: Implementação Experimental Isolada
 
 **Considerada para futuro** quando:
+
 - Ambiente de sandbox estiver disponível
 - Equipe de segurança puder auditar
 - Usuários puderem optar conscientemente
@@ -138,6 +140,7 @@ Esta decisão será reavaliada quando:
 ### Alternativa 3: Integração Seletiva
 
 **Possível no futuro** para:
+
 - Extensões auditadas por terceiros confiáveis
 - MPC wallets com histórico comprovado
 - Automação com controle explícito do usuário

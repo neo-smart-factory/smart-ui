@@ -11,6 +11,7 @@
 ## Context
 
 The current `smart-ui` codebase contains:
+
 - simulated deployments
 - temporary backend logic
 - local persistence
@@ -19,6 +20,7 @@ The current `smart-ui` codebase contains:
 This was intentional during early exploration and validation.
 
 However, allowing the UI to evolve without explicit boundaries creates risk of:
+
 - frontend-driven protocol decisions
 - hidden coupling with backend logic
 - misrepresentation of protocol authority
@@ -35,6 +37,7 @@ The `smart-ui` is formally designated as a:
 **Demo and Intent Layer**
 
 It exists to:
+
 - demonstrate flows
 - collect user intent
 - visualize system state
@@ -80,6 +83,7 @@ The following patterns are acknowledged as temporary:
 - Cross-repo filesystem reads
 
 These components:
+
 - are allowed only for demo purposes
 - must not be expanded
 - must not be treated as production infrastructure
@@ -88,12 +92,12 @@ These components:
 
 ## Authority Model
 
-| Layer | Authority Level |
-|-----|----------------|
-| smart-core | Protocol authority |
-| smart-cli | Operational authority |
-| docs | Decision authority |
-| smart-ui | No authority |
+| Layer      | Authority Level       |
+| ---------- | --------------------- |
+| smart-core | Protocol authority    |
+| smart-cli  | Operational authority |
+| docs       | Decision authority    |
+| smart-ui   | No authority          |
 
 The UI reflects decisions.  
 It does not make them.
@@ -122,6 +126,7 @@ These trade-offs are intentional and accepted.
 ## Enforcement
 
 This ADR is enforced by:
+
 - `integration-map.md`
 - `workflow.md`
 - CI boundary rules
@@ -134,6 +139,7 @@ Violations invalidate Pull Requests.
 ## Migration Path (Future)
 
 A future ADR will define:
+
 - CLI-exposed read-only endpoints
 - UI consumption contracts
 - Removal of demo-only backend logic
@@ -145,6 +151,7 @@ No migration work is allowed before such ADR exists.
 ## Notes for AI Assistants
 
 AI agents must:
+
 - treat the UI as non-authoritative
 - avoid adding protocol logic to UI
 - flag any request that implies UI authority

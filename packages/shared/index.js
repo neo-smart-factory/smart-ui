@@ -1,6 +1,6 @@
-const constants = require('./constants');
+const constants = require("./constants");
 
 module.exports = {
-    ...constants,
-    // Outros módulos compartilhados (ABIs, Utils) podem ser exportados aqui
+  ...constants,
+  // Outros módulos compartilhados (ABIs, Utils) podem ser exportados aqui
 };

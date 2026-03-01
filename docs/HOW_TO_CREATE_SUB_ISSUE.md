@@ -13,12 +13,15 @@ Navigate to: https://github.com/neo-smart-factory/smart-ui/issues/new
 ## Step 2: Fill in the Issue Details
 
 ### Title
+
 ```
 🧪 Sub-Issue: Add Test Coverage for Wallet Address Validation (Parent: #17)
 ```
 
 ### Description
+
 Copy and paste the content from:
+
 ```
 docs/SUB_ISSUE_TEMPLATE_REVIEW_17.md
 ```
@@ -108,6 +111,7 @@ The wallet address validation feature (#17) has been implemented successfully an
 ## Step 3: Add Labels
 
 Add these labels to the issue:
+
 - `testing`
 - `high-priority`
 - `phase-02`
@@ -146,6 +150,7 @@ gh issue create \
 ## What Was Done in This PR
 
 This PR contains:
+
 1. ✅ Comprehensive review of Issue #17 implementation
 2. ✅ Fixed all linting issues in the validation code
 3. ✅ Created detailed review documentation

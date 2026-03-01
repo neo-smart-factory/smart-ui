@@ -8,6 +8,7 @@
 ## 📊 Análise Atual
 
 ### Estatísticas
+
 - **Total de arquivos:** 35 arquivos `.md` em `docs/`
 - **ADRs:** 4 arquivos em `docs/adr/`
 - **Documentos principais:** 31 arquivos na raiz de `docs/`
@@ -19,12 +20,14 @@
 ### ✅ Documentos Ativos e Essenciais
 
 #### Arquitetura e Decisões
+
 - `ARCHITECTURAL_ADDENDUMS.md` - Crítico, mantém
 - `ORGANIZATION.md` - Ativo, mantém
 - `adr/*.md` - 4 ADRs, mantém
 - `ARCHITECTURE_WORKFLOWS_AND_DEPLOYMENT.md` - Ativo, mantém
 
 #### Guias Operacionais
+
 - `DEPLOY_DASHBOARD.md` - Referenciado no README, mantém
 - `NEON_SETUP_GUIDE.md` - Guia ativo, mantém
 - `RUN_MIGRATIONS.md` - Guia ativo, mantém
@@ -32,38 +35,47 @@
 - `SYNC_ENV_FROM_VERCEL.md` - Guia ativo, mantém
 
 #### APIs e Integrações
+
 - `API_MARKETING_ROUTES.md` - Documentação de API, mantém
 - `FRONTEND_MARKETING_INTEGRATION.md` - Documentação técnica, mantém
 - `MARKETING_SCHEMA_EXPLANATION.md` - Documentação técnica, mantém
 
 #### Status e Diagnóstico
+
 - `adr/0002-ui-as-demo-and-intent-layer.md` - ADR que define o status do UI (substitui ui-status.md)
 - `ui-diagnostic-checklist.md` - Arquivado (desatualizado após migração multi-repos)
 - `SIMULATION_MODE.md` - Documentação técnica, mantém
 
 #### Visão Geral
+
 - `PROJECT_OVERVIEW.md` - Visão geral, mantém
 - `FRONTEND_MAP.md` - Mapa técnico, mantém
 - `README.md` - Índice principal, mantém
 
 #### Políticas e Segurança
+
 - `REPOSITORY_VISIBILITY_POLICY.md` - Política ativa, mantém
 - `SECURITY_ENFORCEMENT_REPORT.md` - Relatório de segurança, mantém
 
 #### Sincronização
+
 - `SYNC_POLICIES_TO_DOCS_REPO.md` - Processo ativo, mantém
 
 #### Database
+
 - `DATABASE_SCHEMA.sql` - Schema do banco, mantém
 
 #### Ecossistema
+
 - `ECOSYSTEM_GRAPH_ACCESS.md` - Documentação técnica, mantém
 - `ECOSYSTEM_GRAPH_REPOS.md` - Documentação técnica, mantém
 
 #### Estratégia
+
 - `NEO_STRATEGIC_PLAN_V1.md` - Plano estratégico, mantém
 
 #### Validação
+
 - `VALIDATE_NEW_REPOS.md` - Guia de validação, mantém
 - `REPOSITORY_CONSISTENCY_CHECKLIST.md` - Checklist, mantém
 
@@ -72,12 +84,15 @@
 ### 📦 Documentos Históricos (Candidatos a Arquivo)
 
 #### Migração Concluída
+
 - `MIGRATION_TO_MULTI_REPOS.md` - ✅ Migração concluída (2026-01-23)
   - **Status:** Histórico
   - **Ação:** Mover para `docs/archive/`
 
 #### Relatórios de Validação Antigos
+
 - `VALIDATION_REPORT.md` - Relatório intermediário
+
   - **Status:** Substituído por `VALIDATION_FINAL_REPORT.md`
   - **Ação:** Mover para `docs/archive/`
 
@@ -86,7 +101,9 @@
   - **Ação:** Mover para `docs/archive/` ou manter como referência
 
 #### Análises Específicas Concluídas
+
 - `ANALISE_CONEXAO_DOCS_REPO.md` - Análise específica (2026-01-24)
+
   - **Status:** Concluída
   - **Ação:** Mover para `docs/archive/`
 
@@ -95,6 +112,7 @@
   - **Ação:** Mover para `docs/archive/`
 
 #### Roadmap Potencialmente Desatualizado
+
 - `NEXT_STEPS.md` - Roadmap (2026-01-22)
   - **Status:** Verificar se ainda relevante
   - **Ação:** Revisar e atualizar ou arquivar
@@ -166,16 +184,19 @@ Atualizar `docs/README.md` para refletir nova estrutura e remover links para doc
 ## ✅ Ações Recomendadas
 
 ### Fase 1: Organização Imediata
+
 1. ✅ Criar pasta `docs/archive/`
 2. ✅ Mover documentos históricos para `archive/`
 3. ✅ Atualizar `docs/README.md` removendo links para arquivados
 
 ### Fase 2: Reestruturação (Opcional)
+
 1. ⚠️ Criar `docs/guides/` e mover guias práticos
 2. ⚠️ Criar `docs/api/` e mover documentação de APIs
 3. ⚠️ Atualizar todos os links internos
 
 ### Fase 3: Padronização
+
 1. ⚠️ Adicionar headers padronizados em todos os documentos
 2. ⚠️ Adicionar tags de categorização
 3. ⚠️ Verificar e corrigir links quebrados
@@ -196,12 +217,12 @@ Atualizar `docs/README.md` para refletir nova estrutura e remover links para doc
 
 ## 📊 Resumo
 
-| Categoria | Quantidade | Ação |
-|-----------|------------|------|
-| **Documentos Ativos** | 28 | Manter |
-| **Documentos Históricos** | 5 | Arquivar |
-| **ADRs** | 4 | Manter |
-| **Total** | 37 | - |
+| Categoria                 | Quantidade | Ação     |
+| ------------------------- | ---------- | -------- |
+| **Documentos Ativos**     | 28         | Manter   |
+| **Documentos Históricos** | 5          | Arquivar |
+| **ADRs**                  | 4          | Manter   |
+| **Total**                 | 37         | -        |
 
 ---
 

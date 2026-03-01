@@ -13,9 +13,9 @@
 
 Na organização **neo-smart-factory**, **nem tudo pode estar público**. A política de visibilidade define:
 
-| Tipo | Repositórios | Uso |
-|------|--------------|-----|
-| **Públicos** | `smart-ui`, `landing`, `docs` | Demo, narrativa, marketing, ADRs, governança. Podem ser linkados e referenciados. |
+| Tipo                     | Repositórios                              | Uso                                                                                  |
+| ------------------------ | ----------------------------------------- | ------------------------------------------------------------------------------------ |
+| **Públicos**             | `smart-ui`, `landing`, `docs`             | Demo, narrativa, marketing, ADRs, governança. Podem ser linkados e referenciados.    |
 | **Privados / restritos** | `smart-core`, `smart-cli`, `internal-ops` | Lógica operacional, automação, ops, infraestrutura. **Nunca** expostos publicamente. |
 
 Repos privados **não** devem ser: linkados, citados em UI, em landing, em pitch, em documentação pública, em fóruns/issues, nem em gráficos de dependência públicos.
@@ -34,21 +34,21 @@ Repos privados **não** devem ser: linkados, citados em UI, em landing, em pitch
 
 ### 3.1 ✅ Conforme
 
-| Item | Status |
-|------|--------|
-| **App.jsx (footer)** | Apenas org, ARCHITECTURAL_ADDENDUMS, ADRs, PROJECT_OVERVIEW. Sem smart-core, smart-cli, internal-ops. |
-| **docs/ORGANIZATION.md** | Lista só `smart-ui`, `landing`, `docs`. |
-| **docs/README.md** | Links úteis só para org e esses três repos. |
-| **docs/REPOSITORY_VISIBILITY_POLICY.md** | Define público vs privado; referência a privados é **contexto de política**. |
-| **docs/SECURITY_ENFORCEMENT_REPORT.md** | Relato de conformidade; cita privados só em contexto de enforcement. |
-| **src/** | Nenhuma referência a smart-core, smart-cli, internal-ops, neo-smart-factory. |
+| Item                                     | Status                                                                                                |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| **App.jsx (footer)**                     | Apenas org, ARCHITECTURAL_ADDENDUMS, ADRs, PROJECT_OVERVIEW. Sem smart-core, smart-cli, internal-ops. |
+| **docs/ORGANIZATION.md**                 | Lista só `smart-ui`, `landing`, `docs`.                                                               |
+| **docs/README.md**                       | Links úteis só para org e esses três repos.                                                           |
+| **docs/REPOSITORY_VISIBILITY_POLICY.md** | Define público vs privado; referência a privados é **contexto de política**.                          |
+| **docs/SECURITY_ENFORCEMENT_REPORT.md**  | Relato de conformidade; cita privados só em contexto de enforcement.                                  |
+| **src/**                                 | Nenhuma referência a smart-core, smart-cli, internal-ops, neo-smart-factory.                          |
 
 ### 3.2 ❌ Violações
 
-| Onde | O quê | Severidade (política) |
-|------|--------|------------------------|
+| Onde                              | O quê                                                                                                                                                                                                                                            | Severidade (política)                                                       |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
 | **`public/ecosystem-graph.html`** | Nomes explícitos: `neo-smart-factory`, `internal-ops`, `forge-core`, `forge-cli`, `state.json`. Arquivo servido em **produção** (`/ecosystem-graph.html`), sem auth. Comentário diz "visualização interna", mas está em `public/` e é acessível. | **MEDIUM** — Exposição de nomes/existência de repos e componentes privados. |
-| **Makefile** | `CORE_DIR`, `CLI_DIR`, `OPS_DIR` expõem caminhos para `../smart-cli`, `../../neo_smart_factory/forge-core`, `../../neo_smart_factory/internal-ops`. Repo é público. | **MEDIUM** — Exposição de existência e estrutura de componentes privados. |
+| **Makefile**                      | `CORE_DIR`, `CLI_DIR`, `OPS_DIR` expõem caminhos para `../smart-cli`, `../../neo_smart_factory/forge-core`, `../../neo_smart_factory/internal-ops`. Repo é público.                                                                              | **MEDIUM** — Exposição de existência e estrutura de componentes privados.   |
 
 ### 3.3 ⚠️ Exceções aceitas (documentadas)
 
@@ -85,6 +85,7 @@ A política lista **smart-core**, **smart-cli**, **internal-ops** como privados.
 ### 5.1 Imediatas
 
 1. **`public/ecosystem-graph.html`**
+
    - **Opção A:** Remover ou genéricar nomes privados. Ex.: nós “Core”, “Ops”, “Internal” em vez de `neo-smart-factory`, `internal-ops`, `forge-cli`. Manter apenas smart-ui, landing, docs como identificadores reais.
    - **Opção B:** Tirar o arquivo de `public/` (não servir em produção). Manter só para uso local/interno, se necessário.
    - **Opção C:** Servir apenas em rota/URL restrita (ex.: autenticada) ou em ambiente que não seja o site público do dashboard.
@@ -96,6 +97,7 @@ A política lista **smart-core**, **smart-cli**, **internal-ops** como privados.
 ### 5.2 Política e Governança
 
 3. **REPOSITORY_VISIBILITY_POLICY**
+
    - Incluir **neo-smart-factory** na seção de repos **PRIVATE / RESTRICTED** (ou “Restricted”).
    - Adicionar subseção **“Exceções documentadas”**:
      - **Allowlist de documentos:** Lista explícita de arquivos que podem **nomear** (sem linkar) repos/componentes privados apenas para: definição de política, ADRs, guias de setup de CI, status interno. Ex.: `REPOSITORY_VISIBILITY_POLICY`, `SECURITY_ENFORCEMENT_REPORT`, `adr/0001` e `0002`, `GITHUB_ACTIONS_SETUP`, `ui-status`.
@@ -107,6 +109,7 @@ A política lista **smart-core**, **smart-cli**, **internal-ops** como privados.
 ### 5.3 Automatização
 
 5. **Checagem em CI (ex.: “visibility-guard”)**
+
    - Job que falha se `smart-core`, `smart-cli`, `internal-ops` ou `neo-smart-factory` aparecerem em:
      - `src/**`
      - `public/**` (em especial `*.html`, `*.js` servidos)
@@ -119,6 +122,7 @@ A política lista **smart-core**, **smart-cli**, **internal-ops** como privados.
 ### 5.4 Manutenção
 
 7. **Revisão periódica**
+
    - Revisar conteúdo público (UI, `public/`, docs linkados no footer) sempre que houver mudança relevante. Incluir visibilidade na **documentation review** já prevista na política.
 
 8. **Onboarding**
@@ -128,12 +132,12 @@ A política lista **smart-core**, **smart-cli**, **internal-ops** como privados.
 
 ## 6. Resumo
 
-| Aspecto | Situação |
-|--------|----------|
-| **Entendimento** | Sim — na org, nem tudo é público. Público: smart-ui, landing, docs. Privado: smart-core, smart-cli, internal-ops (e neo-smart-factory). |
-| **Conformidade atual** | Footer, ORGANIZATION, README, `src/` conformes. Violações em **ecosystem-graph** (public/) e **Makefile**. |
-| **Exceções** | Política, ADRs, setup, ui-status — aceitas como exceção; falta formalizar allowlist e exceção para CI. |
-| **Próximos passos** | Corrigir ecosystem-graph e Makefile; atualizar política (neo-smart-factory, exceções, allowlist); considerar visibility-guard em CI; manter checklist e revisões. |
+| Aspecto                | Situação                                                                                                                                                          |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Entendimento**       | Sim — na org, nem tudo é público. Público: smart-ui, landing, docs. Privado: smart-core, smart-cli, internal-ops (e neo-smart-factory).                           |
+| **Conformidade atual** | Footer, ORGANIZATION, README, `src/` conformes. Violações em **ecosystem-graph** (public/) e **Makefile**.                                                        |
+| **Exceções**           | Política, ADRs, setup, ui-status — aceitas como exceção; falta formalizar allowlist e exceção para CI.                                                            |
+| **Próximos passos**    | Corrigir ecosystem-graph e Makefile; atualizar política (neo-smart-factory, exceções, allowlist); considerar visibility-guard em CI; manter checklist e revisões. |
 
 ---
 

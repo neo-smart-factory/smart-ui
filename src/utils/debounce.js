@@ -37,7 +37,7 @@ export function debounce(func, wait = 300, options = {}) {
 
   function shouldInvoke(time) {
     const timeSinceLastCall = time - lastCallTime;
-    
+
     return (
       lastCallTime === 0 ||
       timeSinceLastCall >= wait ||
@@ -66,7 +66,7 @@ export function debounce(func, wait = 300, options = {}) {
     if (shouldInvoke(time)) {
       return trailingEdge(time);
     }
-    
+
     const timeSinceLastCall = time - lastCallTime;
     const timeWaiting = wait - timeSinceLastCall;
     timeoutId = startTimer(timerExpired, timeWaiting);
@@ -94,7 +94,7 @@ export function debounce(func, wait = 300, options = {}) {
     return undefined;
   }
 
-  debounced.cancel = function() {
+  debounced.cancel = function () {
     if (timeoutId !== null) {
       cancelTimer(timeoutId);
     }
@@ -102,11 +102,11 @@ export function debounce(func, wait = 300, options = {}) {
     lastArgs = lastThis = timeoutId = null;
   };
 
-  debounced.flush = function() {
+  debounced.flush = function () {
     return timeoutId === null ? undefined : trailingEdge(Date.now());
   };
 
-  debounced.pending = function() {
+  debounced.pending = function () {
     return timeoutId !== null;
   };
 
@@ -115,15 +115,15 @@ export function debounce(func, wait = 300, options = {}) {
 
 /**
  * Throttle - Garante que função seja executada no máximo uma vez por intervalo
- * @param {Function} func 
- * @param {number} wait 
+ * @param {Function} func
+ * @param {number} wait
  * @returns {Function}
  */
 export function throttle(func, wait = 300) {
   return debounce(func, wait, {
     leading: true,
     trailing: false,
-    maxWait: wait
+    maxWait: wait,
   });
 }
 

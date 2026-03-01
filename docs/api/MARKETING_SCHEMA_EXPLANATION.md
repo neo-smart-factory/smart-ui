@@ -10,10 +10,12 @@
 ## 🎯 Problema Identificado
 
 O schema atual (`deploys` + `drafts`) só captura:
+
 - ✅ Usuários que **conectaram wallet** (drafts)
 - ✅ Tokens **criados com sucesso** (deploys)
 
 **Faltava:**
+
 - ❌ Visitantes que **não conectaram wallet**
 - ❌ Email para **follow-up e campanhas**
 - ❌ Tracking de **abandono** (onde pararam)
@@ -29,6 +31,7 @@ O schema atual (`deploys` + `drafts`) só captura:
 **Propósito:** Capturar **TODOS** os visitantes, mesmo sem wallet.
 
 **Campos principais:**
+
 - `email`: Para campanhas de email marketing
 - `wallet_address`: Se conectou depois (nullable)
 - `session_id`: Identificador único da sessão (cookie/localStorage)
@@ -42,6 +45,7 @@ O schema atual (`deploys` + `drafts`) só captura:
 - `metadata`: Dados flexíveis (JSONB)
 
 **Quando criar:**
+
 - Na primeira visita (mesmo sem wallet)
 - Atualizar quando usuário progride no funil
 
@@ -52,6 +56,7 @@ O schema atual (`deploys` + `drafts`) só captura:
 **Propósito:** Rastrear cada sessão e onde o usuário abandonou.
 
 **Campos principais:**
+
 - `step_reached`: Qual step do formulário alcançou (1-4)
 - `form_data_snapshot`: O que preencheu até abandonar
 - `time_on_page`: Tempo em segundos
@@ -59,6 +64,7 @@ O schema atual (`deploys` + `drafts`) só captura:
 - `conversion_funnel`: JSON com timestamps de cada step
 
 **Uso:**
+
 - Identificar onde usuários abandonam mais
 - Recuperar dados do que preencheram
 - Analisar tempo médio por step
@@ -70,12 +76,14 @@ O schema atual (`deploys` + `drafts`) só captura:
 **Propósito:** Gerenciar campanhas de email marketing.
 
 **Campos principais:**
+
 - `email`: Email do lead
 - `source`: De onde veio (landing_page, newsletter_form, etc.)
 - `status`: active, unsubscribed, bounced
 - `preferences`: Preferências de comunicação
 
 **Uso:**
+
 - Enviar emails de recuperação
 - Newsletter
 - Notificações de novos recursos
@@ -87,6 +95,7 @@ O schema atual (`deploys` + `drafts`) só captura:
 **Propósito:** Eventos importantes para análise.
 
 **Eventos possíveis:**
+
 - `page_view`: Visitou a página
 - `wallet_connect`: Tentou conectar wallet
 - `form_start`: Começou a preencher form
@@ -95,6 +104,7 @@ O schema atual (`deploys` + `drafts`) só captura:
 - `token_created`: Criou token com sucesso
 
 **Uso:**
+
 - Analytics de conversão
 - Identificar gargalos no funil
 - A/B testing
@@ -155,20 +165,23 @@ O schema atual (`deploys` + `drafts`) só captura:
 ### Cenário 1: Usuário abandonou sem wallet
 
 **Dados disponíveis:**
+
 - Email (se forneceu)
 - O que preencheu (`form_data_snapshot`)
 - Onde parou (`step_reached`)
 - Quando abandonou (`abandoned_at`)
 
 **Ação de marketing:**
+
 ```sql
 -- Buscar leads abandonados para email
-SELECT * FROM abandoned_leads 
-WHERE email IS NOT NULL 
+SELECT * FROM abandoned_leads
+WHERE email IS NOT NULL
   AND hours_since_activity BETWEEN 24 AND 72;
 ```
 
 **Email de recuperação:**
+
 > "Olá! Você começou a criar seu token mas não concluiu. Quer continuar de onde parou? [Link com session_id]"
 
 ---
@@ -176,11 +189,13 @@ WHERE email IS NOT NULL
 ### Cenário 2: Usuário abandonou com wallet
 
 **Dados disponíveis:**
+
 - Wallet address
 - Draft completo em `drafts`
 - O que preencheu
 
 **Ação:**
+
 - Quando usuário volta e conecta mesma wallet → Carrega draft automaticamente
 - Email opcional se forneceu
 
@@ -195,6 +210,7 @@ SELECT * FROM conversion_funnel;
 ```
 
 **Resultado:**
+
 ```
 visitors: 1000
 engaged: 800
@@ -205,6 +221,7 @@ conversion_rate: 5%
 ```
 
 **Insights:**
+
 - 20% abandona antes de interagir
 - 62.5% não conecta wallet
 - 16.7% abandona após conectar wallet
@@ -215,12 +232,13 @@ conversion_rate: 5%
 ### Leads para Campanha
 
 ```sql
-SELECT * FROM marketable_leads 
+SELECT * FROM marketable_leads
 WHERE has_abandoned_draft = true
   AND email_status = 'active';
 ```
 
 **Uso:**
+
 - Lista de emails para campanha de recuperação
 - Segmentação por origem (UTM)
 - Personalização baseada no que preencheu
@@ -230,17 +248,20 @@ WHERE has_abandoned_draft = true
 ## 🎯 Benefícios para Marketing
 
 1. **Prospecção:**
+
    - Captura TODOS os visitantes (não só com wallet)
    - Email para follow-up
    - Tracking de origem (UTM)
 
 2. **Recuperação:**
+
    - Identifica quem abandonou
    - Sabe onde parou
    - Tem dados do que preencheu
    - Pode enviar email personalizado
 
 3. **Analytics:**
+
    - Funnel completo de conversão
    - Identifica gargalos
    - Mede eficácia de campanhas
@@ -257,18 +278,21 @@ WHERE has_abandoned_draft = true
 ## 🚀 Próximos Passos
 
 1. **Executar migration:**
+
    ```bash
    # Adicionar ao script de migrate ou executar manualmente
    psql $DATABASE_URL -f migrations/02_marketing_analytics.sql
    ```
 
 2. **Atualizar frontend:**
+
    - Criar `session_id` no primeiro load
    - Criar `lead` na primeira visita
    - Atualizar `conversion_status` conforme progresso
    - Capturar email (formulário opcional)
 
 3. **Criar API routes:**
+
    - `POST /api/leads` - Criar/atualizar lead
    - `POST /api/events` - Registrar eventos
    - `GET /api/leads/:session_id` - Buscar lead por sessão

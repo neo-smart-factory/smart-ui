@@ -1,8 +1,8 @@
 /**
  * NΞØ Smart Factory — Types & Interfaces para comunicação com CLI
- * 
+ *
  * Este arquivo define as interfaces de comunicação entre o Smart UI e o Smart CLI.
- * 
+ *
  * @see docs/adr/0001-smart-ui-backend-boundary.md para limites arquiteturais
  */
 
@@ -10,19 +10,19 @@
  * Tipos de rede suportadas
  */
 export const SUPPORTED_NETWORKS = {
-  BASE: 'base',
-  POLYGON: 'polygon',
-  ETHEREUM: 'ethereum',
+  BASE: "base",
+  POLYGON: "polygon",
+  ETHEREUM: "ethereum",
 };
 
 /**
  * Status de uma transação
  */
 export const TRANSACTION_STATUS = {
-  PENDING: 'pending',
-  CONFIRMED: 'confirmed',
-  FAILED: 'failed',
-  REJECTED: 'rejected',
+  PENDING: "pending",
+  CONFIRMED: "confirmed",
+  FAILED: "failed",
+  REJECTED: "rejected",
 };
 
 /**
@@ -42,8 +42,8 @@ export class TokenConfig {
     tokenSymbol,
     tokenSupply,
     network,
-    description = '',
-    missionNarrative = '',
+    description = "",
+    missionNarrative = "",
   }) {
     this.tokenName = tokenName;
     this.tokenSymbol = tokenSymbol;
@@ -59,16 +59,16 @@ export class TokenConfig {
    */
   validate() {
     if (!this.tokenName || this.tokenName.length < 2) {
-      return 'Token name must be at least 2 characters';
+      return "Token name must be at least 2 characters";
     }
     if (!this.tokenSymbol || this.tokenSymbol.length < 2) {
-      return 'Token symbol must be at least 2 characters';
+      return "Token symbol must be at least 2 characters";
     }
     if (!this.tokenSupply || Number(this.tokenSupply) <= 0) {
-      return 'Token supply must be positive';
+      return "Token supply must be positive";
     }
     if (!Object.values(SUPPORTED_NETWORKS).includes(this.network)) {
-      return 'Unsupported network';
+      return "Unsupported network";
     }
     return null;
   }
@@ -210,7 +210,7 @@ export class DeployResponse {
 
 /**
  * Interface para comunicação com Smart CLI
- * 
+ *
  * Esta interface será implementada quando o CLI estiver pronto.
  * Por enquanto, é apenas uma definição de contrato.
  */
@@ -218,7 +218,7 @@ export class CLIClient {
   /**
    * @param {string} cliEndpoint - URL base do CLI (ex: /api/cli)
    */
-  constructor(cliEndpoint = '/api/cli') {
+  constructor(cliEndpoint = "/api/cli") {
     this.endpoint = cliEndpoint;
   }
 
@@ -230,8 +230,8 @@ export class CLIClient {
   async deployToken(request) {
     // TODO: Implementar quando CLI estiver pronto
     // Por enquanto, retorna erro indicando que não está implementado
-    console.log('Deploy request:', request); // Log for debugging
-    return DeployResponse.error('CLI integration not yet implemented');
+    console.log("Deploy request:", request); // Log for debugging
+    return DeployResponse.error("CLI integration not yet implemented");
   }
 
   /**
@@ -242,8 +242,8 @@ export class CLIClient {
    */
   async getTransactionStatus(txHash, network) {
     // TODO: Implementar quando CLI estiver pronto
-    console.log('Transaction status check:', txHash, network); // Log for debugging
-    throw new Error('CLI integration not yet implemented');
+    console.log("Transaction status check:", txHash, network); // Log for debugging
+    throw new Error("CLI integration not yet implemented");
   }
 }
 

@@ -44,10 +44,12 @@ A experiência do projeto na construção de infraestruturas críticas orienta u
 Nesse contexto, o projeto observa com atenção iniciativas como os **Snaps do MetaMask**, que são extensões desenvolvidas por terceiros e instaláveis diretamente nas carteiras, permitindo a habilitação de novas funcionalidades e comportamentos.
 
 **Reconhecimento:**
+
 - Representam avanço relevante em termos de extensibilidade
 - Promovem inovação no ecossistema de wallets
 
 **Preocupações Arquiteturais:**
+
 - Introduzem novos vetores de risco
 - Transferem parte da superfície de segurança para código mantido por desenvolvedores independentes
 - Diferentes níveis de maturidade, auditoria e governança
@@ -65,6 +67,7 @@ De forma complementar, o projeto adota uma postura **deliberadamente cautelosa**
 **Justificativa:**
 
 A introdução prematura desse tipo de solução tende a:
+
 - Ampliar a complexidade operacional
 - Atrair agentes oportunistas interessados em explorar fragilidades técnicas
 - Criar lacunas de responsabilidade
@@ -74,6 +77,7 @@ A introdução prematura desse tipo de solução tende a:
 A decisão de **não incorporar**, neste estágio, tais mecanismos de forma direta **não decorre de limitação técnica**, mas de uma **escolha consciente de arquitetura**:
 
 #### Prioridades:
+
 1. **Controle explícito**
 2. **Rastreabilidade**
 3. **Simplicidade verificável**
@@ -103,6 +107,7 @@ Essa postura reforça o compromisso da NΞØ Smart Factory com:
 - ✓ **Construção de infraestrutura preparada para escalar com responsabilidade**
 
 **Sem sacrificar:**
+
 - Controle arquitetural
 - Clareza operacional
 - Confiança de usuários, parceiros e stakeholders
@@ -130,6 +135,7 @@ No entanto, em um primeiro momento, a implementação imediata de processos comp
 
 **Estratégia inicial:**
 Priorizar o lançamento técnico da infraestrutura, mantendo o foco em:
+
 - Solidez arquitetural
 - Segurança do sistema
 - Validação do modelo operacional
@@ -157,6 +163,7 @@ Diante desse contexto, a decisão foi revista. O projeto passou a considerar a a
 - ✓ Preocupações regulatórias
 
 São integradas de forma:
+
 - Proporcional
 - Progressiva
 - Tecnicamente coerente com a natureza da infraestrutura proposta
@@ -166,10 +173,12 @@ São integradas de forma:
 **Importante ressaltar:**
 
 Esta decisão **não decorre de**:
+
 - ❌ Imposição externa
 - ❌ Obrigação formal imediata
 
 Mas de uma **escolha estratégica consciente**, alinhada à:
+
 - Maturidade do projeto
 - Entendimento de que segurança jurídica e técnica não são obstáculos à inovação
 - São fundamentos para sua sustentabilidade no médio e longo prazo
@@ -183,6 +192,7 @@ Esse posicionamento reforça o compromisso do projeto com:
 - ✓ **Construção de infraestrutura preparada para escalar em ambientes regulatórios diversos**
 
 **Sem comprometer:**
+
 - Eficiência
 - Autonomia técnica
 - Proposta de valor central da NΞØ Smart Factory
@@ -200,6 +210,7 @@ Existe uma organização técnica **ativa e pública**:
 ### Composição
 
 Profissionais com histórico relevante nas áreas:
+
 - ⚖️ **Jurídica**
 - 💻 **Engenharia de Software**
 

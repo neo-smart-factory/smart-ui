@@ -109,49 +109,50 @@ Report de saúde do protocolo
 ### Visão Geral
 
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                          ARQUITETURA DO SISTEMA                             │
+│ ARQUITETURA DO SISTEMA │
 └─────────────────────────────────────────────────────────────────────────────┘
 
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ FRONTEND                                                                  ┃
+┃ FRONTEND ┃
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
 ┃ · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ┃
-┃ · ·                                                                 · · · ┃
-┃ · ·             Dashboard NΞØ Smart UI                              · · · ┃
-┃ · ·             (React 18 + Vite 7.3.1)                             · · · ┃
-┃ · ·                                                                 · · · ┃
+┃ · · · · · ┃
+┃ · · Dashboard NΞØ Smart UI · · · ┃
+┃ · · (React 18 + Vite 7.3.1) · · · ┃
+┃ · · · · · ┃
 ┃ · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-                               │
-                               ▼
+│
+▼
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ API LAYER                                                                 ┃
+┃ API LAYER ┃
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
 ┃ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ┃
-┃ ░ ░                                                                 ░ ░ ░ ┃
-┃ ░ ░       Vercel Serverless Functions (/api/*)                      ░ ░ ░ ┃
-┃ ░ ░                                                                 ░ ░ ░ ┃
-┃ ░ ░  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ░ ░ ░ ┃
-┃ ░ ░  │  /api/deploys   │  │  /api/drafts    │  │ /api/ops-status │  ░ ░ ░ ┃
-┃ ░ ░  └────────┬────────┘  └────────┬────────┘  └────────┬────────┘  ░ ░ ░ ┃
-┃ ░ ░           │                    │                    │           ░ ░ ░ ┃
-┃ ░ ░           └────────────────────┴────────────────────┘           ░ ░ ░ ┃
-┃ ░ ░                                │                                ░ ░ ░ ┃
+┃ ░ ░ ░ ░ ░ ┃
+┃ ░ ░ Vercel Serverless Functions (/api/\*) ░ ░ ░ ┃
+┃ ░ ░ ░ ░ ░ ┃
+┃ ░ ░ ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐ ░ ░ ░ ┃
+┃ ░ ░ │ /api/deploys │ │ /api/drafts │ │ /api/ops-status │ ░ ░ ░ ┃
+┃ ░ ░ └────────┬────────┘ └────────┬────────┘ └────────┬────────┘ ░ ░ ░ ┃
+┃ ░ ░ │ │ │ ░ ░ ░ ┃
+┃ ░ ░ └────────────────────┴────────────────────┘ ░ ░ ░ ┃
+┃ ░ ░ │ ░ ░ ░ ┃
 ┃ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-                                  │
-                                  ▼
+│
+▼
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ DATABASE                                                                  ┃
+┃ DATABASE ┃
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
 ┃ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ┃
-┃ ▒ ▒                                                                 ▒ ▒ ▒ ┃
-┃ ▒ ▒                    Neon Database                                ▒ ▒ ▒ ┃
-┃ ▒ ▒                    (PostgreSQL)                                 ▒ ▒ ▒ ┃
-┃ ▒ ▒                                                                 ▒ ▒ ▒ ┃
+┃ ▒ ▒ ▒ ▒ ▒ ┃
+┃ ▒ ▒ Neon Database ▒ ▒ ▒ ┃
+┃ ▒ ▒ (PostgreSQL) ▒ ▒ ▒ ┃
+┃ ▒ ▒ ▒ ▒ ▒ ┃
 ┃ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-```
+
+````
 
 ### Dashboard (Raiz `/`)
 
@@ -261,13 +262,15 @@ Report de saúde do protocolo
 
 **Build Process:**
 
-```
+````
+
 1. Vercel clona repositório
 2. Executa npm install (raiz)
 3. Executa npm run build (raiz)
 4. Vite build gera /dist
 5. Deploy de /dist + /api como Serverless Functions
-```
+
+````
 
 **📖 Guia Completo:** Veja [docs/DEPLOY_DASHBOARD.md](./DEPLOY_DASHBOARD.md)
 
@@ -326,9 +329,10 @@ Report de saúde do protocolo
    ```bash
    # Verificar se comando existe e funciona
    make health
-   ```
+````
 
 2. **Documentar Secret Necessário**
+
    - Adicionar ao `README.md` ou `docs/DEPLOY_DASHBOARD.md`
    - Instruções claras de como criar PAT do GitHub
 
@@ -342,10 +346,12 @@ Report de saúde do protocolo
 #### Médio Prazo
 
 1. **Monitoramento de Deploys**
+
    - Adicionar notificações de sucesso/falha de deploy
    - Integração com Slack/Discord (opcional)
 
 2. **Testes Automatizados**
+
    - Adicionar testes E2E para workflows
    - Validar que API routes funcionam após deploy
 
@@ -357,14 +363,14 @@ Report de saúde do protocolo
 
 ### 📈 Métricas de Saúde
 
-| Métrica | Status | Nota |
-|---------|--------|------|
-| **Workflows Funcionais** | ✅ | Docs Guard OK, Protocol Health requer secret |
-| **Deploy Dashboard** | ✅ | Funcional com API routes |
-| **Tratamento de Erro** | ✅ | Robusto e silencioso |
-| **Documentação** | ✅ | Bem documentado |
-| **Database Integration** | ✅ | Neon configurado, migrations funcionais |
-| **API Routes** | ✅ | Funcionam em produção e `vercel dev` |
+| Métrica                  | Status | Nota                                         |
+| ------------------------ | ------ | -------------------------------------------- |
+| **Workflows Funcionais** | ✅     | Docs Guard OK, Protocol Health requer secret |
+| **Deploy Dashboard**     | ✅     | Funcional com API routes                     |
+| **Tratamento de Erro**   | ✅     | Robusto e silencioso                         |
+| **Documentação**         | ✅     | Bem documentado                              |
+| **Database Integration** | ✅     | Neon configurado, migrations funcionais      |
+| **API Routes**           | ✅     | Funcionam em produção e `vercel dev`         |
 
 ---
 
@@ -391,5 +397,6 @@ A arquitetura atual é **sólida e bem estruturada** para um projeto em fase de 
 
 **Última atualização:** Janeiro 2026 (pós-migração multi-repos)  
 **Repositórios Relacionados:**
+
 - **Landing:** `neo-smart-factory/smart-ui-landing`
 - **Mobile:** `neo-smart-factory/smart-ui-mobile`

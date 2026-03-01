@@ -18,13 +18,14 @@ O workflow **Docs Guard** garante que todas as alterações de código sejam aco
 1. **Análise de Arquivos**: O workflow analisa todos os arquivos modificados no PR
 2. **Categorização**: Separa os arquivos em duas categorias:
    - Arquivos de código/configuração
-   - Arquivos de documentação (*.md e docs/*)
+   - Arquivos de documentação (_.md e docs/_)
 3. **Verificação**: Se houver mudanças no código sem mudanças na documentação, o workflow falha
 4. **Sugestões Inteligentes**: Fornece sugestões específicas sobre quais arquivos de documentação devem ser atualizados
 
 ### Logs Detalhados
 
 O Docs Guard agora fornece logs detalhados incluindo:
+
 - Lista completa de arquivos alterados categorizados
 - Contagem de arquivos de código vs. documentação
 - Sugestões específicas baseadas nos tipos de arquivos alterados
@@ -45,6 +46,7 @@ O workflow de **Health Check** verifica a integridade do ecossistema NΞØ Smart
 ### Como Funciona
 
 O workflow executa automaticamente em:
+
 - Pushes para as branches `main` ou `master`
 - Pull Requests para as branches `main` ou `master`
 
@@ -57,6 +59,7 @@ O workflow executa automaticamente em:
 ### Logs Detalhados
 
 O Health Check agora fornece logs formatados incluindo:
+
 - Status de cada componente do ecossistema
 - Paths dos componentes vinculados localmente
 - Indicação clara de componentes opcionais vs. críticos
@@ -68,13 +71,7 @@ O workflow funciona sem configuração adicional, mas para habilitar a verifica�
 
 ### 1. Gerar o Personal Access Token (PAT) (Opcional)
 
-Este token permite que o GitHub Actions do `smart-ui` "enxergue" o repositório `neo-smart-factory` para verificações completas do ecossistema. **Se não configurado, o workflow ainda funcionará, mas sem acesso ao repositório neo-smart-factory.**
-2. Clique em **Generate new token (classic)**.
-3. **Note**: Nomeie como `NEO_ECOSYSTEM_ACTION_TOKEN`.
-4. **Expiration**: Escolha uma data de expiração ou "No expiration" (conforme sua política de segurança).
-5. **Scopes**: Selecione apenas o escopo **`repo`** (Full control of private repositories).
-6. Clique em **Generate token**.
-7. **IMPORTANTE**: Copie o token gerado agora. Você não conseguirá vê-lo novamente.
+Este token permite que o GitHub Actions do `smart-ui` "enxergue" o repositório `neo-smart-factory` para verificações completas do ecossistema. **Se não configurado, o workflow ainda funcionará, mas sem acesso ao repositório neo-smart-factory.** 2. Clique em **Generate new token (classic)**. 3. **Note**: Nomeie como `NEO_ECOSYSTEM_ACTION_TOKEN`. 4. **Expiration**: Escolha uma data de expiração ou "No expiration" (conforme sua política de segurança). 5. **Scopes**: Selecione apenas o escopo **`repo`** (Full control of private repositories). 6. Clique em **Generate token**. 7. **IMPORTANTE**: Copie o token gerado agora. Você não conseguirá vê-lo novamente.
 
 ## 2. Configurar o Secret no Repositório `smart-ui`
 
@@ -91,6 +88,7 @@ Agora, adicione esse token como uma variável segura no repositório da interfac
 ## 3. Verificação
 
 Após a configuração (ou sem ela):
+
 - O próximo **Push** ou **Pull Request** disparará automaticamente o workflow `.github/workflows/protocol-health.yml`.
 - Você poderá acompanhar o status na aba **Actions** do repositório.
 - **Nota**: Se o token `NEO_ECOSYSTEM_TOKEN` não estiver configurado, o checkout do repositório `neo-smart-factory` será ignorado, mas o workflow continuará e será bem-sucedido.
@@ -98,6 +96,7 @@ Após a configuração (ou sem ela):
 ---
 
 ### Diagnóstico Local
+
 Para testar a saúde do ecossistema na sua máquina local antes de enviar para o GitHub, utilize:
 
 ```bash

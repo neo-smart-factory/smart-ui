@@ -61,6 +61,7 @@ ls -la | grep -E "package.json|README.md|vite.config|vercel.json|index.html"
 ```
 
 **❌ NÃO deve ter:**
+
 - `landing/` (subpasta)
 - `nuxt-app/` (subpasta)
 
@@ -71,11 +72,13 @@ cat package.json
 ```
 
 **✅ Deve ter:**
+
 - Campo `name` (ex: `"neo-smart-factory-landing"`)
 - Scripts: `dev`, `build`, `preview`
 - **NÃO** deve ter campo `workspaces`
 
 **Exemplo correto:**
+
 ```json
 {
   "name": "neo-smart-factory-landing",
@@ -96,10 +99,12 @@ cat vercel.json
 ```
 
 **✅ Deve ser:**
+
 - `{}` (vazio) - **IDEAL**
 - Ou configurações simples (sem `ignoreCommand`)
 
 **❌ NÃO deve ter:**
+
 - `ignoreCommand` (não é mais monorepo)
 - Referências a `landing/` ou `nuxt-app/`
 
@@ -110,9 +115,11 @@ ls -la .github/workflows/
 ```
 
 **✅ Deve ter:**
+
 - `docs-guard.yml` (mesmo padrão do Dashboard)
 
 **Verificar conteúdo:**
+
 ```bash
 grep -i "landing\|nuxt-app\|monorepo\|workspace" .github/workflows/*.yml
 ```
@@ -126,12 +133,14 @@ cat README.md | head -30
 ```
 
 **✅ Deve mencionar:**
+
 - Que é parte do ecossistema NEØ
 - Links para outros repos:
   - Dashboard: `smart-ui`
   - Mobile: `smart-ui-mobile`
 
 **❌ NÃO deve mencionar:**
+
 - Monorepo
 - Workspaces
 - Root Directory (no contexto de monorepo)
@@ -168,6 +177,7 @@ grep -r "workspace" . --exclude-dir=node_modules --exclude-dir=.git
 ### Problema 1: `package.json` ainda tem `workspaces`
 
 **Correção:**
+
 ```bash
 # Editar package.json e remover:
 # "workspaces": ["landing", "nuxt-app"]
@@ -176,6 +186,7 @@ grep -r "workspace" . --exclude-dir=node_modules --exclude-dir=.git
 ### Problema 2: `vercel.json` tem `ignoreCommand`
 
 **Correção:**
+
 ```bash
 # Substituir vercel.json por:
 echo '{}' > vercel.json
@@ -184,6 +195,7 @@ echo '{}' > vercel.json
 ### Problema 3: Falta `docs-guard.yml`
 
 **Correção:**
+
 ```bash
 # Copiar do Dashboard
 cp ../smart-ui/.github/workflows/docs-guard.yml .github/workflows/
@@ -193,6 +205,7 @@ cp ../smart-ui/.github/workflows/docs-guard.yml .github/workflows/
 
 **Correção:**
 Adicionar seção no README.md:
+
 ```markdown
 ## 📦 Repositórios Relacionados
 
@@ -243,6 +256,7 @@ Após validação e correções:
 Após validar e corrigir:
 
 1. **Commit das correções:**
+
    ```bash
    git add .
    git commit -m "chore: validação pós-migração - remove referências ao monorepo"
@@ -250,6 +264,7 @@ Após validar e corrigir:
    ```
 
 2. **Validar no Vercel:**
+
    - Verificar que Root Directory = `.` (raiz)
    - Verificar que build funciona
    - Verificar que deploy é bem-sucedido

@@ -39,16 +39,19 @@ Currently, the application lacks proper loading states for async operations, lea
 ## 🎯 Objectives
 
 1. **Add loading states to WalletConnect**
+
    - Spinner during connection attempt
    - Disable button while connecting
    - Show connection progress
 
 2. **Add loading states to TransactionStatus**
+
    - Show pending state with spinner
    - Progress indicators for transaction confirmation
    - Loading states for explorer links
 
 3. **Add loading states to API operations**
+
    - Loading indicators for form submissions
    - Skeleton loaders for data fetching
    - Progress bars for long operations
@@ -74,14 +77,15 @@ Currently, the application lacks proper loading states for async operations, lea
 ### Phase 1: Create Reusable Loading Components
 
 **File:** `src/components/LoadingSpinner.jsx`
+
 ```jsx
-export default function LoadingSpinner({ size = 'md', className = '' }) {
+export default function LoadingSpinner({ size = "md", className = "" }) {
   const sizeClasses = {
-    sm: 'w-4 h-4',
-    md: 'w-6 h-6',
-    lg: 'w-8 h-8'
+    sm: "w-4 h-4",
+    md: "w-6 h-6",
+    lg: "w-8 h-8",
   };
-  
+
   return (
     <div className={`animate-spin ${sizeClasses[size]} ${className}`}>
       <Loader2 className="w-full h-full text-neon-acid" />
@@ -91,19 +95,20 @@ export default function LoadingSpinner({ size = 'md', className = '' }) {
 ```
 
 **File:** `src/components/LoadingButton.jsx`
+
 ```jsx
-export default function LoadingButton({ 
-  loading, 
-  children, 
+export default function LoadingButton({
+  loading,
+  children,
   disabled,
-  ...props 
+  ...props
 }) {
   return (
     <button
       disabled={loading || disabled}
       className={cn(
-        'btn-primary',
-        loading && 'opacity-50 cursor-wait',
+        "btn-primary",
+        loading && "opacity-50 cursor-wait",
         className
       )}
       {...props}

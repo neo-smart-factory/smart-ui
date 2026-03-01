@@ -15,29 +15,29 @@
 ### Evidências
 
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ ▓▓▓ GIT SUBMODULE                                                           │
+│ ▓▓▓ GIT SUBMODULE │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ └─ Nao existe .gitmodules                                                   │
-│ └─ Nenhum submodule apontando para docs                                     │
+│ └─ Nao existe .gitmodules │
+│ └─ Nenhum submodule apontando para docs │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ ▓▓▓ REMOTE                                                                  │
+│ ▓▓▓ REMOTE │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ └─ origin → git.com:neo-smart-factory/smart-ui.git             │
+│ └─ origin → git.com:neo-smart-factory/smart-ui.git │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ ▓▓▓ WORKFLOWS                                                               │
+│ ▓▓▓ WORKFLOWS │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ └─ docs-guard.yml                                                           │
-│    └─ Valida so docs/* e *.md LOCAIS do smart-ui                            │
-│ └─ protocol-health.yml                                                      │
-│    └─ Faz checkout de neo-smart-factory (Core/Ops)                          │
-│    └─ NAO do repo docs                                                      │
+│ └─ docs-guard.yml │
+│ └─ Valida so docs/_ e _.md LOCAIS do smart-ui │
+│ └─ protocol-health.yml │
+│ └─ Faz checkout de neo-smart-factory (Core/Ops) │
+│ └─ NAO do repo docs │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ ▓▓▓ MAKEFILE                                                                │
+│ ▓▓▓ MAKEFILE │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ └─ DOCS_DIR = ../docs                                                       │
-│ └─ Usado em ops-sync para checar $(DOCS_DIR)/changelog.md                   │
-│ └─ Assume CLONE PARALELO em ../docs (dev local)                             │
-│ └─ Nao e dependencia de build/CI                                            │
+│ └─ DOCS_DIR = ../docs │
+│ └─ Usado em ops-sync para checar $(DOCS_DIR)/changelog.md │
+│ └─ Assume CLONE PARALELO em ../docs (dev local) │
+│ └─ Nao e dependencia de build/CI │
 └─────────────────────────────────────────────────────────────────────────────┘
 
 ### Referências ao repositório docs
@@ -72,36 +72,37 @@ Com base no conteúdo público do `neo-smart-factory/docs`:
 ## 4. Smart-ui segue esses padrões?
 
 ===============================================================================
-                        ANALISE DE CONFORMIDADE - v1.0
+ANALISE DE CONFORMIDADE - v1.0
 ===============================================================================
 
 [####] DOCUMENTACAO VERSIONADA COM CODIGO ................................. OK
-       docs-guard exige atualizacao de docs/* ou *.md em PRs
+docs-guard exige atualizacao de docs/_ ou _.md em PRs
 
 [####] ADRs ............................................................... OK
-       docs/adr/ com 0001-0004; formato e numeracao consistentes
+docs/adr/ com 0001-0004; formato e numeracao consistentes
 
 [####] LINKS PARA O REPO DOCS ............................................. OK
-       README, ORGANIZATION, REPOSITORY_VISIBILITY_POLICY referenciam docs
+README, ORGANIZATION, REPOSITORY_VISIBILITY_POLICY referenciam docs
 
 [####] AUTORIDADE EM DOCS ................................................. OK
-       ui-status declara Authority: docs; smart-ui como demo/intent layer
+ui-status declara Authority: docs; smart-ui como demo/intent layer
 
 [####] ESTRUTURA docs/ .................................................... OK
-       PROJECT_OVERVIEW, ADRs, GITHUB_ACTIONS_SETUP, DATABASE_SCHEMA, etc
-       Escopo especifico do dashboard; nao duplica estrutura do repo docs
+PROJECT_OVERVIEW, ADRs, GITHUB_ACTIONS_SETUP, DATABASE_SCHEMA, etc
+Escopo especifico do dashboard; nao duplica estrutura do repo docs
 
 [#---] CHANGELOG ......................................................... WARN
-       Makefile (ops-sync) espera ../docs/changelog.md
-       Uso opcional (dev local); nao bloqueia CI nem deploy
+Makefile (ops-sync) espera ../docs/changelog.md
+Uso opcional (dev local); nao bloqueia CI nem deploy
 
-[    ] CONTRIBUTING NA RAIZ .............................................. FAIL
-       Repo docs tem CONTRIBUTING.md; smart-ui nao
-       Existe "Como Contribuir" em docs/README.md e ORGANIZATION
+[ ] CONTRIBUTING NA RAIZ .............................................. FAIL
+Repo docs tem CONTRIBUTING.md; smart-ui nao
+Existe "Como Contribuir" em docs/README.md e ORGANIZATION
 
 ===============================================================================
 STATUS: 5/7 completos | 1 warning | 1 pendente
 ===============================================================================
+
 ---
 
 ## 5. Recomendações

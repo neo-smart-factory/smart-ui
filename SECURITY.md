@@ -19,15 +19,18 @@ Please report any security concerns directly to the Project Lead:
 **nettomello@hotmail.com** (with "SECURITY VULNERABILITY" in the subject line).
 
 ### What to include in your report:
+
 - A detailed description of the vulnerability.
 - Step-by-step instructions to reproduce the issue.
 - Potential impact and risk assessment.
 - (Optional) Suggested fix or mitigation.
 
 ### Our Commitment:
+
 - We will acknowledge receipt of your report within **48 hours**.
 - We will provide a timeline for the resolution.
 - We will notify you once the vulnerability has been patched.
 
 ---
+
 **NΞØ Smart Token Factory — Security & Integrity Core**

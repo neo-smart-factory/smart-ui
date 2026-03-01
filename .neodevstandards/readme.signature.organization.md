@@ -12,7 +12,7 @@ Este documento apresenta opções de assinatura padrão para uso nos READMEs dos
 
 <div align="center">
 
-**NΞØ SMART FACTORY** — *Transformando código em ativos líquidos.*
+**NΞØ SMART FACTORY** — _Transformando código em ativos líquidos._
 
 [Website](https://nsfactory.xyz) • [GitHub](https://github.com/neo-smart-factory) • [Twitter](https://x.com/neosmartfactory)
 
@@ -27,7 +27,7 @@ Este documento apresenta opções de assinatura padrão para uso nos READMEs dos
 
 <div align="center">
 
-**NΞØ SMART FACTORY** — *Transformando código em ativos líquidos.*
+**NΞØ SMART FACTORY** — _Transformando código em ativos líquidos._
 
 [Website](https://nsfactory.xyz) • [GitHub](https://github.com/neo-smart-factory) • [Twitter](https://x.com/neosmartfactory)
 
@@ -155,9 +155,9 @@ Este documento apresenta opções de assinatura padrão para uso nos READMEs dos
 **Ecosystem • Documentation • Community**
 
 | [Website](https://nsfactory.xyz) | [GitHub](https://github.com/neo-smart-factory) | [Twitter](https://x.com/neosmartfactory) | [Email](mailto:neosmart.factory@gmail.com) |
-|:---:|:---:|:---:|:---:|
+| :------------------------------: | :--------------------------------------------: | :--------------------------------------: | :----------------------------------------: |
 
-*Transformando código em ativos líquidos.*
+_Transformando código em ativos líquidos._
 
 </div>
 
@@ -175,9 +175,9 @@ Este documento apresenta opções de assinatura padrão para uso nos READMEs dos
 **Ecosystem • Documentation • Community**
 
 | [Website](https://nsfactory.xyz) | [GitHub](https://github.com/neo-smart-factory) | [Twitter](https://x.com/neosmartfactory) | [Email](mailto:neosmart.factory@gmail.com) |
-|:---:|:---:|:---:|:---:|
+| :------------------------------: | :--------------------------------------------: | :--------------------------------------: | :----------------------------------------: |
 
-*Transformando código em ativos líquidos.*
+_Transformando código em ativos líquidos._
 
 </div>
 ```
@@ -234,7 +234,7 @@ Este documento apresenta opções de assinatura padrão para uso nos READMEs dos
 
 **NΞØ SMART FACTORY** | [Website](https://nsfactory.xyz) • [GitHub](https://github.com/neo-smart-factory) • [Twitter](https://x.com/neosmartfactory) • [Email](mailto:neosmart.factory@gmail.com)
 
-*Transformando código em ativos líquidos.*
+_Transformando código em ativos líquidos._
 
 </div>
 
@@ -249,7 +249,7 @@ Este documento apresenta opções de assinatura padrão para uso nos READMEs dos
 
 **NΞØ SMART FACTORY** | [Website](https://nsfactory.xyz) • [GitHub](https://github.com/neo-smart-factory) • [Twitter](https://x.com/neosmartfactory) • [Email](mailto:neosmart.factory@gmail.com)
 
-*Transformando código em ativos líquidos.*
+_Transformando código em ativos líquidos._
 
 </div>
 ```
@@ -259,15 +259,19 @@ Este documento apresenta opções de assinatura padrão para uso nos READMEs dos
 ## Recomendações de Uso
 
 ### Para READMEs de Repositórios Técnicos
+
 - **Opção 1** ou **Opção 4**: Limpa e profissional
 
 ### Para Landing Pages / Marketing
+
 - **Opção 2** ou **Opção 5**: Mais visual, destaca badges
 
 ### Para Documentação
+
 - **Opção 6**: Compacta, não ocupa muito espaço
 
 ### Para Repositórios Principais
+
 - **Opção 3**: Mantém estilo similar ao padrão pessoal, mas adaptado
 
 ---

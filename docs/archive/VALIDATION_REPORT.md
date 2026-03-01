@@ -10,11 +10,11 @@
 
 ## ✅ Resumo Executivo
 
-| Repositório | Status | Passou | Avisos | Falhas |
-|-------------|--------|--------|--------|--------|
-| **smart-ui** (Dashboard) | ✅ OK | 16 | 1 | 0 |
-| **smart-ui-landing** | ⚠️ Avisos | 13 | 3 | 0 |
-| **smart-ui-mobile** | ❌ Falhas | 12 | 1 | 2 |
+| Repositório              | Status    | Passou | Avisos | Falhas |
+| ------------------------ | --------- | ------ | ------ | ------ |
+| **smart-ui** (Dashboard) | ✅ OK     | 16     | 1      | 0      |
+| **smart-ui-landing**     | ⚠️ Avisos | 13     | 3      | 0      |
+| **smart-ui-mobile**      | ❌ Falhas | 12     | 1      | 2      |
 
 ---
 
@@ -23,6 +23,7 @@
 ### ✅ Status: OK (com avisos menores)
 
 **Pontos Fortes:**
+
 - ✅ Estrutura completa (todos os arquivos na raiz)
 - ✅ `package.json` sem workspaces
 - ✅ `vercel.json` simples (sem `ignoreCommand`)
@@ -30,6 +31,7 @@
 - ✅ README atualizado
 
 **Avisos:**
+
 - ⚠️ **102 referências obsoletas** encontradas
   - **Causa:** Documentos de migração (`MIGRATION_TO_MULTI_REPOS.md`, `VALIDATE_NEW_REPOS.md`, etc.)
   - **Ação:** ✅ **Aceitável** - são documentos históricos que explicam a migração
@@ -43,6 +45,7 @@
 ### ⚠️ Status: OK (mas precisa correções)
 
 **Pontos Fortes:**
+
 - ✅ Estrutura completa (todos os arquivos na raiz)
 - ✅ `package.json` sem workspaces
 - ✅ `vercel.json` simples (sem `ignoreCommand`)
@@ -51,10 +54,12 @@
 **Problemas Encontrados:**
 
 1. **❌ Falta `.github/workflows/`**
+
    - **Impacto:** Sem validação automática de documentação
    - **Correção:** Copiar `docs-guard.yml` do Dashboard
 
 2. **⚠️ README não menciona outros repos**
+
    - **Impacto:** Falta contexto do ecossistema
    - **Correção:** Adicionar seção "Repositórios Relacionados"
 
@@ -63,6 +68,7 @@
    - **Correção:** Remover referência ou atualizar contexto
 
 **Ações Necessárias:**
+
 - [ ] Criar `.github/workflows/docs-guard.yml`
 - [ ] Atualizar `README.md` com links para outros repos
 - [ ] Remover/atualizar referência a `landing/` no README
@@ -74,6 +80,7 @@
 ### ❌ Status: Falhas críticas
 
 **Pontos Fortes:**
+
 - ✅ Estrutura completa (todos os arquivos na raiz)
 - ✅ `package.json` sem workspaces
 - ✅ `vercel.json` simples (sem `ignoreCommand`)
@@ -82,6 +89,7 @@
 **Problemas Encontrados:**
 
 1. **❌ Falta `README.md`**
+
    - **Impacto:** Sem documentação do projeto
    - **Correção:** Criar `README.md` completo
 
@@ -90,6 +98,7 @@
    - **Correção:** Copiar `docs-guard.yml` do Dashboard
 
 **Ações Necessárias:**
+
 - [ ] Criar `README.md` completo
 - [ ] Criar `.github/workflows/docs-guard.yml`
 

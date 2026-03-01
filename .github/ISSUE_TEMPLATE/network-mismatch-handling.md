@@ -22,12 +22,14 @@ Currently, the application doesn't detect or handle network mismatches. Users ca
 ### Impact
 
 **User Experience:**
+
 - Failed transactions without clear reason
 - Confusion about which network to use
 - Lost gas fees on wrong network
 - Poor error messages
 
 **Technical:**
+
 - Transactions sent to wrong network
 - Contract addresses may not exist on wrong network
 - RPC calls may fail or return wrong data
@@ -37,15 +39,18 @@ Currently, the application doesn't detect or handle network mismatches. Users ca
 ## 🎯 Objectives
 
 1. **Detect current network**
+
    - Get chainId from connected wallet
    - Compare with required network
 
 2. **Show network mismatch warning**
+
    - Display clear warning when network is wrong
    - Show current network vs required network
    - Provide switch network button
 
 3. **Implement network switching**
+
    - Prompt user to switch to correct network
    - Handle network switch via wallet
    - Validate network after switch
@@ -70,33 +75,34 @@ Currently, the application doesn't detect or handle network mismatches. Users ca
 ### Phase 1: Network Detection Hook
 
 **File:** `src/hooks/useNetwork.js`
+
 ```jsx
 export function useNetwork() {
   const { primaryWallet } = useDynamicContext();
   const [currentChainId, setCurrentChainId] = useState(null);
   const [isCorrectNetwork, setIsCorrectNetwork] = useState(false);
-  
+
   const SUPPORTED_NETWORKS = {
     base: 8453,
     polygon: 137,
-    ethereum: 1
+    ethereum: 1,
   };
-  
+
   const requiredNetwork = SUPPORTED_NETWORKS.base; // Default to Base
-  
+
   useEffect(() => {
     // Get current chainId from wallet
     // Compare with required network
     // Update state
   }, [primaryWallet]);
-  
+
   return {
     currentChainId,
     requiredNetwork,
     isCorrectNetwork,
     switchNetwork: async () => {
       // Implement network switching
-    }
+    },
   };
 }
 ```
@@ -104,25 +110,26 @@ export function useNetwork() {
 ### Phase 2: Network Mismatch Component
 
 **File:** `src/components/NetworkMismatchWarning.jsx`
+
 ```jsx
-export default function NetworkMismatchWarning({ 
-  currentChainId, 
+export default function NetworkMismatchWarning({
+  currentChainId,
   requiredChainId,
-  onSwitchNetwork 
+  onSwitchNetwork,
 }) {
   const networkNames = {
-    8453: 'Base',
-    137: 'Polygon',
-    1: 'Ethereum'
+    8453: "Base",
+    137: "Polygon",
+    1: "Ethereum",
   };
-  
+
   return (
     <div className="network-mismatch-warning glass-card border-orange-500/20 p-4">
       <AlertTriangle className="w-5 h-5 text-orange-400" />
       <h3>Rede Incorreta</h3>
       <p>
-        Você está conectado à {networkNames[currentChainId]}, 
-        mas precisa estar em {networkNames[requiredChainId]}.
+        Você está conectado à {networkNames[currentChainId]}, mas precisa estar
+        em {networkNames[requiredChainId]}.
       </p>
       <button onClick={onSwitchNetwork}>
         Trocar para {networkNames[requiredChainId]}

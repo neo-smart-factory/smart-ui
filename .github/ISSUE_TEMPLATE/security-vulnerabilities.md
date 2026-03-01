@@ -65,24 +65,28 @@ After completing the wallet connection audit (PR #11), we identified **8 HIGH se
 ## 🔧 Tasks for Copilot
 
 ### Phase 1: Investigation
+
 - [ ] Check all available @dynamic-labs versions for one without vulnerabilities
 - [ ] Test older versions (4.50.x, 4.55.x) to see if they're clean
 - [ ] Verify if latest version (4.57.2) has fixes
 - [ ] Check Dynamic Labs GitHub for security patches/announcements
 
 ### Phase 2: Testing
+
 - [ ] Test `npm audit fix --force` in isolated branch
 - [ ] Verify wallet connection still works after fix
 - [ ] Run full test suite to ensure no breaking changes
 - [ ] Check bundle size and performance impact
 
 ### Phase 3: Resolution
+
 - [ ] Implement fix (version update or workaround)
 - [ ] Update package.json with secure versions
 - [ ] Update SECURITY_SUMMARY.md with resolution
 - [ ] Create PR with fix and test results
 
 ### Phase 4: Documentation
+
 - [ ] Document final solution
 - [ ] Update audit reports if needed
 - [ ] Add monitoring strategy for future vulnerabilities

@@ -80,20 +80,22 @@ docs/
 
 ```markdown
 ## 🗺️ Mapa de Navegação
+```
+
+Novo Contribuidor
+↓
+PROJECT_OVERVIEW.md → ORGANIZATION.md → FRONTEND_MAP.md
+↓
+Desenvolvedor
+↓
+DEPLOY_DASHBOARD.md → API_MARKETING_ROUTES.md → DATABASE_SCHEMA.sql
+↓
+Decisor Técnico
+↓
+ARCHITECTURAL_ADDENDUMS.md → adr/ → NEO_STRATEGIC_PLAN_V1.md
 
 ```
-Novo Contribuidor
-    ↓
-PROJECT_OVERVIEW.md → ORGANIZATION.md → FRONTEND_MAP.md
-    ↓
-Desenvolvedor
-    ↓
-DEPLOY_DASHBOARD.md → API_MARKETING_ROUTES.md → DATABASE_SCHEMA.sql
-    ↓
-Decisor Técnico
-    ↓
-ARCHITECTURAL_ADDENDUMS.md → adr/ → NEO_STRATEGIC_PLAN_V1.md
-```
+
 ```
 
 **Prioridade:** ⭐⭐ (Média - Melhora UX)
@@ -108,7 +110,7 @@ ARCHITECTURAL_ADDENDUMS.md → adr/ → NEO_STRATEGIC_PLAN_V1.md
 - **Status:** Verificar se roadmap ainda é relevante
 - **Ação:** Revisar e atualizar ou mover para `archive/`
 
-#### ECOSYSTEM_GRAPH_*.md
+#### ECOSYSTEM*GRAPH*\*.md
 
 - **Status:** Verificar se ainda são usados
 - **Ação:** Se não usados, considerar arquivamento
@@ -169,24 +171,21 @@ done
 
 ## 📊 Resumo de Prioridades
 
-| Prioridade | Ação | Esforço | Impacto |
-|------------|------|---------|---------|
-| ⭐⭐⭐ | Adicionar headers padronizados | Médio | Alto |
-| ⭐⭐⭐ | Validar links quebrados | Baixo | Alto |
-| ⭐⭐ | Criar índice visual | Baixo | Médio |
-| ⭐⭐ | Revisar NEXT_STEPS.md | Baixo | Médio |
-| ⭐⭐ | Versionar documentos críticos | Baixo | Médio |
-| ⭐ | Reestruturação em subpastas | Alto | Médio |
-| ⭐ | Documentação automatizada | Alto | Baixo |
+| Prioridade | Ação                           | Esforço | Impacto |
+| ---------- | ------------------------------ | ------- | ------- |
+| ⭐⭐⭐     | Adicionar headers padronizados | Médio   | Alto    |
+| ⭐⭐⭐     | Validar links quebrados        | Baixo   | Alto    |
+| ⭐⭐       | Criar índice visual            | Baixo   | Médio   |
+| ⭐⭐       | Revisar NEXT_STEPS.md          | Baixo   | Médio   |
+| ⭐⭐       | Versionar documentos críticos  | Baixo   | Médio   |
+| ⭐         | Reestruturação em subpastas    | Alto    | Médio   |
+| ⭐         | Documentação automatizada      | Alto    | Baixo   |
 
 ---
 
 ## 🎯 Próximos Passos Recomendados
 
-1.**Imediato:** Aplicar headers padronizados em documentos principais
-2.**Curto prazo:** Validar e corrigir links quebrados
-3.**Médio prazo:** Revisar NEXT_STEPS.md e documentos de ecossistema
-4.**Longo prazo:** Considerar reestruturação em subpastas (se necessário)
+1.**Imediato:** Aplicar headers padronizados em documentos principais 2.**Curto prazo:** Validar e corrigir links quebrados 3.**Médio prazo:** Revisar NEXT_STEPS.md e documentos de ecossistema 4.**Longo prazo:** Considerar reestruturação em subpastas (se necessário)
 
 ---
 

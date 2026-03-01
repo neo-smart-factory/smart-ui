@@ -18,7 +18,7 @@
 Após o deploy no Vercel, o gráfico estará disponível em:
 
 ```
-https://nsfactory.xyz/ecosystem-graph.html 
+https://nsfactory.xyz/ecosystem-graph.html
 ```
 
 Ou, se você tiver um domínio customizado:
@@ -112,17 +112,20 @@ Ao acessar o gráfico, verifique:
 **Solução:**
 
 1. **Verificar se o arquivo está em `public/`** (obrigatório para Vite):
+
    ```bash
    ls -la public/ecosystem-graph.html
    # Deve existir: public/ecosystem-graph.html
    ```
 
 2. **Se estiver na raiz, mover para `public/`:**
+
    ```bash
    mv ecosystem-graph.html public/ecosystem-graph.html
    ```
 
 3. Verificar `.vercelignore` (não deve ignorar `public/`):
+
    ```bash
    cat .vercelignore
    # public/ NÃO deve estar listado
@@ -170,10 +173,11 @@ Ao acessar o gráfico, verifique:
 O arquivo está configurado para **não ser indexado**:
 
 ```html
-<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
 ```
 
 Isso significa que:
+
 - ✅ Não aparecerá em buscas do Google
 - ✅ Pode ser acessado diretamente via URL
 - ✅ Ideal para visualização interna da arquitetura

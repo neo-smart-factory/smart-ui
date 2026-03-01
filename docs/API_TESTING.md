@@ -12,11 +12,13 @@
 ### Pré-requisitos
 
 1. **Vercel CLI instalado:**
+
    ```bash
    npm i -g vercel
    ```
 
 2. **Servidor rodando:**
+
    ```bash
    make dev-vercel
    # ou
@@ -44,6 +46,7 @@ Execute o script de teste que testa todas as APIs:
 ```
 
 **O script testa:**
+
 - ✅ Operations Status
 - ✅ Deploys (GET e POST)
 - ✅ Drafts (GET e POST)
@@ -63,6 +66,7 @@ curl http://localhost:3000/api/ops-status
 ```
 
 **Resposta esperada:**
+
 ```json
 {
   "version": "0.5.3",
@@ -210,6 +214,7 @@ curl -X POST http://localhost:3000/api/tavily/validate-token-name \
 ```
 
 **Resposta esperada:**
+
 ```json
 {
   "valid": false,
@@ -231,6 +236,7 @@ curl -X POST http://localhost:3000/api/tavily/market-research \
 ```
 
 **Resposta esperada:**
+
 ```json
 {
   "trends": [...],
@@ -254,6 +260,7 @@ curl -X POST http://localhost:3000/api/tavily/generate-whitepaper-base \
 ```
 
 **Resposta esperada:**
+
 ```json
 {
   "introduction": "...",
@@ -277,6 +284,7 @@ curl -X POST http://localhost:3000/api/tavily/marketing-suggestions \
 ```
 
 **Resposta esperada:**
+
 ```json
 {
   "socialMedia": [...],
@@ -296,6 +304,7 @@ curl -X POST http://localhost:3000/api/tavily/marketing-suggestions \
 **Causa:** Usando `vite dev` em vez de `vercel dev`
 
 **Solução:**
+
 ```bash
 # Parar vite dev (Ctrl+C)
 make dev-vercel
@@ -306,7 +315,9 @@ make dev-vercel
 **Causa:** Variável de ambiente não configurada
 
 **Solução:**
+
 1. Verificar `.env` local:
+
    ```bash
    grep TAVILY_API_KEY .env
    ```
@@ -321,7 +332,9 @@ make dev-vercel
 **Causa:** `DATABASE_URL` inválida ou database inativo
 
 **Solução:**
+
 1. Verificar `.env`:
+
    ```bash
    grep DATABASE_URL .env
    ```
@@ -336,6 +349,7 @@ make dev-vercel
 ## 📊 Checklist de Testes
 
 ### APIs Básicas
+
 - [ ] `GET /api/ops-status` retorna status
 - [ ] `GET /api/deploys` retorna array
 - [ ] `POST /api/deploys` cria deploy
@@ -343,6 +357,7 @@ make dev-vercel
 - [ ] `POST /api/drafts` salva draft
 
 ### Marketing & Analytics
+
 - [ ] `GET /api/leads` busca lead
 - [ ] `POST /api/leads` cria lead
 - [ ] `GET /api/sessions` busca sessão
@@ -352,6 +367,7 @@ make dev-vercel
 - [ ] `GET /api/analytics` retorna analytics
 
 ### Tavily AI
+
 - [ ] `POST /api/tavily/validate-token-name` valida nome
 - [ ] `POST /api/tavily/market-research` pesquisa mercado
 - [ ] `POST /api/tavily/generate-whitepaper-base` gera whitepaper

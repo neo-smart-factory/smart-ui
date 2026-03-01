@@ -73,11 +73,13 @@ open -a TextEdit .env
 ```
 
 **Substitua a linha:**
+
 ```bash
 DATABASE_URL="postgresql://user:password@ep-cool-name-123456.us-east-2.aws.neon.tech/neodb?sslmode=require"
 ```
 
 **Por sua URL real:**
+
 ```bash
 DATABASE_URL="postgresql://seu-user:seu-password@ep-xxx-123456.us-east-2.aws.neon.tech/neondb?sslmode=require"
 ```
@@ -129,8 +131,8 @@ Você deve ver:
 2. Vá para **"SQL Editor"** ou **"Query"**
 3. Execute:
    ```sql
-   SELECT table_name 
-   FROM information_schema.tables 
+   SELECT table_name
+   FROM information_schema.tables
    WHERE table_schema = 'public';
    ```
 4. Deve mostrar:
@@ -195,6 +197,7 @@ make dev-vercel
 Acesse: `http://localhost:3000`
 
 **Testar API routes:**
+
 - `http://localhost:3000/api/deploys` → Deve retornar `[]` (array vazio)
 - `http://localhost:3000/api/ops-status` → Deve retornar status
 
@@ -214,6 +217,7 @@ Após deploy no Vercel:
 **Causa:** `.env` não existe ou não tem `DATABASE_URL`
 
 **Solução:**
+
 ```bash
 # Verificar se .env existe
 ls -la .env
@@ -231,6 +235,7 @@ cp .env.example .env
 **Causa:** URL do Neon incorreta ou projeto pausado
 
 **Solução:**
+
 1. Verificar se a URL está correta no Neon Console
 2. Verificar se o projeto Neon está ativo (não pausado)
 3. Verificar se `?sslmode=require` está no final da URL
@@ -240,6 +245,7 @@ cp .env.example .env
 **Causa:** Migrations não foram executadas
 
 **Solução:**
+
 ```bash
 # Executar migrations novamente
 make migratedb
@@ -250,6 +256,7 @@ make migratedb
 **Causa:** Credenciais incorretas ou usuário sem permissão
 
 **Solução:**
+
 1. Verificar se a `DATABASE_URL` está correta
 2. Gerar nova connection string no Neon Console
 3. Atualizar `.env` e Vercel com a nova URL

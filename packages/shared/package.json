@@ -1,8 +1,8 @@
 {
-    "name": "@neo-smart/shared",
-    "version": "0.5.3",
-    "description": "NΞØ Core Shared Logic and Assets",
-    "private": true,
-    "main": "index.js",
-    "types": "index.d.ts"
+  "name": "@neo-smart/shared",
+  "version": "0.5.3",
+  "description": "NΞØ Core Shared Logic and Assets",
+  "private": true,
+  "main": "index.js",
+  "types": "index.d.ts"
 }

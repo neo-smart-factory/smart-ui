@@ -5,17 +5,17 @@
 **Categoria:** Guia  
 **Audiência:** DevOps
 
-**Objetivo:** Visualizar **nodes** (repositórios da organização), **conexões entre eles e **não conectados**, em conformidade com a [REPOSITORY_VISIBILITY_POLICY](./REPOSITORY_VISIBILITY_POLICY.md).
+**Objetivo:** Visualizar **nodes** (repositórios da organização), **conexões entre eles e **não conectados\*\*, em conformidade com a [REPOSITORY_VISIBILITY_POLICY](./REPOSITORY_VISIBILITY_POLICY.md).
 
 ---
 
 ## 1. O que o grafo mostra
 
-| Elemento | Descrição |
-|----------|-----------|
-| **Nodes** | Repos (públicos + privados), componentes (smart-core, smart-cli, state, changelog), workflows (protocol-health, docs-guard, smart-mint, ops-sync). |
-| **Edges (conectados)** | Conexões rastreadas em profundidade: sync, referências, Makefile (CORE_DIR, CLI_DIR, OPS_DIR), CI checkout, contains, etc. |
-| **Não conectados** | Pares **sem** sync, link direto ou workflow entre si. |
+| Elemento               | Descrição                                                                                                                                          |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Nodes**              | Repos (públicos + privados), componentes (smart-core, smart-cli, state, changelog), workflows (protocol-health, docs-guard, smart-mint, ops-sync). |
+| **Edges (conectados)** | Conexões rastreadas em profundidade: sync, referências, Makefile (CORE_DIR, CLI_DIR, OPS_DIR), CI checkout, contains, etc.                         |
+| **Não conectados**     | Pares **sem** sync, link direto ou workflow entre si.                                                                                              |
 
 **Visão atual (pré-lançamento):** Inclui **todos** os repos (públicos e privados), componentes e workflows. Conexões mapeadas a partir de Makefile, workflows CI, sync script, ADRs e docs. Após lançamento, pode ser alterada para só públicos (conforme política de visibilidade).
 
@@ -23,11 +23,11 @@
 
 ## 2. Onde está hoje
 
-| Artefato | Local | Uso |
-|----------|--------|-----|
-| **Dados** | `public/ecosystem-graph-data.js` | Nodes (repos, componentes, workflows), edges, `notConnected`. Visão completa (pré-lançamento). |
-| **Grafo** | `public/ecosystem-graph.html` | D3.js, tipos (repo-public, repo-private, workflow, component), legenda. Servido em `/ecosystem-graph.html`. |
-| **Acesso** | [ECOSYSTEM_GRAPH_ACCESS](./ECOSYSTEM_GRAPH_ACCESS.md) | URLs produção/dev, verificação pós-deploy. |
+| Artefato   | Local                                                 | Uso                                                                                                         |
+| ---------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| **Dados**  | `public/ecosystem-graph-data.js`                      | Nodes (repos, componentes, workflows), edges, `notConnected`. Visão completa (pré-lançamento).              |
+| **Grafo**  | `public/ecosystem-graph.html`                         | D3.js, tipos (repo-public, repo-private, workflow, component), legenda. Servido em `/ecosystem-graph.html`. |
+| **Acesso** | [ECOSYSTEM_GRAPH_ACCESS](./ECOSYSTEM_GRAPH_ACCESS.md) | URLs produção/dev, verificação pós-deploy.                                                                  |
 
 O grafo vive no **smart-ui** e é servido com o dashboard (Vercel). **Pré-lançamento:** inclui privados; após lançamento, ver [AUDITORIA_VISIBILIDADE_ORGANIZACAO](./archive/AUDITORIA_VISIBILIDADE_ORGANIZACAO.md) para conformidade.
 
@@ -70,11 +70,11 @@ O grafo vive no **smart-ui** e é servido com o dashboard (Vercel). **Pré-lanç
 
 ## 4. Resumo
 
-| Onde | Grafo | Repos | Acesso |
-|------|--------|--------|--------|
-| **smart-ui** (atual) | Público | smart-ui, smart-ui-landing, smart-ui-mobile, docs | `/ecosystem-graph.html` (produção) |
-| **Ops** (ou repo privado) | Interno | Todos (incl. privados) | Local ou URL interna |
-| **Novo repo** | Público **ou** interno | Conforme deploy | Conforme escolha |
+| Onde                      | Grafo                  | Repos                                             | Acesso                             |
+| ------------------------- | ---------------------- | ------------------------------------------------- | ---------------------------------- |
+| **smart-ui** (atual)      | Público                | smart-ui, smart-ui-landing, smart-ui-mobile, docs | `/ecosystem-graph.html` (produção) |
+| **Ops** (ou repo privado) | Interno                | Todos (incl. privados)                            | Local ou URL interna               |
+| **Novo repo**             | Público **ou** interno | Conforme deploy                                   | Conforme escolha                   |
 
 **Manter no smart-ui:** grafo público (nodes, conexões, não conectados).  
 **Adicionar em ops ou novo repo:** grafo interno, **somente** se for necessário mostrar repos privados e **sem** expor em ambiente público.
@@ -99,6 +99,7 @@ Ao adicionar novos repos, workflows ou integrações, atualizar `ecosystem-graph
 ## 6. Como alterar dados
 
 1. **Público ou completo:** editar `public/ecosystem-graph-data.js`:
+
    - `nodes`: repos públicos.
    - `edges`: conexões (sync, references, etc.).
    - `notConnected`: pares sem conexão.

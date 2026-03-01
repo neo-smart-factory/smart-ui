@@ -8,13 +8,13 @@
 
 ## Quick Reference
 
-| Emergency | Command |
-|-----------|---------|
-| **Backup Database** | `make backup-db` |
+| Emergency            | Command                           |
+| -------------------- | --------------------------------- |
+| **Backup Database**  | `make backup-db`                  |
 | **Restore Database** | `make restore-db backup=file.sql` |
-| **Snapshot Config** | `make snapshot-config` |
-| **Rollback System** | `make rollback commit=hash` |
-| **Pre-Deploy Check** | `make pre-deploy-check` |
+| **Snapshot Config**  | `make snapshot-config`            |
+| **Rollback System**  | `make rollback commit=hash`       |
+| **Pre-Deploy Check** | `make pre-deploy-check`           |
 
 ---
 
