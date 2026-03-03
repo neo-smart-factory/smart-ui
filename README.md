@@ -220,3 +220,10 @@ Sim! Veja a seção "MUDANÇAS PERMITIDAS" no aviso arquitetural.
 **Build v0.5.5** — *Demonstrando a transformação de código em ativos.*  
 **Status:** Demo and Intent Layer — Simulation Mode
 **Official Domain:** [www.nsfactory.xyz](https://www.nsfactory.xyz)
+
+## Canonical Token Metadata Update
+
+FlowPay (NEOPAY) was registered as canonical token metadata in `config/ecosystem.json`.
+
+- `smart-core`: added `contracts.mainnet` (`FlowPay`, `NeoSmartFactoryRouter`) and `canonicalRegistry`.
+- `flowpay`: added `contracts.mainnet.FlowPay` and `tokenCanonical` (`symbol: NEOPAY`, Base chain `8453`, canonical contract address).
