@@ -1,8 +1,5 @@
 {
-  "buildCommand": "npm run build",
-  "installCommand": "npm install",
   "framework": "vite",
-  "env": {
-    "NODE_VERSION": "22"
-  }
+  "installCommand": "npm ci --include=dev",
+  "buildCommand": "npm run build"
 }

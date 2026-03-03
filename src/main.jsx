@@ -1,11 +1,12 @@
 import ReactDOM from 'react-dom/client';
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core';
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
+import { ZeroDevSmartWalletConnectors } from '@dynamic-labs/ethereum-aa';
 import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 import { createConfig, WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { http } from 'viem';
-import { mainnet } from 'viem/chains';
+import { base, mainnet, polygon } from 'viem/chains';
 
 import App from './App';
 import './index.css';
@@ -13,10 +14,12 @@ import './index.css';
 const dynamicEnvId = import.meta.env.VITE_DYNAMIC_ENVIRONMENT_ID;
 
 const config = createConfig({
-    chains: [mainnet],
+    chains: [mainnet, polygon, base],
     multiInjectedProviderDiscovery: false,
     transports: {
         [mainnet.id]: http(),
+        [polygon.id]: http(),
+        [base.id]: http(),
     },
 });
 
@@ -26,7 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <DynamicContextProvider
         settings={{
             environmentId: dynamicEnvId,
-            walletConnectors: [EthereumWalletConnectors],
+            walletConnectors: [EthereumWalletConnectors, ZeroDevSmartWalletConnectors],
         }}
     >
         <WagmiProvider config={config}>
