@@ -19,10 +19,10 @@ Este repositório é um **projeto ativo** para desenvolvimento de UI/UX e featur
 
 - **Estrutura e arquitetura:** Congeladas (arquitetura NEØ)
 - **Lógica de protocolo:** Não pode ser adicionada (autoridade está no core)
-- **Transações reais:** Não executa (opera em simulation mode)
-- **Backend como infraestrutura:** Não deve ser expandido como produção
+- **Transações reais:** Suportadas quando `phase2.web3` e `phase2.realTransactions` estão ativas e existe signer conectado
+- **Fallback operacional:** Se Web3/signer não estiver disponível, o fluxo entra em simulation mode
 
-Desenvolvimento permitido: UI/UX, features de interface, tracking/analytics, API routes para demo.
+Desenvolvimento permitido: UI/UX, features de interface, integração de wallet, tracking/analytics e API routes de suporte.
 ```
 
 ```
@@ -44,7 +44,7 @@ Desenvolvimento permitido: UI/UX, features de interface, tracking/analytics, API
  [✗] Modificar estrutura de pastas (arquitetura NEØ)
  [✗] Adicionar lógica de protocolo/autoridade
  [✗] Integrações diretas com smart-core
- [✗] Deploy real de contratos (apenas simulação)
+ [✗] Transferir autoridade de protocolo para este repositório
  [✗] Expandir backend como infraestrutura de produção
 ```
 
@@ -54,9 +54,9 @@ Desenvolvimento permitido: UI/UX, features de interface, tracking/analytics, API
 
 ## 🌐 Visão Geral
 
-A **NΞØ Smart Factory** é uma **interface de demonstração** para o ecossistema de criação de ativos da NEO. Desenvolvida como protótipo de uma fábrica de tokens multichain, ela **demonstra fluxos** para compilação e publicação de contratos inteligentes.
+A **NΞØ Smart Factory** é uma interface de gestão para criação de ativos no ecossistema NEO. A aplicação opera como camada de orquestração de UI com suporte multichain e integração Web3.
 
-**⚠️ Importante:** Esta interface opera em **simulation mode** e não executa transações reais na blockchain. É uma camada de demonstração e coleta de intenção do usuário.
+**Importante:** O runtime atual é **híbrido**. Quando wallet e signer estão disponíveis, executa fluxo on-chain; quando não estão, usa simulation mode como fallback seguro.
 
 ## 🚀 Estética e Design
 
@@ -83,8 +83,8 @@ A **NΞØ Smart Factory** é uma **interface de demonstração** para o ecossist
       + API routes (api/)
  └─ Estilo: Tailwind CSS + Design Tokens Customizados
  └─ Ícones: Lucide React
- └─ Web3: Ethers.js v6 (simulation mode)
- └─ Database: Neon PostgreSQL (demo/analytics)
+ └─ Web3: Dynamic.xyz + Wagmi + Ethers.js v6
+ └─ Database: Neon PostgreSQL (persistência operacional + analytics)
 ──────────────────────────────────────────────
 ```
 
@@ -92,16 +92,15 @@ A **NΞØ Smart Factory** é uma **interface de demonstração** para o ecossist
 
 ```
 ==============================================
-    STATUS DE IMPLEMENTAÇÃO - v0.5.4
+    STATUS DE IMPLEMENTAÇÃO - v0.5.6
 ==============================================
 
 [####] FABRICA MULTICHAIN ................................................. OK
-       Demonstra suporte para Base, Polygon e outras redes EVM
-       ⚠️ Operação em simulation mode (não executa transações reais)
+       Suporte ativo para Ethereum, Polygon e Base via Wagmi config
 
 [####] COMPILACAO DE CONTRATOS ............................................ OK
        Interface para configurar e compilar novos tokens sem código
-       ⚠️ Gera contratos simulados (mock addresses/hashes)
+       Fluxo real com signer + fallback para simulação quando indisponível
 
 [####] GERADOR DE ATIVOS .................................................. OK
        Criação automática de planos de marketing e rascunhos de whitepaper
@@ -147,7 +146,7 @@ make dev          # Apenas frontend (Vite puro)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Dashboard NΞØ Smart UI
  (React 18 + Vite 7.3.1)
- Simulation Mode (não executa transações reais)
+ Hybrid Mode (on-chain + simulation fallback)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
                     │
                     ▼
@@ -175,9 +174,9 @@ make dev          # Apenas frontend (Vite puro)
 ```
 **Nota sobre APIs e Database:**
 - As API routes (`/api/*`) são **funcionais** e conectam a um **database real** (Neon)
-- Elas servem para: persistir dados de demo, tracking de marketing, analytics
-- **Não** representam autoridade de protocolo ou execução real de transações
-- São componentes **transicionais** para demo e coleta de intenção do usuário
+- Elas servem para: persistência operacional, tracking de marketing, analytics e histórico de deploy
+- A autoridade do protocolo permanece fora deste repositório (smart-core / contratos)
+- Este backend não substitui camadas de custódia, policy e governança de produção
 
 ## 📜 Atribuição e Licença
 
@@ -192,7 +191,7 @@ Este projeto está licenciado sob a **Licença MIT**.
 ──────────────────────────────────────────────
  └─ Dashboard (este repo)
     └─ https://github.com/neo-smart-factory/smart-ui
-    └─ Interface de gestão (simulation mode)
+    └─ Interface de gestão (modo híbrido)
  └─ Landing Page
     └─ https://github.com/neo-smart-factory/
        smart-ui-landing
@@ -207,13 +206,13 @@ Este projeto está licenciado sob a **Licença MIT**.
 ## ❓ Perguntas Frequentes
 
 **Este dashboard executa transações reais?**  
-Não. Opera em simulation mode. Gera mock addresses e hashes para demonstração.
+Sim, quando `phase2.web3=true`, `phase2.realTransactions=true` e há signer conectado. Sem esses pré-requisitos, cai para simulation mode.
 
 **Posso usar isso em produção?**  
-Não. É um protótipo de demonstração. Para produção, veja o repositório smart-core.
+Sim, como camada de interface e orquestração. A autoridade crítica de protocolo continua no smart-core.
 
 **O database armazena dados reais?**  
-Sim, mas apenas para analytics, tracking de marketing e persistência de demos.
+Sim, para analytics, tracking, drafts e histórico operacional de deploy.
 
 **Posso contribuir com melhorias de UI?**  
 Sim! Veja a seção "MUDANÇAS PERMITIDAS" no aviso arquitetural.
@@ -235,8 +234,8 @@ Sim! Veja a seção "MUDANÇAS PERMITIDAS" no aviso arquitetural.
 
 ---
 
-**Build v0.5.5** — _Demonstrando a transformação de código em ativos._  
-**Status:** Demo and Intent Layer — Simulation Mode
+**Build v0.5.6** — _Demonstrando a transformação de código em ativos._  
+**Status:** Demo and Intent Layer — Hybrid Mode (Web3 LIVE + simulation fallback)
 **Official Domain:** [www.nsfactory.xyz](https://www.nsfactory.xyz)
 
 ## Canonical Token Metadata Update
