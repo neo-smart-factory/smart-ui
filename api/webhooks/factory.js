@@ -13,7 +13,13 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    const NEXUS_SECRET = process.env.NEXUS_SECRET || "neo_nexus_vault_secret_2026";
+    const NEXUS_SECRETS = [
+        process.env.NEXUS_SECRET_NEW,
+        process.env.NEXUS_SECRET_OLD,
+        process.env.NEXUS_SECRET,
+    ]
+        .map((value) => (value || "").trim())
+        .filter(Boolean);
     const signature = req.headers['x-nexus-signature'];
     const payload = req.body;
 
@@ -21,16 +27,35 @@ export default async function handler(req, res) {
         return res.status(401).json({ error: 'Missing Authentication Header' });
     }
 
-    // Validar HMAC
-    const hmac = crypto.createHmac('sha256', NEXUS_SECRET);
-    const expectedSignature = hmac.update(JSON.stringify(payload)).digest('hex');
+    if (NEXUS_SECRETS.length === 0) {
+        return res.status(503).json({ error: 'Nexus secret not configured' });
+    }
 
-    try {
-        if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
-            return res.status(401).json({ error: 'Unauthorized: Ghost Protocol' });
+    // Validar HMAC com rotação (NEW/OLD/legacy)
+    const provided = Buffer.from(signature);
+    let isValid = false;
+
+    for (const secret of NEXUS_SECRETS) {
+        const expectedSignature = crypto
+            .createHmac('sha256', secret)
+            .update(JSON.stringify(payload))
+            .digest('hex');
+        const expected = Buffer.from(expectedSignature);
+        if (provided.length !== expected.length) {
+            continue;
         }
-    } catch {
-        return res.status(401).json({ error: 'Security Handshake Failed' });
+        try {
+            if (crypto.timingSafeEqual(provided, expected)) {
+                isValid = true;
+                break;
+            }
+        } catch {
+            return res.status(401).json({ error: 'Security Handshake Failed' });
+        }
+    }
+
+    if (!isValid) {
+        return res.status(401).json({ error: 'Unauthorized: Ghost Protocol' });
     }
 
     console.log(`📥 Nexus Order Received: ${payload.event} at Dashboard UI`);
