@@ -3,7 +3,7 @@ import crypto from 'crypto';
 /**
  * NΞØ Protocol - Notion Webhook Receiver
  * Endpoint: /api/webhooks/notion
- * 
+ *
  * Recebe notificações do Notion (via Zapier, Make ou Native Webhooks)
  * para sincronização de base de dados e automação de documentos.
  */
