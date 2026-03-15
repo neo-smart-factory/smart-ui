@@ -23,7 +23,20 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    const payload = req.body;
+    // Ler corpo bruto para validação HMAC consistente
+    const chunks = [];
+    for await (const chunk of req) {
+        chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+    }
+    const rawBody = Buffer.concat(chunks);
+
+    let payload;
+    try {
+        payload = rawBody.length ? JSON.parse(rawBody.toString('utf8')) : {};
+    } catch (e) {
+        console.error('[notion webhook] Falha ao fazer parse do corpo JSON', e);
+        return res.status(400).json({ error: 'Invalid JSON payload' });
+    }
 
     // ─────────────────────────────────────────────────────────────
     // VERIFICAÇÃO INICIAL — deve acontecer ANTES de qualquer guard
@@ -56,7 +69,7 @@ export default async function handler(req, res) {
     const signature = req.headers['x-notion-signature'];
     if (signature) {
         const hmac = crypto.createHmac('sha256', NOTION_WEBHOOK_SECRET);
-        const expected = hmac.update(JSON.stringify(payload)).digest('hex');
+        const expected = hmac.update(rawBody).digest('hex');
         try {
             if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected))) {
                 return res.status(401).json({ error: 'Invalid signature' });
@@ -74,3 +87,9 @@ export default async function handler(req, res) {
         received_at: new Date().toISOString()
     });
 }
+
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+};
