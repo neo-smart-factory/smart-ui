@@ -50,8 +50,18 @@ if (!backupFile) {
 // Prevenir path traversal: garantir que o arquivo está dentro do diretório de backups
 const resolvedBackupPath = path.resolve(backupFile);
 const allowedBackupDir = path.resolve(__dirname, '../backups');
-if (!resolvedBackupPath.startsWith(allowedBackupDir + path.sep) &&
-    !resolvedBackupPath.startsWith(allowedBackupDir)) {
+const relativeBackupPath = path.relative(allowedBackupDir, resolvedBackupPath);
+if (
+  relativeBackupPath === '' ||
+  relativeBackupPath === '.' ||
+  relativeBackupPath === path.sep
+) {
+  // OK: path is exactly the allowed backup directory
+} else if (
+  relativeBackupPath.startsWith('..' + path.sep) ||
+  relativeBackupPath === '..' ||
+  path.isAbsolute(relativeBackupPath)
+) {
   console.error(`${RED}❌ Caminho de backup inválido. O arquivo deve estar dentro de: ${allowedBackupDir}${NC}`);
   process.exit(1);
 }
