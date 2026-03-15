@@ -253,12 +253,94 @@ curl http://localhost:3000
 
 ---
 
+---
+
+## 🔗 Webhooks
+
+### Erro: Notion webhook retorna 405 ou não verifica
+
+**Sintomas:**
+- Notion UI mostra "Failed to send verification token with status 405"
+- Endpoint `/api/webhooks/notion` retorna HTML do SPA em vez de JSON
+
+**Causas possíveis:**
+
+1. **`vercel.json` sem rewrites** — O SPA catch-all intercepta todas as rotas GET, incluindo `/api/*`. Desde `2026-03-15` o `vercel.json` inclui rewrites explícitos:
+   ```json
+   {
+     "rewrites": [
+       { "source": "/api/(.*)", "destination": "/api/$1" },
+       { "source": "/(.*)", "destination": "/index.html" }
+     ]
+   }
+   ```
+   Se o endpoint ainda retorna HTML para GET, verifique se essa versão está deployada.
+
+2. **Branch não mergeada** — As correções ficam na branch de desenvolvimento até o merge para `main`. Após o merge, o Vercel redeploya automaticamente (~1-2 min).
+
+3. **`NOTION_WEBHOOK_SECRET` não configurada na Vercel** — A variável é obrigatória para eventos reais (mas NÃO bloqueia a verificação inicial, que acontece antes).
+
+**Procedimento de verificação:**
+```bash
+# 1. Testar se o endpoint retorna JSON (não HTML)
+curl https://miniapp.nsfactory.xyz/api/webhooks/notion
+# Esperado: {"status":"active","message":"NΞØ Notion Gateway is online"}
+
+# 2. Testar POST com verification_token
+curl -X POST https://miniapp.nsfactory.xyz/api/webhooks/notion \
+  -H "Content-Type: application/json" \
+  -d '{"verification_token":"test_abc123"}'
+# Esperado: test_abc123  (string pura, sem JSON wrapper)
+```
+
+**URL correta para o Notion:**
+```
+https://miniapp.nsfactory.xyz/api/webhooks/notion
+```
+
+---
+
+### Erro: "Service misconfigured" (500) no webhook factory ou notion
+
+**Sintomas:**
+- `{ "error": "Service misconfigured" }` com status 500
+
+**Causa:**
+A variável de ambiente obrigatória não está configurada. Desde `2026-03-15`, os webhooks **não têm mais fallback hardcoded** — se a env var estiver ausente, o serviço recusa o request com 500.
+
+**Solução — Vercel Dashboard:**
+1. Acesse: Settings → Environment Variables
+2. Adicione as variáveis faltantes (gere os valores com `openssl rand -hex 32`):
+   - `NEXUS_SECRET`
+   - `NOTION_WEBHOOK_SECRET`
+   - `ANALYTICS_ADMIN_TOKEN`
+3. Clique em "Redeploy" para aplicar
+
+---
+
+### Erro: Analytics retorna 403 Forbidden
+
+**Sintomas:**
+- `GET /api/marketing?action=analytics-fetch` retorna `{ "error": "Forbidden" }`
+
+**Causa:**
+Desde `2026-03-15`, o endpoint de analytics exige o header `x-admin-token` para proteger dados internos de negócio.
+
+**Solução:**
+```bash
+curl https://miniapp.nsfactory.xyz/api/marketing?action=analytics-fetch&type=summary \
+  -H "x-admin-token: <seu ANALYTICS_ADMIN_TOKEN>"
+```
+
+---
+
 ## 📚 Referências
 
 - [DEV_SETUP.md](../DEV_SETUP.md) — Setup de desenvolvimento
 - [API_TESTING.md](./API_TESTING.md) — Testes de API
 - [DEPLOY_GUIDE.md](../DEPLOY_GUIDE.md) — Guia de deploy
+- [SECURITY_FIXES_REPORT.md](../SECURITY_FIXES_REPORT.md) — Histórico de patches de segurança
 
 ---
 
-**Última atualização:** 2026-01-26
+**Última atualização:** 2026-03-15

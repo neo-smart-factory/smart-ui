@@ -13,7 +13,11 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    const NEXUS_SECRET = process.env.NEXUS_SECRET || "neo_nexus_vault_secret_2026";
+    const NEXUS_SECRET = process.env.NEXUS_SECRET;
+    if (!NEXUS_SECRET) {
+        console.error('[factory webhook] NEXUS_SECRET não configurado. Abortando.');
+        return res.status(500).json({ error: 'Service misconfigured' });
+    }
     const signature = req.headers['x-nexus-signature'];
     const payload = req.body;
 

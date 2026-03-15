@@ -317,6 +317,55 @@ A aplicação agora possui:
 
 ---
 
-**Revisado por:** Codex AI Security Auditor  
-**Data:** 28/01/2026  
+**Revisado por:** Codex AI Security Auditor
+**Data:** 28/01/2026
 **Versão do Relatório:** 1.0
+
+---
+
+## 🔒 PATCH ADICIONAL — 2026-03-15
+
+**Versão:** 0.5.6 → 0.5.6-sec-patch
+**Branch:** `claude/sad-bhabha`
+**Status:** ✅ 10 vulnerabilidades adicionais corrigidas
+
+### Vulnerabilidades Corrigidas neste Patch
+
+| # | Arquivo | Problema | Severidade |
+|---|---------|----------|------------|
+| 1 | `api/webhooks/factory.js` | `NEXUS_SECRET` hardcoded como fallback — forjamento de webhooks possível | 🔴 CRÍTICA |
+| 2 | `api/webhooks/notion.js` | `NOTION_WEBHOOK_SECRET` hardcoded como fallback | 🔴 CRÍTICA |
+| 3 | `api/webhooks/notion.js` | Guard de secret bloqueava o handshake de verificação inicial do Notion | 🔴 CRÍTICA |
+| 4 | `lib/csrf-protection.js` | `NODE_ENV === 'development'` desativava toda proteção CSRF; URL com barra final nunca dava match | 🔴 CRÍTICA |
+| 5 | `api/marketing.js` | Endpoint `analytics-fetch` expunha funil de conversão e leads sem autenticação | 🔴 CRÍTICA |
+| 6 | `scripts/restore-database.js` | Path traversal no argumento do arquivo de backup | 🔴 CRÍTICA |
+| 7 | `lib/rate-limiter.js` | Map ilimitado (chave incluía `req.url`) permitia OOM por variação de query string | 🟠 ALTA |
+| 8 | `src/services/deploymentService.js` | `userAddress` injetado raw na URL sem encoding — manipulação de query string | 🟠 ALTA |
+| 9 | `src/hooks/useCloudSync.js` | Draft carregado do servidor era silenciosamente descartado — feature completamente quebrada | 🟠 ALTA |
+| 10 | `src/utils/sanitization.js` | Ordem incorreta na sanitização XSS — remoção de padrões perigosos após encoding permitia bypass | 🟠 ALTA |
+
+### Correções de Infraestrutura
+
+| Arquivo | Mudança |
+|---------|---------|
+| `public/sw.js` | Service Worker sem `.catch()` causava tela branca em erros de rede |
+| `api/marketing.js` | `req.query \|\| req.body` sempre retornava `query` — POSTs de sessão sempre falhavam com 400 |
+| `vercel.json` | Adicionados `rewrites` para impedir que o SPA catch-all intercepte rotas `/api/*` |
+| `.env.example` | Adicionadas variáveis `NOTION_WEBHOOK_SECRET` e `ANALYTICS_ADMIN_TOKEN`; removido valor hardcoded de `NEXUS_SECRET` |
+
+### Novas Variáveis de Ambiente Obrigatórias
+
+```env
+# Obrigatório — falha explicitamente se ausente (sem fallback)
+NEXUS_SECRET=<openssl rand -hex 32>
+NOTION_WEBHOOK_SECRET=<openssl rand -hex 32>
+
+# Obrigatório para o endpoint analytics-fetch
+ANALYTICS_ADMIN_TOKEN=<openssl rand -hex 32>
+```
+
+---
+
+**Revisado por:** Claude Code Security Auditor
+**Data:** 15/03/2026
+**Versão do Relatório:** 1.1
