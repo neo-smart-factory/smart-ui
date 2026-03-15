@@ -51,13 +51,9 @@ if (!backupFile) {
 const resolvedBackupPath = path.resolve(backupFile);
 const allowedBackupDir = path.resolve(__dirname, '../backups');
 const relativeBackupPath = path.relative(allowedBackupDir, resolvedBackupPath);
+
+// Rejeitar caminhos que apontam para fora do diretório de backups
 if (
-  relativeBackupPath === '' ||
-  relativeBackupPath === '.' ||
-  relativeBackupPath === path.sep
-) {
-  // OK: path is exactly the allowed backup directory
-} else if (
   relativeBackupPath.startsWith('..' + path.sep) ||
   relativeBackupPath === '..' ||
   path.isAbsolute(relativeBackupPath)
@@ -66,8 +62,25 @@ if (
   process.exit(1);
 }
 
+// Rejeitar caminho que aponta para o diretório de backups em si (deve ser um arquivo)
+if (
+  relativeBackupPath === '' ||
+  relativeBackupPath === '.' ||
+  relativeBackupPath === path.sep
+) {
+  console.error(`${RED}❌ Caminho de backup inválido. Forneça o caminho de um arquivo de backup dentro de: ${allowedBackupDir}${NC}`);
+  process.exit(1);
+}
+
 if (!fs.existsSync(resolvedBackupPath)) {
   console.error(`${RED}❌ Backup file not found: ${resolvedBackupPath}${NC}`);
+  process.exit(1);
+}
+
+// Garantir que o caminho resolvido é um arquivo, não um diretório
+const backupStats = fs.statSync(resolvedBackupPath);
+if (!backupStats.isFile()) {
+  console.error(`${RED}❌ Caminho de backup inválido. Esperado um arquivo de backup, mas foi encontrado um diretório ou outro tipo: ${resolvedBackupPath}${NC}`);
   process.exit(1);
 }
 
