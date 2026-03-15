@@ -10,7 +10,7 @@ import { saveDraft, loadDraft } from '../services/deploymentService';
 
 const AUTOSAVE_DEBOUNCE = 2000; // 2s
 
-export const useCloudSync = (formData, userAddress, enabled, metadata = {}) => {
+export const useCloudSync = (formData, userAddress, enabled, metadata = {}, onDraftLoaded) => {
   const saveTimeoutRef = useRef(null);
   const abortControllerRef = useRef(null);
   
@@ -48,14 +48,12 @@ export const useCloudSync = (formData, userAddress, enabled, metadata = {}) => {
     
     const fetchDraft = async () => {
       const draftData = await loadDraft(userAddress, abortControllerRef.current.signal);
-      
+
       if (draftData && typeof draftData === 'object') {
-        return draftData;
+        onDraftLoaded?.(draftData);
       }
-      
-      return null;
     };
-    
+
     fetchDraft();
     
     // Cleanup

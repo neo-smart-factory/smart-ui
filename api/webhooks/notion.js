@@ -18,7 +18,11 @@ export default async function handler(req, res) {
     }
 
     // O NOTION_WEBHOOK_SECRET deve ser configurado no .env da aplicação
-    const NOTION_WEBHOOK_SECRET = process.env.NOTION_WEBHOOK_SECRET || "neo_notion_vault_secret_2026";
+    const NOTION_WEBHOOK_SECRET = process.env.NOTION_WEBHOOK_SECRET;
+    if (!NOTION_WEBHOOK_SECRET) {
+        console.error('[notion webhook] NOTION_WEBHOOK_SECRET não configurado. Abortando.');
+        return res.status(500).json({ error: 'Service misconfigured' });
+    }
     const signature = req.headers['x-notion-signature'];
     const payload = req.body;
 

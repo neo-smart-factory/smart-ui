@@ -21,11 +21,13 @@ const XSS_ENTITIES = {
  */
 export const sanitizeInput = (value) => {
   if (!value) return '';
-  
+
+  // Remover padrões perigosos ANTES de escapar entidades HTML
+  // para evitar bypass via encoding (ex: javas&amp;cript:)
   return String(value)
-    .replace(/[<>'"&]/g, (char) => XSS_ENTITIES[char] || char)
-    .replace(/javascript:/gi, '')
+    .replace(/javascript\s*:/gi, '')
     .replace(/on\w+\s*=/gi, '')
+    .replace(/[<>'"&]/g, (char) => XSS_ENTITIES[char] || char)
     .slice(0, 1000); // DoS protection
 };
 

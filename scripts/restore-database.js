@@ -19,7 +19,11 @@
 
 import postgres from 'postgres';
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import readline from 'readline';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const connectionString = process.env.DIRECT_URL || process.env.DATABASE_URL;
 
@@ -43,8 +47,17 @@ if (!backupFile) {
   process.exit(1);
 }
 
-if (!fs.existsSync(backupFile)) {
-  console.error(`${RED}❌ Backup file not found: ${backupFile}${NC}`);
+// Prevenir path traversal: garantir que o arquivo está dentro do diretório de backups
+const resolvedBackupPath = path.resolve(backupFile);
+const allowedBackupDir = path.resolve(__dirname, '../backups');
+if (!resolvedBackupPath.startsWith(allowedBackupDir + path.sep) &&
+    !resolvedBackupPath.startsWith(allowedBackupDir)) {
+  console.error(`${RED}❌ Caminho de backup inválido. O arquivo deve estar dentro de: ${allowedBackupDir}${NC}`);
+  process.exit(1);
+}
+
+if (!fs.existsSync(resolvedBackupPath)) {
+  console.error(`${RED}❌ Backup file not found: ${resolvedBackupPath}${NC}`);
   process.exit(1);
 }
 
@@ -87,7 +100,7 @@ async function restoreDatabase() {
   try {
     console.log('');
     console.log(`${YELLOW}📖 Reading backup file...${NC}`);
-    const backupContent = fs.readFileSync(backupFile, 'utf8');
+    const backupContent = fs.readFileSync(resolvedBackupPath, 'utf8');
 
     // Parse SQL statements
     const statements = backupContent

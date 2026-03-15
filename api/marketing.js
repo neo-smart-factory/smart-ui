@@ -38,9 +38,14 @@ export default async function handler(req, res) {
             case 'event-record':
                 return await handleEventRecord(req, res);
 
-            // --- ANALYTICS ---
-            case 'analytics-fetch':
+            // --- ANALYTICS (requer token interno) ---
+            case 'analytics-fetch': {
+                const adminToken = req.headers['x-admin-token'];
+                if (!adminToken || adminToken !== process.env.ANALYTICS_ADMIN_TOKEN) {
+                    return res.status(403).json({ error: 'Forbidden' });
+                }
                 return await handleAnalyticsFetch(req, res);
+            }
 
             default:
                 // Fallback for backward compatibility if no action provided
@@ -150,7 +155,7 @@ async function handleLeadSync(req, res) {
 }
 
 async function handleSessionSync(req, res) {
-    const { session_id } = req.query || req.body;
+    const session_id = req.query.session_id || req.body?.session_id;
 
     if (req.method === 'GET') {
         if (!session_id) return res.status(400).json({ error: "session_id is required" });
