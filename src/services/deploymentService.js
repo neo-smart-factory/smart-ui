@@ -5,7 +5,7 @@
  * ╚═══════════════════════════════════════════════════════════╝
  */
 
-import { safeApiCall } from './apiService';
+import { safeApiCall, apiCallWithSignal } from './apiService';
 import { ethers } from 'ethers';
 import { StandardToken } from '../config/StandardToken';
 
@@ -173,5 +173,5 @@ export const saveDraft = async (userAddress, formData, metadata = {}) => {
  */
 export const loadDraft = async (userAddress, signal) => {
   const params = new URLSearchParams({ action: 'drafts', address: userAddress });
-  return await safeApiCall(`/api/ops?${params}`, { signal });
+  return await apiCallWithSignal(`/api/ops?${params}`, signal);
 };
