@@ -40,8 +40,22 @@ Nesta fábrica, o deploy inicial tem **Custo Zero Upfront** (apenas o gas da red
 ### 3. Portal de Entrada (Landing Page)
 *   **Propósito**: Funil de entrada e educação do usuário sobre o modelo de 5% fee.
 
+## 🔐 Segurança e Validação
+
+### Validação de Endereços de Wallet
+
+Todos os endereços Ethereum passam por validação rigorosa antes do uso:
+
+*   **`src/utils/addressValidation.js`** — Utilitários baseados em ethers.js v6:
+    *   `validateAddress(address)` — Valida formato, prefixo `0x`, comprimento (42 chars) e checksum EIP-55; retorna endereço normalizado.
+    *   `formatAddress(address)` — Formata endereço para exibição (`0x1234...5678`).
+    *   `isSameAddress(addr1, addr2)` — Comparação case-insensitive via `getAddress()`.
+    *   `formatHash(hash)` — Formata hashes de transação para exibição.
+*   **`src/components/ui/AddressInput.jsx`** — Campo de endereço com validação em tempo real, ícones de feedback visual (✓/✗) e cópia para área de transferência.
+*   **`src/components/WalletConnect.jsx`** — Normaliza endereços recebidos do Dynamic.xyz para o formato checksummed EIP-55 antes de repassá-los para callbacks.
+
 ## 🚀 Status e Filosofia
-*   **Versão**: v0.5.3
+*   **Versão**: v0.5.6
 *   **Filosofia**: Sem KYC, Código Aberto (Auditável), Validações Técnicas Pró-Usuário.
 
 ---
