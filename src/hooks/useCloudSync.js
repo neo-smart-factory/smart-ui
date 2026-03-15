@@ -62,7 +62,7 @@ export const useCloudSync = (formData, userAddress, enabled, metadata = {}, onDr
         abortControllerRef.current.abort();
       }
     };
-  }, [userAddress]);
+  }, [userAddress, onDraftLoaded]);
   
   return null; // Hook handles side effects only
 };
