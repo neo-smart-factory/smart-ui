@@ -43,7 +43,7 @@ Este aviso vem de dependências (provavelmente Vercel CLI ou dependências trans
 
 **Sintomas:**
 
-- `npm install` completa, mas servidor não inicia
+- `pnpm install` completa, mas servidor não inicia
 - Processo parece travado
 - Porta 3000 não responde
 
@@ -99,7 +99,7 @@ Usando `vite dev` em vez de `vercel dev`
 # Parar vite dev (Ctrl+C)
 make dev-vercel
 # ou
-npm run dev:vercel
+pnpm run dev:vercel
 ```
 
 **Explicação:**
@@ -184,7 +184,7 @@ vercel login
 **Solução:**
 1. Testar build localmente:
    ```bash
-   npm run build
+   pnpm run build
    ```
 
 2. Verificar logs no Vercel Dashboard:
@@ -206,8 +206,8 @@ vercel login
 **Solução:**
 ```bash
 # Reinstalar dependências
-rm -rf node_modules package-lock.json
-npm install
+rm -rf node_modules
+pnpm install
 ```
 
 ---
@@ -334,6 +334,40 @@ curl https://miniapp.nsfactory.xyz/api/marketing?action=analytics-fetch&type=sum
 
 ---
 
+## 📦 Gerenciador de Pacotes — pnpm
+
+Este projeto utiliza **pnpm@10.32.1** como package manager.
+
+### Instalar pnpm (caso não tenha)
+
+```bash
+npm install -g pnpm@10
+# ou via corepack (Node 16+)
+corepack enable && corepack prepare pnpm@10.32.1 --activate
+```
+
+### Comandos equivalentes
+
+| npm | pnpm |
+|-----|------|
+| `npm install` | `pnpm install` |
+| `npm run dev` | `pnpm run dev` |
+| `npm run build` | `pnpm run build` |
+| `npm i <pkg>` | `pnpm add <pkg>` |
+| `npm i -D <pkg>` | `pnpm add -D <pkg>` |
+
+### Erro: "ERR_PNPM_FROZEN_LOCKFILE"
+
+O CI usa `--frozen-lockfile`. Se você atualizar dependências localmente:
+
+```bash
+pnpm install   # atualiza pnpm-lock.yaml
+git add pnpm-lock.yaml
+git commit -m "chore(deps): update lockfile"
+```
+
+---
+
 ## 📚 Referências
 
 - [DEV_SETUP.md](../DEV_SETUP.md) — Setup de desenvolvimento
@@ -343,4 +377,4 @@ curl https://miniapp.nsfactory.xyz/api/marketing?action=analytics-fetch&type=sum
 
 ---
 
-**Última atualização:** 2026-03-15
+**Última atualização:** 2026-03-15 (pnpm migration)
