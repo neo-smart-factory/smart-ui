@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git worktree:*)",
+      "Bash(git -C /Users/nettomello/neomello/neo-smart-factory/smart-ui push origin --delete claude/sad-bhabha)",
+      "Bash(git -C /Users/nettomello/neomello/neo-smart-factory/smart-ui branch -d claude/sad-bhabha)"
+    ]
+  }
+}

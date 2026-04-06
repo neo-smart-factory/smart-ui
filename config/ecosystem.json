@@ -347,6 +347,48 @@
         }
     },
     {
+        "id": "neoflw-token",
+        "org": "NEO-FlowOFF",
+        "name": "NEOFLW Token",
+        "description": "Native token of NEO Protocol ecosystem. ERC20 token with governance, staking, and claim mechanisms.",
+        "repository": "https://github.com/NEO-FlowOFF/neoflw-token",
+        "role": "Token Layer / Native Asset",
+        "contracts": {
+            "base": {
+                "NEOFLW": "0x41F4ff3d45DED9C1332e4908F637B75fe83F5d6B"
+            }
+        },
+        "tokenCanonical": {
+            "asset": {
+                "name": "NEOFlowOFF",
+                "symbol": "NEOFLW",
+                "decimals": 18,
+                "standard": "ERC-20",
+                "network": "base",
+                "chainId": 8453,
+                "contractAddress": "0x41F4ff3d45DED9C1332e4908F637B75fe83F5d6B"
+            },
+            "sourceOfTruth": {
+                "repo": "https://github.com/NEO-FlowOFF/neoflw-token",
+                "deployment": "deployments/neoflw-base-mainnet.md",
+                "explorer": "https://basescan.org/token/0x41f4ff3d45ded9c1332e4908f637b75fe83f5d6b",
+                "verifiedAt": "2026-03-02"
+            }
+        },
+        "features": {
+            "erc20": true,
+            "burnable": true,
+            "permit": true,
+            "ownable2Step": true,
+            "publicMint": true
+        },
+        "hosting": {
+            "platform": "Blockchain / Base Mainnet",
+            "productionUrl": "https://basescan.org/token/0x41f4ff3d45ded9c1332e4908f637b75fe83f5d6b",
+            "adminEmail": "neo@neoprotocol.space"
+        }
+    },
+    {
         "id": "neo-flowoff-landing",
         "org": "NEO-FlowOFF",
         "name": "FlowOFF Landing",
