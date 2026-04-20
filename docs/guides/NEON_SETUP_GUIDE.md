@@ -30,7 +30,7 @@ Guia passo a passo para configurar Neon e executar migrations.
 ### Passo 2: Criar Novo Projeto
 
 1. Clique em **"New Project"** (ou **"Create Project"**)
-2. **Nome do projeto:** `smart-ui-dashboard` (ou outro nome de sua escolha)
+2. **Nome do projeto:** `smart-ui-core` (ou outro nome de sua escolha)
 3. **Região:** Escolha a mais próxima:
    - `us-east-2` (Ohio) - Recomendado para EUA
    - `us-west-2` (Oregon)
@@ -55,7 +55,7 @@ Guia passo a passo para configurar Neon e executar migrations.
 ### Passo 1: Criar arquivo `.env`
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+cd /Users/nettomello/neomello/neo-smart-factory/smart-ui
 cp .env.example .env
 ```
 
@@ -91,21 +91,21 @@ DATABASE_URL="postgresql://seu-user:seu-password@ep-xxx-123456.us-east-2.aws.neo
 ### Opção 1: Usando Makefile (Recomendado)
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+cd /Users/nettomello/neomello/neo-smart-factory/smart-ui
 make migratedb
 ```
 
 ### Opção 2: Usando npm
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+cd /Users/nettomello/neomello/neo-smart-factory/smart-ui
 npm run migrate
 ```
 
 ### Opção 3: Direto com variável (sem .env)
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+cd /Users/nettomello/neomello/neo-smart-factory/smart-ui
 DATABASE_URL="postgresql://user:pass@ep-xxx.neon.tech/neondb?sslmode=require" npm run migrate
 ```
 
@@ -159,7 +159,7 @@ await sql.end();
 ### Passo 1: Acessar Vercel
 
 1. Acesse: https://vercel.com
-2. Vá para seu projeto `smart-ui-dashboard`
+2. Vá para seu projeto canônico do Smart UI Core (atualmente `smart-ui-delta`)
 
 ### Passo 2: Adicionar Variável de Ambiente
 
@@ -188,7 +188,7 @@ Se o projeto já estava deployado, faça um **Redeploy** para aplicar a nova var
 ### Teste Local (com vercel dev)
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+cd /Users/nettomello/neomello/neo-smart-factory/smart-ui
 make dev-vercel
 ```
 
@@ -269,4 +269,4 @@ make migratedb
 
 ---
 
-**Próximo passo:** Testar o Dashboard completo em produção! 🚀
+**Próximo passo:** Testar o Smart UI Core completo em produção! 🚀

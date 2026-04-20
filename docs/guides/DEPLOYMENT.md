@@ -1,6 +1,6 @@
-# 🚀 Guia de Deploy — NΞØ Smart Factory UI (v0.5.4)
+# 🚀 Guia de Deploy — NΞØ Smart UI Core (v0.5.4)
 
-Este documento detalha o processo de publicação do Dashboard e da API em ambientes de produção (Vercel + Neon).
+Este documento detalha o processo de publicação do Smart UI Core e da API em ambientes de produção (Vercel + Neon).
 
 ## 📋 Pré-requisitos
 - Conta em [Neon.tech](https://console.neon.tech) (PostgreSQL)
