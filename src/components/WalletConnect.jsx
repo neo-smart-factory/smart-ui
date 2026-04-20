@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useRef } from 'react';
-import { Wallet, Zap } from 'lucide-react';
+import { ChevronDown, Wallet } from 'lucide-react';
 import { DynamicWidget, useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import useFeatures from '../hooks/useFeatures';
 import ErrorBoundary from './ErrorBoundary';
@@ -15,12 +15,61 @@ import WalletErrorFallback from './WalletErrorFallback';
 import LoadingSpinner from './ui/LoadingSpinner';
 import { validateAddress, formatAddress } from '../utils/addressValidation';
 
+const EXPECTED_CHAIN_ID = 8453; // Base mainnet
+
+const NETWORK_META = {
+  1: { label: 'Ethereum', shortLabel: 'ETH', badgeClass: 'bg-slate-700/60 text-slate-100 border-slate-500/40' },
+  137: { label: 'Polygon', shortLabel: 'POL', badgeClass: 'bg-violet-600/20 text-violet-200 border-violet-400/40' },
+  8453: { label: 'Base', shortLabel: 'BASE', badgeClass: 'bg-blue-600/20 text-blue-200 border-blue-400/40' },
+};
+
+function parseChainId(value) {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  if (typeof value === 'string') {
+    if (value.startsWith('0x')) {
+      const parsedHex = Number.parseInt(value, 16);
+      return Number.isFinite(parsedHex) ? parsedHex : null;
+    }
+
+    const parsedInt = Number.parseInt(value, 10);
+    return Number.isFinite(parsedInt) ? parsedInt : null;
+  }
+
+  return null;
+}
+
+function getNetworkInfo(chainId) {
+  if (!chainId) return null;
+  const known = NETWORK_META[chainId];
+
+  if (known) {
+    return {
+      ...known,
+      chainId,
+    };
+  }
+
+  return {
+    label: `Chain ${chainId}`,
+    shortLabel: `#${chainId}`,
+    badgeClass: 'bg-white/10 text-slate-300 border-white/15',
+    chainId,
+  };
+}
+
 /**
  * Internal component that has access to Dynamic context
  */
 function WalletConnectInner({ onConnect, onDisconnect, userAddress, setUserAddress, className }) {
   const { primaryWallet, isAuthenticated, sdkHasLoaded } = useDynamicContext();
   const prevAddressRef = useRef(null);
+  const publicClient = primaryWallet?.connector?.getPublicClient?.();
+  const walletChainId =
+    parseChainId(publicClient?.chain?.id) ||
+    parseChainId(publicClient?.chainId) ||
+    parseChainId(primaryWallet?.chainId);
+  const networkInfo = getNetworkInfo(walletChainId);
+  const isWrongNetwork = Boolean(userAddress && walletChainId && walletChainId !== EXPECTED_CHAIN_ID);
 
   // Effect to handle wallet connection/disconnection callbacks
   useEffect(() => {
@@ -55,42 +104,52 @@ function WalletConnectInner({ onConnect, onDisconnect, userAddress, setUserAddre
   }, [primaryWallet, isAuthenticated, onConnect, onDisconnect, setUserAddress, userAddress]);
 
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
-      <div className="glass-frame">
-        <DynamicWidget
-          variant="modal"
-          buttonClassName={`${className} !py-2 !px-8 !text-xs flex items-center gap-2 group transition-all duration-500`}
-          innerButtonComponent={
-            <div className="flex items-center gap-2 min-w-[100px] justify-center tracking-[0.1em]">
-              {!sdkHasLoaded ? (
-                <>
-                  <LoadingSpinner size="sm" className="!w-3 !h-3" />
-                  <span>INITIALIZING...</span>
-                </>
-              ) : !isAuthenticated && primaryWallet ? (
-                <>
-                  <LoadingSpinner size="sm" className="!w-3 !h-3" />
-                  <span>AUTHENTICATING...</span>
-                </>
-              ) : (
-                <>
-                  {userAddress ? (
-                    <>
-                      <Wallet className="w-3.5 h-3.5 opacity-80" />
-                      <span className="font-mono">{formatAddress(userAddress)}</span>
-                    </>
-                  ) : (
-                    <>
-                      <Zap className="w-3.5 h-3.5 fill-current animate-pulse" />
-                      <span className="font-headline font-black text-xs tracking-[0.2em]">MINT TOKEN</span>
-                    </>
-                  )}
-                </>
-              )}
-            </div>
-          }
-        />
-      </div>
+    <div className="flex items-center gap-2">
+      <DynamicWidget
+        variant="modal"
+        buttonClassName={`wallet-btn ${className} ${isWrongNetwork ? 'is-wrong-network' : ''}`.trim()}
+        innerButtonComponent={
+          <>
+            {!sdkHasLoaded ? (
+              <>
+                <LoadingSpinner size="sm" className="!w-3.5 !h-3.5" />
+                <span className="text-xs font-medium">Loading...</span>
+              </>
+            ) : !isAuthenticated && primaryWallet ? (
+              <>
+                <LoadingSpinner size="sm" className="!w-3.5 !h-3.5" />
+                <span className="text-xs font-medium">Authenticating...</span>
+              </>
+            ) : (
+              <>
+                {userAddress ? (
+                  <>
+                    <span className="wallet-status-dot" />
+                    {networkInfo && (
+                      <span
+                        className={`wallet-network-badge ${networkInfo.badgeClass}`}
+                        title={`Connected on ${networkInfo.label} (${networkInfo.chainId})`}
+                      >
+                        {networkInfo.shortLabel}
+                      </span>
+                    )}
+                    <Wallet className="w-3.5 h-3.5 opacity-80" />
+                    <span className="font-mono text-xs">
+                      {isWrongNetwork ? 'Wrong Network' : formatAddress(userAddress)}
+                    </span>
+                    <ChevronDown className="w-3 h-3 opacity-60" />
+                  </>
+                ) : (
+                  <>
+                    <Wallet className="w-3.5 h-3.5" />
+                    <span className="text-[13px] font-semibold leading-none">Connect Wallet</span>
+                  </>
+                )}
+              </>
+            )}
+          </>
+        }
+      />
     </div>
   );
 }
@@ -108,10 +167,10 @@ export default function WalletConnect({
   // Se Web3 não está habilitado, mostrar modo simulação
   if (!isWeb3Enabled) {
     return (
-      <div className={`flex items-center gap-2 ${className}`}>
+      <div className="flex items-center gap-2">
         <button
           disabled
-          className="btn-secondary !py-2 !px-4 !text-xs flex items-center gap-2 opacity-50 cursor-not-allowed"
+          className={`btn-secondary !py-2 !px-4 !text-xs flex items-center gap-2 opacity-50 cursor-not-allowed ${className}`.trim()}
           title="Web3 features will be available in Phase 2"
         >
           <Wallet className="w-3 h-3" />
