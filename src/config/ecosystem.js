@@ -5,7 +5,7 @@
  * permitindo resolver URLs e informações de outros projetos.
  */
 
-import ecosystemData from '../../config/ecosystem.json';
+import ecosystemData from '@neo-protocol/ecosystem.json';
 
 // Mapeamento de IDs para fácil acesso
 export const PROJECT_IDS = {
