@@ -5,7 +5,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
-    { ignores: ['dist', 'landing', 'nuxt-app', 'packages', 'public'] },
+    { ignores: ['dist', 'landing', 'nuxt-app', 'packages', 'public', 'remote_bundle.js', 'src/App.jsx.backup'] },
     {
         files: ['**/*.{js,jsx}'],
         languageOptions: {
