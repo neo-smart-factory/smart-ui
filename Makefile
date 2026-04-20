@@ -1,36 +1,40 @@
-# NΞØ SMART FACTORY — Makefile (Dashboard only)
+# NΞØ SMART FACTORY — Makefile (Smart UI Core)
 
-.PHONY: dev dev-dashboard dev-vercel build build-dashboard start lint clean install help ops-sync health test test-dashboard validate backup-db restore-db snapshot-config rollback pre-deploy-check
+.PHONY: dev dev-ui dev-dashboard dev-vercel build build-ui build-dashboard start lint clean install update help ops-sync health test test-ui test-dashboard validate backup-db restore-db snapshot-config rollback pre-deploy-check link-cli deploy deploy-force migratedb migratedb-vercel migratedb-marketing sync-env test-apis test-apis-prod
 
 # Variáveis
-DASHBOARD_DIR = .
-CORE_DIR = ../../neo_smart_factory/smart-core
+UI_DIR = .
+CORE_DIR = ../smart-core
 CLI_DIR = ../smart-cli
 DOCS_DIR = ../docs
-OPS_DIR = ../../neo_smart_factory/internal-ops
-DASHBOARD_PORT = 3000
+OPS_DIR = ../internal-ops
+UI_PORT = 3000
 
 help:
 	@echo "=========================================="
-	@echo "NΞØ SMART FACTORY - Dashboard"
+	@echo "NΞØ SMART FACTORY - Smart UI Core"
 	@echo "=========================================="
 	@echo ""
 	@echo "📦 Instalação:"
-	@echo "  make install           - Instala dependências"
+	@echo "  make install           - Instala dependências (pnpm install)"
+	@echo "  make update            - Atualiza dependências (pnpm update)"
 	@echo ""
 	@echo "🚀 Desenvolvimento:"
-	@echo "  make dev               - Inicia Dashboard (porta $(DASHBOARD_PORT))"
-	@echo "  make dev-dashboard     - Idem"
-	@echo "  make dev-vercel        - Dashboard com Vercel Dev (API completo)"
+	@echo "  make dev               - Inicia Smart UI Core (pnpm run dev, porta $(UI_PORT))"
+	@echo "  make dev-ui            - Idem (nome canônico)"
+	@echo "  make dev-dashboard     - Alias legado (compatibilidade)"
+	@echo "  make dev-vercel        - Smart UI Core com Vercel Dev (pnpm run dev:vercel, API completo)"
 	@echo ""
 	@echo "🏗️  Build:"
-	@echo "  make build             - Build do Dashboard"
+	@echo "  make build             - Build do Smart UI Core (pnpm run build)"
+	@echo "  make build-ui          - Idem (nome canônico)"
 	@echo ""
 	@echo "🧪 Testes:"
-	@echo "  make test              - Lint do Dashboard"
+	@echo "  make test              - Lint do Smart UI Core (pnpm run lint)"
+	@echo "  make test-ui           - Idem (nome canônico)"
 	@echo ""
 	@echo "🔧 Utilitários:"
-	@echo "  make lint              - Executa linter"
+	@echo "  make lint              - Executa linter (pnpm run lint)"
 	@echo "  make clean             - Remove node_modules e dist"
 	@echo "  make health            - Verifica integridade do ecossistema"
 	@echo "  make validate          - Valida estrutura (validate-onboarding.sh)"
@@ -53,58 +57,64 @@ help:
 
 install:
 	@echo "📦 Installing dependencies..."
-	npm install
+	pnpm install
 	@echo "✅ Dependencies installed!"
 
 update:
 	@echo "🔄 Updating dependencies..."
-	npm update
+	pnpm update
 	@echo "✅ Dependencies updated!"
 
 # ============================================
 # Desenvolvimento
 # ============================================
 
-dev: dev-dashboard
+dev: dev-ui
 
-dev-dashboard:
-	@echo "🚀 Starting Dashboard on port $(DASHBOARD_PORT)..."
-	@echo "   → http://localhost:$(DASHBOARD_PORT)"
+dev-ui:
+	@echo "🚀 Starting Smart UI Core on port $(UI_PORT)..."
+	@echo "   → http://localhost:$(UI_PORT)"
 	@echo "   ⚠️  API routes require 'make dev-vercel' for full functionality"
-	cd $(DASHBOARD_DIR) && npm run dev
+	cd $(UI_DIR) && pnpm run dev
+
+dev-dashboard: dev-ui
 
 dev-vercel:
-	@echo "🚀 Starting Dashboard with Vercel Dev (Full API support)..."
+	@echo "🚀 Starting Smart UI Core with Vercel Dev (Full API support)..."
 	@echo "   → http://localhost:3000"
 	@echo "   → API routes available at /api/*"
-	cd $(DASHBOARD_DIR) && npm run dev:vercel
+	cd $(UI_DIR) && pnpm run dev:vercel
 
 # ============================================
 # Build
 # ============================================
 
-build: build-dashboard
+build: build-ui
 
-build-dashboard:
-	@echo "🏗️  Building Dashboard..."
-	@if [ -d "$(DASHBOARD_DIR)/node_modules" ]; then \
-		cd $(DASHBOARD_DIR) && npm run build; \
+build-ui:
+	@echo "🏗️  Building Smart UI Core..."
+	@if [ -d "$(UI_DIR)/node_modules" ]; then \
+		cd $(UI_DIR) && pnpm run build; \
 	else \
 		echo "❌ node_modules not found. Run 'make install' first."; \
 		exit 1; \
 	fi
-	@echo "✅ Dashboard build complete!"
+	@echo "✅ Smart UI Core build complete!"
+
+build-dashboard: build-ui
 
 # ============================================
 # Testes
 # ============================================
 
-test: test-dashboard
+test: test-ui
 
-test-dashboard:
-	@echo "🧪 Testing Dashboard..."
-	cd $(DASHBOARD_DIR) && npm run lint
-	@echo "✅ Dashboard tests passed!"
+test-ui:
+	@echo "🧪 Testing Smart UI Core..."
+	cd $(UI_DIR) && pnpm run lint
+	@echo "✅ Smart UI Core tests passed!"
+
+test-dashboard: test-ui
 
 test-apis:
 	@echo "🧪 Testing all APIs..."
@@ -127,7 +137,7 @@ ops-sync:
 
 link-cli:
 	@echo "Linking NΞØ CLI..."
-	cd $(CLI_DIR) && npm link
+	cd $(CLI_DIR) && pnpm link --global
 
 health:
 	@echo "======================================"
@@ -136,7 +146,7 @@ health:
 	@echo ""
 	@echo "📦 Component Status:"
 	@echo "--------------------"
-	@echo "Smart UI (Dashboard)...  [OK]"
+	@echo "Smart UI Core...          [OK]"
 	@if [ -d "$(CORE_DIR)" ]; then \
 		echo "Smart Core...             [LINKED]"; \
 		echo "  └─ Path: $(CORE_DIR)"; \
@@ -169,7 +179,7 @@ health:
 
 lint:
 	@echo "🔍 Linting code..."
-	cd $(DASHBOARD_DIR) && npm run lint
+	cd $(UI_DIR) && pnpm run lint
 
 # ============================================
 # Validação
@@ -190,8 +200,10 @@ validate:
 
 clean:
 	@echo "🧹 Cleaning build artifacts, dependencies, and caches..."
-	rm -rf node_modules .next dist .vercel .npm/_cacache package-lock.json
+	rm -rf node_modules .next dist .vercel .npm/_cacache
 	@echo "✅ Clean complete!"
+
+start: dev
 
 # ============================================
 # Deploy
@@ -201,7 +213,7 @@ deploy:
 	@./scripts/safe-deploy.sh "$(msg)"
 
 deploy-force:
-	@echo "🚢 Force deploying Dashboard to Vercel (Production)..."
+	@echo "🚢 Force deploying Smart UI Core to Vercel (Production)..."
 	vercel deploy --prod
 	@echo "✅ Deployment complete!"
 

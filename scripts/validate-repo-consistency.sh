@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script de Validação de Consistência entre Repositórios
-# Uso: ./scripts/validate-repo-consistency.sh [landing|mobile]
+# Uso: ./scripts/validate-repo-consistency.sh [ui-core|landing|mobile]
 # Ou execute dentro do repositório que deseja validar
 
 set -e
@@ -29,7 +29,7 @@ if [ "$REPO_TYPE" = "auto" ]; then
     elif echo "$REPO_NAME" | grep -qi "mobile"; then
       REPO_TYPE="mobile"
     else
-      REPO_TYPE="dashboard"
+      REPO_TYPE="ui-core"
     fi
   else
     echo -e "${RED}❌ package.json não encontrado. Execute este script na raiz do repositório.${NC}"
