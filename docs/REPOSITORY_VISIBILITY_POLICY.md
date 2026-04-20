@@ -38,7 +38,7 @@ The following repositories are **ALLOWED** to be referenced publicly:
 
 ---
 
-### 2. `landing`
+### 2. `smart-ui-landing`
 **Scope**: Marketing and narrative only  
 **Allowed Content**:
 - Marketing materials
@@ -121,7 +121,7 @@ Public repositories may be referenced in:
 
 ### Landing Pages
 - ✓ Link to `smart-ui` repository
-- ✓ Link to `landing` repository
+- ✓ Link to `smart-ui-landing` repository
 - ✓ Link to `docs` repository
 - ✓ Link to organization page (filtered view)
 
@@ -159,7 +159,7 @@ The UI **MUST NOT** expose:
 ### 3. Footer Content Restrictions
 Footer content must reference **ONLY**:
 - ✓ The public organization page
-- ✓ Explicitly public repositories (`smart-ui`, `landing`, `docs`)
+- ✓ Explicitly public repositories (`smart-ui`, `smart-ui-landing`, `docs`)
 - ✓ Public documentation within scope
 
 ### 4. No Exceptions
@@ -257,7 +257,7 @@ Updates must:
 
 ### Repositories
 ✓ https://github.com/neo-smart-factory/smart-ui  
-✓ https://github.com/neo-smart-factory/landing  
+✓ https://github.com/neo-smart-factory/smart-ui-landing  
 ✓ https://github.com/neo-smart-factory/docs
 
 ### Documentation
