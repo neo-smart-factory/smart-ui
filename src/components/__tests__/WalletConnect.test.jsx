@@ -162,14 +162,14 @@ describe("WalletConnect", () => {
       mockedUseDynamicContext.mockReturnValue({
         sdkHasLoaded: true,
         isAuthenticated: true,
-        primaryWallet: { address: userAddress, chainId: 42161 },
+        primaryWallet: { address: userAddress, chainId: 999999 },
       });
 
       render(<WalletConnect userAddress={userAddress} />);
 
-      const badge = await screen.findByTitle("Connected on Chain 42161 (42161)");
+      const badge = await screen.findByTitle("Connected on Chain 999999 (999999)");
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveTextContent("#42161");
+      expect(badge).toHaveTextContent("#999999");
     });
 
     it("shows no network badge when chainId is unavailable", async () => {
