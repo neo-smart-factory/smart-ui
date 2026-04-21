@@ -103,4 +103,100 @@ describe("WalletConnect", () => {
       expect(onDisconnect).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe("network badge rendering", () => {
+    const userAddress = "0x742d35Cc6634C0532925a3b844Bc454e4438f44e";
+
+    it("shows BASE badge for Base mainnet (numeric chainId 8453) from primaryWallet.chainId", async () => {
+      mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
+      mockedUseDynamicContext.mockReturnValue({
+        sdkHasLoaded: true,
+        isAuthenticated: true,
+        primaryWallet: { address: userAddress, chainId: 8453 },
+      });
+
+      render(<WalletConnect userAddress={userAddress} />);
+
+      const badge = await screen.findByTitle("Connected on Base (8453)");
+      expect(badge).toBeInTheDocument();
+      expect(badge).toHaveTextContent("BASE");
+    });
+
+    it("shows POL badge for Polygon (chainId 137) from publicClient.chain.id", async () => {
+      mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
+      mockedUseDynamicContext.mockReturnValue({
+        sdkHasLoaded: true,
+        isAuthenticated: true,
+        primaryWallet: {
+          address: userAddress,
+          connector: {
+            getPublicClient: () => ({ chain: { id: 137 } }),
+          },
+        },
+      });
+
+      render(<WalletConnect userAddress={userAddress} />);
+
+      const badge = await screen.findByTitle("Connected on Polygon (137)");
+      expect(badge).toBeInTheDocument();
+      expect(badge).toHaveTextContent("POL");
+    });
+
+    it("shows BASE badge when chainId is provided as hex string (0x2105 = 8453)", async () => {
+      mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
+      mockedUseDynamicContext.mockReturnValue({
+        sdkHasLoaded: true,
+        isAuthenticated: true,
+        primaryWallet: { address: userAddress, chainId: "0x2105" },
+      });
+
+      render(<WalletConnect userAddress={userAddress} />);
+
+      const badge = await screen.findByTitle("Connected on Base (8453)");
+      expect(badge).toBeInTheDocument();
+      expect(badge).toHaveTextContent("BASE");
+    });
+
+    it("shows generic badge with shortLabel for unknown chain", async () => {
+      mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
+      mockedUseDynamicContext.mockReturnValue({
+        sdkHasLoaded: true,
+        isAuthenticated: true,
+        primaryWallet: { address: userAddress, chainId: 42161 },
+      });
+
+      render(<WalletConnect userAddress={userAddress} />);
+
+      const badge = await screen.findByTitle("Connected on Chain 42161 (42161)");
+      expect(badge).toBeInTheDocument();
+      expect(badge).toHaveTextContent("#42161");
+    });
+
+    it("shows no network badge when chainId is unavailable", async () => {
+      mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
+      mockedUseDynamicContext.mockReturnValue({
+        sdkHasLoaded: true,
+        isAuthenticated: true,
+        primaryWallet: { address: userAddress },
+      });
+
+      render(<WalletConnect userAddress={userAddress} />);
+
+      await screen.findByText(/0x742d/i);
+      expect(screen.queryByTitle(/Connected on/i)).not.toBeInTheDocument();
+    });
+
+    it("shows Wrong Network text when connected to a chain other than EXPECTED_CHAIN_ID", async () => {
+      mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
+      mockedUseDynamicContext.mockReturnValue({
+        sdkHasLoaded: true,
+        isAuthenticated: true,
+        primaryWallet: { address: userAddress, chainId: 137 },
+      });
+
+      render(<WalletConnect userAddress={userAddress} />);
+
+      expect(await screen.findByText("Wrong Network")).toBeInTheDocument();
+    });
+  });
 });
