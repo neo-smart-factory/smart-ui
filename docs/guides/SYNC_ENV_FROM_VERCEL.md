@@ -14,7 +14,7 @@ Guia para trazer todas as variáveis de ambiente configuradas no Vercel para o p
 Use o comando do Makefile:
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+cd /caminho/para/neo-smart-factory/smart-ui
 make sync-env
 ```
 
@@ -37,7 +37,7 @@ vercel login
 ### 2. Linkar Projeto (se ainda não fez)
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+cd /caminho/para/neo-smart-factory/smart-ui
 vercel link
 ```
 

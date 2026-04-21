@@ -25,7 +25,7 @@ O `vercel dev` carrega automaticamente as variáveis de ambiente do Vercel, ent�
 
 2. **Linkar o projeto (se ainda não linkou):**
    ```bash
-   cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+   cd /caminho/para/neo-smart-factory/smart-ui
    vercel link
    ```
    - Escolha o projeto `smart-ui-dashboard`
@@ -38,7 +38,7 @@ O `vercel dev` carrega automaticamente as variáveis de ambiente do Vercel, ent�
    
    # Em outro terminal, executar migrations
    # (as variáveis estarão disponíveis via vercel dev)
-   DATABASE_URL=$(vercel env pull --yes | grep DATABASE_URL | cut -d'=' -f2) npm run migrate
+   DATABASE_URL=$(vercel env pull --yes | grep DATABASE_URL | cut -d'=' -f2) pnpm run migrate
    ```
 
 **⚠️ Nota:** Essa opção é mais complexa. Prefira a **Opção 2** ou **Opção 3**.
@@ -57,7 +57,7 @@ Criar `.env` local apenas para executar migrations, depois pode deletar.
 
 2. **Criar .env:**
    ```bash
-   cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+   cd /caminho/para/neo-smart-factory/smart-ui
    echo 'DATABASE_URL="cole-aqui-sua-url-do-vercel"' > .env
    ```
 
@@ -91,8 +91,8 @@ Executar migrations diretamente passando a DATABASE_URL como variável de ambien
 
 2. **Executar migrations:**
    ```bash
-   cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
-   DATABASE_URL="cole-aqui-sua-url-do-vercel" npm run migrate
+   cd /caminho/para/neo-smart-factory/smart-ui
+   DATABASE_URL="cole-aqui-sua-url-do-vercel" pnpm run migrate
    ```
 
 **✅ Vantagem:** Não precisa criar arquivo `.env`.

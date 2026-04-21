@@ -55,7 +55,7 @@ Guia passo a passo para configurar Neon e executar migrations.
 ### Passo 1: Criar arquivo `.env`
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+cd /caminho/para/neo-smart-factory/smart-ui
 cp .env.example .env
 ```
 
@@ -91,22 +91,22 @@ DATABASE_URL="postgresql://seu-user:seu-password@ep-xxx-123456.us-east-2.aws.neo
 ### Opção 1: Usando Makefile (Recomendado)
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+cd /caminho/para/neo-smart-factory/smart-ui
 make migratedb
 ```
 
-### Opção 2: Usando npm
+### Opção 2: Usando pnpm
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
-npm run migrate
+cd /caminho/para/neo-smart-factory/smart-ui
+pnpm run migrate
 ```
 
 ### Opção 3: Direto com variável (sem .env)
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
-DATABASE_URL="postgresql://user:pass@ep-xxx.neon.tech/neondb?sslmode=require" npm run migrate
+cd /caminho/para/neo-smart-factory/smart-ui
+DATABASE_URL="postgresql://user:pass@ep-xxx.neon.tech/neondb?sslmode=require" pnpm run migrate
 ```
 
 ### ✅ Sucesso Esperado
@@ -188,7 +188,7 @@ Se o projeto já estava deployado, faça um **Redeploy** para aplicar a nova var
 ### Teste Local (com vercel dev)
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+cd /caminho/para/neo-smart-factory/smart-ui
 make dev-vercel
 ```
 

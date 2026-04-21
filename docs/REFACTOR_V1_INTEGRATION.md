@@ -282,25 +282,23 @@ const deployment = useDeployment(formData, userAddress, {
 If issues arise:
 
 ```bash
-# Restore original App.jsx
-cp src/App.jsx.backup src/App.jsx
+# Restore original App.jsx from Git
+git checkout -- src/App.jsx
 
 # Remove new files
 rm -rf src/hooks/useDeployment.js src/hooks/useMarketingTracking.js ...
 rm -rf src/services/
 
 # Rebuild
-npm run build
+pnpm run build
 ```
-
-**Backup location:** `src/App.jsx.backup`
 
 ---
 
 ## 📝 Notes
 
 - All new files are **additive** (no breaking changes)
-- Original App.jsx preserved as `App.jsx.backup`
+- Rollback should use Git history (`git checkout` / `git restore`)
 - Build time increased slightly: 14s → 21s (more files to process)
 - Phase 2 will integrate these hooks into App.jsx
 - Phase 3 will extract components for full refactor
