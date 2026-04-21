@@ -145,8 +145,6 @@ export default function SmartMint() {
   // Transaction Status
   const { transaction, setTransaction: setTransactionState, clearTransaction } = useTransactionStatus();
 
-  const heroButtonRef = useCallback(() => {}, []);
-
   const [historyLoading, setHistoryLoading] = useState(true);
   const [deployProgress, setDeployProgress] = useState(0);
   const [deployStatus, setDeployStatus] = useState('');
@@ -197,7 +195,10 @@ export default function SmartMint() {
   }, []);
 
   useEffect(() => {
-    fetchDeploys();
+    const timeoutId = setTimeout(() => {
+      fetchDeploys();
+    }, 0);
+    return () => clearTimeout(timeoutId);
   }, [fetchDeploys]);
 
   // Marketing: Criar lead na primeira visita
@@ -804,7 +805,7 @@ export default function SmartMint() {
                           <Rocket className="w-8 h-8 group-hover:rotate-12 transition-transform duration-500 relative z-10" />
                           <div className="absolute -inset-2 bg-[#D8F244]/40 blur-lg rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </div>
-                        <span ref={heroButtonRef} className="font-headline font-black tracking-[0.3em] text-sm md:text-base">LAUNCH SMART MINT</span>
+                        <span className="font-headline font-black tracking-[0.3em] text-sm md:text-base">LAUNCH SMART MINT</span>
                       </button>
                     </div>
                   </div>
@@ -1095,4 +1096,3 @@ export default function SmartMint() {
     </ErrorBoundary >
   );
 }
-

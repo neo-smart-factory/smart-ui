@@ -35,7 +35,10 @@ export const useDeploymentHistory = () => {
    * Fetch on mount
    */
   useEffect(() => {
-    fetchHistory();
+    const timeoutId = setTimeout(() => {
+      fetchHistory();
+    }, 0);
+    return () => clearTimeout(timeoutId);
   }, [fetchHistory]);
   
   /**
