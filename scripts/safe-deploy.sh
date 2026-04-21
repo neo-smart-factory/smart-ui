@@ -18,10 +18,10 @@ echo -e "${YELLOW}🚀 NΞØ DEPLOY SEQUENCE INITIATED...${NC}"
 # 1. SECURITY CHECK (Audit & Lint)
 echo -e "${YELLOW}🔒 [1/4] Checking Security & Code Quality...${NC}"
 # Only warn on audit to prevent blocking critical workflow, but show it.
-npm audit --audit-level=critical || echo -e "${RED}⚠️  Critical vulnerabilities found! Check output above.${NC}"
+pnpm audit --audit-level=critical || echo -e "${RED}⚠️  Critical vulnerabilities found! Check output above.${NC}"
 # Linting
 echo "Running Linter..."
-npm run lint -- --no-error-on-unmatched-pattern || echo -e "${YELLOW}⚠️  Lint warnings detected.${NC}"
+pnpm run lint -- --no-error-on-unmatched-pattern || echo -e "${YELLOW}⚠️  Lint warnings detected.${NC}"
 
 # 2. BUILD CHECK
 echo -e "${YELLOW}🏗️  [2/4] Verifying Build...${NC}"
@@ -31,7 +31,7 @@ CHANGED_FILES=$(git diff --name-only HEAD)
 # Check Dashboard (Root)
 if echo "$CHANGED_FILES" | grep -qE "^src/|^public/|^api/|vite.config|package.json|postcss.config|tailwind.config"; then
     echo -e "${GREEN}Detected changes in Dashboard. Building...${NC}"
-    npm run build
+    pnpm run build
 fi
 
 echo -e "${GREEN}✅ Build verification passed.${NC}"
