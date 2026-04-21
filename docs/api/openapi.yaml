@@ -16,7 +16,7 @@ info:
     url: https://opensource.org/licenses/MIT
 
 servers:
-  - url: https://smart-ui-dashboard.vercel.app/api
+  - url: https://smart-ui-delta.vercel.app/api
     description: Production
   - url: http://localhost:3000/api
     description: Local development (vercel dev)

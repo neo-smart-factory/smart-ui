@@ -25,10 +25,10 @@ O `vercel dev` carrega automaticamente as variáveis de ambiente do Vercel, ent�
 
 2. **Linkar o projeto (se ainda não linkou):**
    ```bash
-   cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+   cd /Users/nettomello/neomello/neo-smart-factory/smart-ui
    vercel link
    ```
-   - Escolha o projeto `smart-ui-dashboard`
+   - Escolha o projeto canônico do Smart UI Core (atualmente `smart-ui-delta`)
    - Aceite as configurações padrão
 
 3. **Executar migrations via Vercel Dev:**
@@ -57,7 +57,7 @@ Criar `.env` local apenas para executar migrations, depois pode deletar.
 
 2. **Criar .env:**
    ```bash
-   cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+   cd /Users/nettomello/neomello/neo-smart-factory/smart-ui
    echo 'DATABASE_URL="cole-aqui-sua-url-do-vercel"' > .env
    ```
 
@@ -91,7 +91,7 @@ Executar migrations diretamente passando a DATABASE_URL como variável de ambien
 
 2. **Executar migrations:**
    ```bash
-   cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+   cd /Users/nettomello/neomello/neo-smart-factory/smart-ui
    DATABASE_URL="cole-aqui-sua-url-do-vercel" npm run migrate
    ```
 
