@@ -6,7 +6,7 @@
  * @see https://docs.dynamic.xyz/
  */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { ChevronDown, Wallet } from 'lucide-react';
 import { DynamicWidget, useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import useFeatures from '../hooks/useFeatures';
@@ -15,7 +15,11 @@ import WalletErrorFallback from './WalletErrorFallback';
 import LoadingSpinner from './ui/LoadingSpinner';
 import { validateAddress, formatAddress } from '../utils/addressValidation';
 
-const EXPECTED_CHAIN_ID = 8453; // Base mainnet
+const NETWORK_CHAIN_IDS = {
+  base: 8453,
+  polygon: 137,
+  arbitrum: 42161,
+};
 
 const NETWORK_META = {
   1: { label: 'Ethereum', shortLabel: 'ETH', badgeClass: 'bg-slate-700/60 text-slate-100 border-slate-500/40' },
@@ -60,16 +64,35 @@ function getNetworkInfo(chainId) {
 /**
  * Internal component that has access to Dynamic context
  */
-function WalletConnectInner({ onConnect, onDisconnect, userAddress, setUserAddress, className }) {
+function WalletConnectInner({
+  onConnect,
+  onDisconnect,
+  userAddress,
+  setUserAddress,
+  className,
+  selectedNetwork = 'base',
+}) {
   const { primaryWallet, isAuthenticated, sdkHasLoaded } = useDynamicContext();
   const prevAddressRef = useRef(null);
+  const expectedChainId = useMemo(
+    () => NETWORK_CHAIN_IDS[selectedNetwork] ?? null,
+    [selectedNetwork],
+  );
   const publicClient = primaryWallet?.connector?.getPublicClient?.();
   const walletChainId =
     parseChainId(publicClient?.chain?.id) ||
     parseChainId(publicClient?.chainId) ||
     parseChainId(primaryWallet?.chainId);
+  const walletAddressValidation = validateAddress(primaryWallet?.address || null);
+  const displayAddress = userAddress || (walletAddressValidation.valid ? walletAddressValidation.normalized : null);
   const networkInfo = getNetworkInfo(walletChainId);
-  const isWrongNetwork = Boolean(userAddress && walletChainId && walletChainId !== EXPECTED_CHAIN_ID);
+  const isWrongNetwork = Boolean(
+    isAuthenticated &&
+    primaryWallet &&
+    walletChainId &&
+    expectedChainId &&
+    walletChainId !== expectedChainId,
+  );
 
   // Effect to handle wallet connection/disconnection callbacks
   useEffect(() => {
@@ -122,7 +145,7 @@ function WalletConnectInner({ onConnect, onDisconnect, userAddress, setUserAddre
               </>
             ) : (
               <>
-                {userAddress ? (
+                {displayAddress ? (
                   <>
                     <span className="wallet-status-dot" />
                     {networkInfo && (
@@ -135,7 +158,7 @@ function WalletConnectInner({ onConnect, onDisconnect, userAddress, setUserAddre
                     )}
                     <Wallet className="w-3.5 h-3.5 opacity-80" />
                     <span className="font-mono text-xs">
-                      {isWrongNetwork ? 'Wrong Network' : formatAddress(userAddress)}
+                      {isWrongNetwork ? 'Wrong Network' : formatAddress(displayAddress)}
                     </span>
                     <ChevronDown className="w-3 h-3 opacity-60" />
                   </>
@@ -160,6 +183,7 @@ export default function WalletConnect({
   onDisconnect = null,
   userAddress = null,
   setUserAddress = null,
+  selectedNetwork = 'base',
 }) {
   const { isEnabled } = useFeatures();
   const isWeb3Enabled = isEnabled('phase2', 'web3');
@@ -204,9 +228,8 @@ export default function WalletConnect({
         userAddress={userAddress}
         setUserAddress={setUserAddress}
         className={className}
+        selectedNetwork={selectedNetwork}
       />
     </ErrorBoundary>
   );
 }
-
-

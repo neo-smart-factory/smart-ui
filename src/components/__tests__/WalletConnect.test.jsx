@@ -199,4 +199,55 @@ describe("WalletConnect", () => {
       expect(await screen.findByText("Wrong Network")).toBeInTheDocument();
     });
   });
+
+  it("does not show wrong network when selected network matches chain", async () => {
+    mockedUseFeatures.mockReturnValue({
+      isEnabled: () => true,
+    });
+
+    mockedUseDynamicContext.mockReturnValue({
+      sdkHasLoaded: true,
+      isAuthenticated: true,
+      primaryWallet: {
+        address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+        connector: {
+          getPublicClient: () => ({ chain: { id: 137 } }),
+        },
+      },
+    });
+
+    render(
+      <WalletConnect
+        userAddress="0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+        selectedNetwork="polygon"
+      />,
+    );
+
+    const badge = await screen.findByText("POL");
+    expect(badge).toBeInTheDocument();
+    expect(screen.queryByText("Wrong Network")).not.toBeInTheDocument();
+  });
+
+  it("shows wrong network even when userAddress prop is null if wallet is authenticated", async () => {
+    mockedUseFeatures.mockReturnValue({
+      isEnabled: () => true,
+    });
+
+    mockedUseDynamicContext.mockReturnValue({
+      sdkHasLoaded: true,
+      isAuthenticated: true,
+      primaryWallet: {
+        address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+        connector: {
+          getPublicClient: () => ({ chain: { id: 137 } }),
+        },
+      },
+    });
+
+    render(<WalletConnect userAddress={null} selectedNetwork="base" />);
+
+    const badge = await screen.findByText("POL");
+    expect(badge).toBeInTheDocument();
+    expect(screen.getByText("Wrong Network")).toBeInTheDocument();
+  });
 });

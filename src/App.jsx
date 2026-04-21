@@ -720,6 +720,7 @@ export default function SmartMint() {
                 setUserAddress={setUserAddress}
                 onConnect={handleWalletConnect}
                 onDisconnect={handleWalletDisconnect}
+                selectedNetwork={formData.network}
               />
             ) : (
               <button
