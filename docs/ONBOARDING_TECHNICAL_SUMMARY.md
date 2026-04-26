@@ -1,4 +1,4 @@
-# 📋 Resumo Técnico — Onboarding NΞØ Smart Factory UI
+# 📋 Resumo Técnico — Onboarding NΞØ Smart UI Core
 
 **Versão:** 0.5.4  
 **Data:** Janeiro 2026  
@@ -31,7 +31,7 @@
 
 ## 🎯 Visão Geral do Projeto
 
-A **NΞØ Smart Factory UI** é uma interface de gestão e fábrica de tokens multichain, desenvolvida como uma **Demo and Intent Layer**. O projeto demonstra fluxos e conceitos, mas **não representa autoridade de protocolo** e não executa transações reais na blockchain sem integração Web3 completa.
+A **NΞØ Smart UI Core** é a interface principal de gestão e fábrica de tokens multichain, desenvolvida como **Demo and Intent Layer**. O projeto demonstra fluxos e conceitos, mas **não representa autoridade de protocolo** e não executa transações reais na blockchain sem integração Web3 completa.
 
 **⚠️ IMPORTANTE:** Esta estrutura é protegida por arquitetura NEØ. Modificações estruturais (pastas, renomeação de arquivos) requerem autorização direta.
 

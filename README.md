@@ -1,4 +1,4 @@
-# NΞØ SMART FACTORY — Interface de Gestão e Fábrica de Tokens
+# NΞØ SMART FACTORY — Smart UI Core
 
 ```
 ==============================================
@@ -85,7 +85,7 @@ A **NΞØ Smart Factory** é uma interface de gestão para criação de ativos n
 ──────────────────────────────────────────────
  └─ Build Tool: Vite 7.3.1 (ultra-rápido HMR)
  └─ Framework: React 18 + Vite
- └─ Escopo: Dashboard Principal (src/)
+ └─ Escopo: Smart UI Core (src/)
       + API routes (api/)
  └─ Estilo: Tailwind CSS + Design Tokens Customizados
  └─ Ícones: Lucide React
@@ -150,7 +150,7 @@ make dev          # Apenas frontend (Vite puro)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  FRONTEND
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Dashboard NΞØ Smart UI
+ Smart UI Core
  (React 18 + Vite 7.3.1)
  Hybrid Mode (on-chain + simulation fallback)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -195,7 +195,7 @@ Este projeto está licenciado sob a **Licença MIT**.
 ──────────────────────────────────────────────
  ▓▓▓ ECOSSISTEMA NEØ SMART FACTORY
 ──────────────────────────────────────────────
- └─ Dashboard (este repo)
+└─ Smart UI Core (este repo)
     └─ https://github.com/neo-smart-factory/smart-ui
     └─ Interface de gestão (modo híbrido)
  └─ Landing Page
@@ -211,7 +211,7 @@ Este projeto está licenciado sob a **Licença MIT**.
 
 ## ❓ Perguntas Frequentes
 
-**Este dashboard executa transações reais?**  
+**Este Smart UI Core executa transações reais?**  
 Sim, quando `phase2.web3=true`, `phase2.realTransactions=true` e há signer conectado. Sem esses pré-requisitos, cai para simulation mode.
 
 **Posso usar isso em produção?**  
@@ -241,12 +241,12 @@ Sim! Veja a seção "MUDANÇAS PERMITIDAS" no aviso arquitetural.
 ---
 
 **Build v0.5.6** — _Demonstrando a transformação de código em ativos._  
-**Status:** Demo and Intent Layer — Hybrid Mode (Web3 LIVE + simulation fallback)
+**Status:** Smart UI Core — Demo and Intent Layer (Hybrid Mode: Web3 LIVE + simulation fallback)
 **Official Domain:** [www.nsfactory.xyz](https://www.nsfactory.xyz)
 
 ## Canonical Token Metadata Update
 
-FlowPay (NEOPAY) was registered as canonical token metadata in `config/ecosystem.json`.
+FlowPay (NEOPAY) was registered as canonical token metadata in `NEO-PROTOCOL/neobot-orchestrator/config/ecosystem.json` (consumed here via Vite alias `@neo-protocol/ecosystem.json`).
 
 - `smart-core`: added `contracts.mainnet` (`FlowPay`, `NeoSmartFactoryRouter`) and `canonicalRegistry`.
 - `flowpay`: added `contracts.mainnet.FlowPay` and `tokenCanonical` (`symbol: NEOPAY`, Base chain `8453`, canonical contract address).

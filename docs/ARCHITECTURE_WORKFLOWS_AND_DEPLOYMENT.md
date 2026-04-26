@@ -223,7 +223,7 @@ Report de saúde do protocolo
 
 ## 🚀 Estrutura de Deploy no Vercel
 
-### Dashboard (`smart-ui-dashboard`)
+### Smart UI Core (`smart-ui-delta`)
 
 **Configuração Vercel:**
 
@@ -239,8 +239,8 @@ Report de saúde do protocolo
 
 **URLs:**
 
-- **Produção:** `https://smart-ui-dashboard.vercel.app` (ou custom domain)
-- **Preview:** `https://smart-ui-dashboard-{branch}.vercel.app`
+- **Produção:** `https://smart-ui-delta.vercel.app` (ou custom domain)
+- **Preview:** `https://smart-ui-delta-{branch}.vercel.app`
 
 **Variáveis de Ambiente:**
 

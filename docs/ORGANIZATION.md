@@ -74,16 +74,17 @@ Profissionais com histórico relevante nas áreas:
 
 ### 🎨 smart-ui
 
-**Interface de usuário e frontend**
+**Smart UI Core — interface principal e frontend**
 
 - React + Vite + Tailwind CSS
-- Múltiplos frontends (Landing, Mobile, App Principal)
+- Interface principal (Demo & Intent Layer)
+- Integração com repositórios dedicados (`smart-ui-landing`, `smart-ui-mobile`)
 - Integração Web3
 - PWA-ready
 
 **URL**: [github.com/neo-smart-factory/smart-ui](https://github.com/neo-smart-factory/smart-ui)
 
-### 📄 landing
+### 📄 smart-ui-landing
 
 **Landing page e materiais de marketing**
 
@@ -91,7 +92,7 @@ Profissionais com histórico relevante nas áreas:
 - Narrativa do projeto
 - Apresentação institucional
 
-**URL**: [github.com/neo-smart-factory/landing](https://github.com/neo-smart-factory/landing)
+**URL**: [github.com/neo-smart-factory/smart-ui-landing](https://github.com/neo-smart-factory/smart-ui-landing)
 
 ### 📚 docs
 
