@@ -186,7 +186,7 @@ describe("WalletConnect", () => {
       expect(screen.queryByTitle(/Connected on/i)).not.toBeInTheDocument();
     });
 
-    it("shows Wrong Network text when connected to a chain other than EXPECTED_CHAIN_ID", async () => {
+    it("shows Wrong Network text when connected to a chain other than the default selectedNetwork (base)", async () => {
       mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
       mockedUseDynamicContext.mockReturnValue({
         sdkHasLoaded: true,
