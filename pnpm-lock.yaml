@@ -16,7 +16,7 @@ importers:
         specifier: ^4.61.4
         version: 4.67.2(@dynamic-labs-wallet/forward-mpc-client@0.4.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6))(@types/react@18.3.28)(bufferutil@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@18.3.1))(utf-8-validate@6.0.6)(viem@2.47.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)(zod@3.25.76))(zod@3.25.76)
       '@dynamic-labs/ethereum-aa':
-        specifier: 4.61.4
+        specifier: ^4.61.4
         version: 4.61.4(@zerodev/webauthn-key@5.5.0(viem@2.47.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)(zod@3.25.76)))(bufferutil@4.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@6.0.6)(viem@2.47.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)(zod@3.25.76))
       '@dynamic-labs/ethers-v6':
         specifier: ^4.61.4
@@ -5611,7 +5611,7 @@ snapshots:
   '@dynamic-labs-wallet/browser-wallet-client@0.0.263(bufferutil@4.1.0)(utf-8-validate@6.0.6)':
     dependencies:
       '@dynamic-labs-wallet/core': 0.0.263(bufferutil@4.1.0)(utf-8-validate@6.0.6)
-      '@dynamic-labs/logger': 4.61.4
+      '@dynamic-labs/logger': 4.67.2
       '@dynamic-labs/message-transport': 4.67.2
       uuid: 11.1.0
     transitivePeerDependencies:
@@ -5644,7 +5644,7 @@ snapshots:
   '@dynamic-labs-wallet/browser@0.0.167':
     dependencies:
       '@dynamic-labs-wallet/core': 0.0.167
-      '@dynamic-labs/logger': 4.61.4
+      '@dynamic-labs/logger': 4.67.2
       '@dynamic-labs/sdk-api-core': 0.0.764
       '@noble/hashes': 1.7.1
       argon2id: 1.0.1
@@ -5658,7 +5658,7 @@ snapshots:
   '@dynamic-labs-wallet/browser@0.0.203(bufferutil@4.1.0)(utf-8-validate@6.0.6)':
     dependencies:
       '@dynamic-labs-wallet/core': 0.0.203(bufferutil@4.1.0)(utf-8-validate@6.0.6)
-      '@dynamic-labs/logger': 4.61.4
+      '@dynamic-labs/logger': 4.67.2
       '@dynamic-labs/sdk-api-core': 0.0.818
       '@noble/hashes': 1.7.1
       argon2id: 1.0.1
@@ -5701,7 +5701,7 @@ snapshots:
   '@dynamic-labs-wallet/core@0.0.203(bufferutil@4.1.0)(utf-8-validate@6.0.6)':
     dependencies:
       '@dynamic-labs-wallet/forward-mpc-client': 0.1.3(bufferutil@4.1.0)(utf-8-validate@6.0.6)
-      '@dynamic-labs/logger': 4.61.4
+      '@dynamic-labs/logger': 4.67.2
       '@dynamic-labs/sdk-api-core': 0.0.818
       axios: 1.13.6
       http-errors: 2.0.0
@@ -5727,7 +5727,7 @@ snapshots:
   '@dynamic-labs-wallet/core@0.0.263(bufferutil@4.1.0)(utf-8-validate@6.0.6)':
     dependencies:
       '@dynamic-labs-wallet/forward-mpc-client': 0.2.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
-      '@dynamic-labs/logger': 4.61.4
+      '@dynamic-labs/logger': 4.67.2
       '@dynamic-labs/sdk-api-core': 0.0.864
       axios: 1.13.6
       http-errors: 2.0.0
@@ -5767,7 +5767,7 @@ snapshots:
       '@evervault/wasm-attestation-bindings': 0.3.1
       '@noble/hashes': 2.0.1
       '@noble/post-quantum': 0.5.4
-      eventemitter3: 5.0.1
+      eventemitter3: 5.0.4
       fp-ts: 2.16.11
       ws: 8.19.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
     transitivePeerDependencies:
@@ -5782,7 +5782,7 @@ snapshots:
       '@evervault/wasm-attestation-bindings': 0.3.1
       '@noble/hashes': 2.0.1
       '@noble/post-quantum': 0.5.4
-      eventemitter3: 5.0.1
+      eventemitter3: 5.0.4
       fp-ts: 2.16.11
       ws: 8.19.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
     transitivePeerDependencies:
@@ -11665,7 +11665,7 @@ snapshots:
       '@types/uuid': 10.0.0
       '@types/ws': 8.18.1
       buffer: 6.0.3
-      eventemitter3: 5.0.1
+      eventemitter3: 5.0.4
       uuid: 11.1.0
       ws: 8.19.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
     optionalDependencies:

@@ -79,7 +79,7 @@ const fetchWithTimeout = async (url, options = {}, timeout = 10000) => {
   } catch (error) {
     clearTimeout(timeoutId);
     if (error.name === 'AbortError') {
-      throw new Error('Request timeout');
+      throw new Error('Request timeout', { cause: error });
     }
     throw error;
   }
@@ -145,22 +145,6 @@ export default function SmartMint() {
   // Transaction Status
   const { transaction, setTransaction: setTransactionState, clearTransaction } = useTransactionStatus();
 
-  // Scroll logic for Header CTA sync
-  const [heroPassed, setHeroPassed] = useState(false);
-  const heroButtonRef = useCallback(node => {
-    if (node !== null) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          // Quando o botão hero sai da tela (ou está quase saindo), ativamos o glow no header
-          setHeroPassed(!entry.isIntersecting && entry.boundingClientRect.top < 0);
-        },
-        { threshold: 0 }
-      );
-      observer.observe(node);
-      return () => observer.disconnect();
-    }
-  }, []);
-
   const [historyLoading, setHistoryLoading] = useState(true);
   const [deployProgress, setDeployProgress] = useState(0);
   const [deployStatus, setDeployStatus] = useState('');
@@ -211,7 +195,10 @@ export default function SmartMint() {
   }, []);
 
   useEffect(() => {
-    fetchDeploys();
+    const timeoutId = setTimeout(() => {
+      fetchDeploys();
+    }, 0);
+    return () => clearTimeout(timeoutId);
   }, [fetchDeploys]);
 
   // Marketing: Criar lead na primeira visita
@@ -718,7 +705,7 @@ export default function SmartMint() {
           <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-signal-cyan/10 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
 
-        <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5 px-6 py-4 flex items-center justify-between">
+        <header className="app-header fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="relative w-10 h-10">
               <img src="/brand/logo.png" alt="NEØ Logo" title="NEØ Smart Factory Logo" loading="lazy" className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(216,242,68,0.4)]" />
@@ -733,7 +720,7 @@ export default function SmartMint() {
                 setUserAddress={setUserAddress}
                 onConnect={handleWalletConnect}
                 onDisconnect={handleWalletDisconnect}
-                className={heroPassed ? 'btn-launch scale-90 translate-x-2 shadow-neon-acid/20' : 'btn-secondary'}
+                selectedNetwork={formData.network}
               />
             ) : (
               <button
@@ -819,7 +806,7 @@ export default function SmartMint() {
                           <Rocket className="w-8 h-8 group-hover:rotate-12 transition-transform duration-500 relative z-10" />
                           <div className="absolute -inset-2 bg-[#D8F244]/40 blur-lg rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </div>
-                        <span ref={heroButtonRef} className="font-headline font-black tracking-[0.3em] text-sm md:text-base">LAUNCH SMART MINT</span>
+                        <span className="font-headline font-black tracking-[0.3em] text-sm md:text-base">LAUNCH SMART MINT</span>
                       </button>
                     </div>
                   </div>
@@ -1110,4 +1097,3 @@ export default function SmartMint() {
     </ErrorBoundary >
   );
 }
-

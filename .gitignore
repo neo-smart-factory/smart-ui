@@ -56,3 +56,5 @@ backups/emergency_*/
 !backups/README.md
 !backups/.gitkeep
 package-lock.json
+remote_bundle.js
+src/App.jsx.backup
