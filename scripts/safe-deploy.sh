@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # NΞØ SMART FACTORY — Safe Deploy & Commit Strategy
-# Dashboard (smart-ui) — Single Repository
+# Smart UI Core (smart-ui) — Single Repository
 
 set -e # Exit immediately if a command exits with a non-zero status.
 
@@ -28,9 +28,9 @@ echo -e "${YELLOW}🏗️  [2/4] Verifying Build...${NC}"
 
 CHANGED_FILES=$(git diff --name-only HEAD)
 
-# Check Dashboard (Root)
+# Check Smart UI Core (Root)
 if echo "$CHANGED_FILES" | grep -qE "^src/|^public/|^api/|vite.config|package.json|postcss.config|tailwind.config"; then
-    echo -e "${GREEN}Detected changes in Dashboard. Building...${NC}"
+    echo -e "${GREEN}Detected changes in Smart UI Core. Building...${NC}"
     npm run build
 fi
 
@@ -54,8 +54,8 @@ echo -e "${YELLOW}🚀 [4/4] Pushing to Vercel (via Git)...${NC}"
 git push origin main
 
 echo -e "${GREEN}✅ DEPLOY SEQUENCE COMPLETE!${NC}"
-echo -e "Vercel will now auto-deploy the Dashboard:"
-echo -e "  - Dashboard: https://smart-ui-delta.vercel.app"
+echo -e "Vercel will now auto-deploy Smart UI Core:"
+echo -e "  - Smart UI Core: https://smart-ui-delta.vercel.app"
 echo -e ""
 echo -e "📦 Related repositories:"
 echo -e "  - Landing: https://github.com/neo-smart-factory/smart-ui-landing"
