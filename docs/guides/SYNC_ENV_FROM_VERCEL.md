@@ -14,7 +14,7 @@ Guia para trazer todas as variáveis de ambiente configuradas no Vercel para o p
 Use o comando do Makefile:
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+cd /Users/nettomello/neomello/neo-smart-factory/smart-ui
 make sync-env
 ```
 
@@ -37,11 +37,11 @@ vercel login
 ### 2. Linkar Projeto (se ainda não fez)
 
 ```bash
-cd /Users/nettomello/CODIGOS/NEO\ SMART\ TOKEN/smart-ui
+cd /Users/nettomello/neomello/neo-smart-factory/smart-ui
 vercel link
 ```
 
-- Escolha o projeto `smart-ui-dashboard`
+- Escolha o projeto canônico do Smart UI Core (atualmente `smart-ui-delta`)
 - Aceite as configurações padrão
 
 ### 3. Sincronizar Variáveis
@@ -82,7 +82,7 @@ O script criará um arquivo `.env` com:
 ```
 🔍 Sincronizando variáveis de ambiente do Vercel...
 
-📦 Projeto Vercel: smart-ui-dashboard
+📦 Projeto Vercel: smart-ui-delta
 
 📥 Baixando variáveis de ambiente do Vercel...
 ✅ 8 variável(is) encontrada(s) no Vercel

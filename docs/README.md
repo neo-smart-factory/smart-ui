@@ -3,6 +3,7 @@
 > **Repositório**: smart-ui  
 > **Organização**: [neo-smart-factory](https://github.com/neo-smart-factory)  
 > **Status**: Ativo
+> **Nomenclatura Canônica**: Smart UI Core (termo "dashboard" é legado)
 
 > 🗺️ **Navegação:** Para um índice visual completo de todos os documentos, veja [NAVIGATION_INDEX.md](./NAVIGATION_INDEX.md)
 
@@ -118,15 +119,15 @@ Lista de tarefas pendentes e próximas ações prioritárias.
 
 ---
 
-### 🎨 Documentação de Frontend
+### 🎨 Documentação de Frontend (UI Core)
 
 #### [FRONTEND_MAP.md](./FRONTEND_MAP.md)
-**Mapa de Frontends**
+**Mapa do Smart UI Core**
 
-Descrição dos múltiplos frontends do projeto:
-- Landing Page (React + Vite)
-- Nuxt App (Vue 3 + Vite)
-- App Principal (React + TypeScript + Web3)
+Descrição da arquitetura do frontend deste repositório:
+- Smart UI Core (React + Vite + Web3)
+- API routes de suporte em `api/`
+- Integração com repositórios dedicados (landing/mobile)
 
 **Complexidade**: ⭐⭐  
 **Audiência**: Desenvolvedores frontend
@@ -209,6 +210,7 @@ Guia para configurar CI/CD com GitHub Actions.
 1. [FRONTEND_MAP.md](./FRONTEND_MAP.md)
 2. [DATABASE_SCHEMA.sql](./DATABASE_SCHEMA.sql)
 3. [ui-diagnostic-checklist.md](./ui-diagnostic-checklist.md)
+4. [TERMINOLOGY.md](./TERMINOLOGY.md)
 
 ---
 
@@ -277,7 +279,7 @@ Outros documentos são mais estáveis e requerem revisão formal:
 ### Repositórios
 
 - [smart-ui](https://github.com/neo-smart-factory/smart-ui)
-- [landing](https://github.com/neo-smart-factory/landing)
+- [smart-ui-landing](https://github.com/neo-smart-factory/smart-ui-landing)
 - [docs](https://github.com/neo-smart-factory/docs)
 
 ### Padrões

@@ -7,7 +7,7 @@
 
 > **⚠️ Atualizado:** Este documento reflete a estrutura atual após a migração para multi-repos (2026-01-24).
 
-Este documento serve como guia operacional para desenvolvedores que acessam o repositório `smart-ui` (Dashboard).
+Este documento serve como guia operacional para desenvolvedores que acessam o repositório `smart-ui` (Smart UI Core).
 
 ---
 
@@ -15,12 +15,12 @@ Este documento serve como guia operacional para desenvolvedores que acessam o re
 
 Após a migração para multi-repos, o ecossistema NΞØ Smart Factory está dividido em **3 repositórios independentes**:
 
-### 1. smart-ui (Dashboard) — Este Repositório
+### 1. smart-ui (Smart UI Core) — Este Repositório
 - **Repositório:** [neo-smart-factory/smart-ui](https://github.com/neo-smart-factory/smart-ui)
 - **Stack:** React + Vite + Tailwind CSS
-- **Uso:** Dashboard interno e visualização da saúde do protocolo. Interface de demonstração (Demo & Intent Layer).
+- **Uso:** Interface principal (Demo & Intent Layer) e visualização de estado operacional.
 - **Comando:** `npm run dev` (Porta 3000)
-- **Deploy:** Vercel (smart-ui-dashboard)
+- **Deploy:** Vercel (`smart-ui-delta`)
 
 ### 2. smart-ui-landing (Landing Page)
 - **Repositório:** [neo-smart-factory/smart-ui-landing](https://github.com/neo-smart-factory/smart-ui-landing)
@@ -38,11 +38,11 @@ Após a migração para multi-repos, o ecossistema NΞØ Smart Factory está div
 
 ## 📋 Estrutura Atual do smart-ui
 
-Este repositório (`smart-ui`) contém apenas o **Dashboard**:
+Este repositório (`smart-ui`) contém apenas o **Smart UI Core**:
 
 ```
 smart-ui/
-├── src/              # Código do Dashboard
+├── src/              # Código do Smart UI Core
 ├── api/              # Vercel Serverless Functions
 ├── migrations/       # Database schema
 ├── docs/             # Documentação

@@ -87,7 +87,7 @@ curl -I https://nsfactory.xyz/ecosystem-graph.html
 ### 2. Verificar no Vercel Dashboard
 
 1. Acesse [vercel.com](https://vercel.com)
-2. Vá para o projeto `smart-ui-dashboard`
+2. Vá para o projeto canônico do Smart UI Core (atualmente `smart-ui-delta`)
 3. **Deployments** → Último deploy → **View Build Logs**
 4. Verifique se `ecosystem-graph.html` está listado nos arquivos deployados
 
