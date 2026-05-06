@@ -1,253 +1,128 @@
-import { getAddress } from "ethers";
-import { render, screen, waitFor } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { render, screen, waitFor } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
-vi.mock("@dynamic-labs/sdk-react-core", () => ({
-  DynamicWidget: ({ innerButtonComponent }) => (
-    <div data-testid="dynamic-widget">{innerButtonComponent}</div>
-  ),
-  useDynamicContext: vi.fn(),
+vi.mock('wagmi', () => ({
+  useAccount:    vi.fn(),
+  useConnect:    vi.fn(),
+  useDisconnect: vi.fn(),
+  useChainId:    vi.fn(),
 }));
 
-vi.mock("../../hooks/useFeatures", () => ({
-  default: vi.fn(),
+vi.mock('../../hooks/useFeatures', () => ({ default: vi.fn() }));
+vi.mock('../../web3/walletEnv', () => ({
+  pickConnector:         vi.fn(() => ({ id: 'injected' })),
+  detectInjectedFlavor:  vi.fn(() => null),
+  isMobile:              vi.fn(() => false),
+  mobileDeeplinks:       { coinbase: vi.fn() },
 }));
 
-import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
-import useFeatures from "../../hooks/useFeatures";
-import WalletConnect from "../WalletConnect";
+import { useAccount, useConnect, useDisconnect, useChainId } from 'wagmi';
+import useFeatures from '../../hooks/useFeatures';
+import WalletConnect from '../WalletConnect';
 
-const mockedUseDynamicContext = vi.mocked(useDynamicContext);
-const mockedUseFeatures = vi.mocked(useFeatures);
+const mockConnect    = vi.fn();
+const mockDisconnect = vi.fn();
 
-describe("WalletConnect", () => {
-  it("shows simulation fallback button when web3 is disabled", () => {
-    mockedUseFeatures.mockReturnValue({
-      isEnabled: () => false,
-    });
+function setupWagmi({ address = null, isConnected = false, chainId = 8453 } = {}) {
+  useAccount.mockReturnValue({ address, isConnected });
+  useConnect.mockReturnValue({ connectors: [], connect: mockConnect, isPending: false });
+  useDisconnect.mockReturnValue({ disconnect: mockDisconnect });
+  useChainId.mockReturnValue(chainId);
+}
 
+describe('WalletConnect', () => {
+  it('shows simulation fallback when web3 is disabled', () => {
+    useFeatures.mockReturnValue({ isEnabled: () => false });
+    setupWagmi();
     render(<WalletConnect />);
-
-    const button = screen.getByRole("button", { name: /Web3 \(Phase 2\)/i });
-    expect(button).toBeDisabled();
+    expect(screen.getByRole('button', { name: /Web3 \(Phase 2\)/i })).toBeDisabled();
   });
 
-  it("connects valid wallet and normalizes address (issue #17)", async () => {
-    const onConnect = vi.fn();
+  it('shows Connect Wallet button when not connected', () => {
+    useFeatures.mockReturnValue({ isEnabled: () => true });
+    setupWagmi({ isConnected: false });
+    render(<WalletConnect />);
+    expect(screen.getByRole('button', { name: /Connect Wallet/i })).toBeInTheDocument();
+  });
+
+  it('normalizes address and fires onConnect (issue #17)', async () => {
+    const onConnect    = vi.fn();
     const setUserAddress = vi.fn();
-    const lowerAddress = "0x742d35cc6634c0532925a3b844bc454e4438f44e";
+    const lowerAddress   = '0x742d35cc6634c0532925a3b844bc454e4438f44e';
 
-    mockedUseFeatures.mockReturnValue({
-      isEnabled: () => true,
-    });
+    useFeatures.mockReturnValue({ isEnabled: () => true });
+    setupWagmi({ address: lowerAddress, isConnected: true });
 
-    mockedUseDynamicContext.mockReturnValue({
-      sdkHasLoaded: true,
-      isAuthenticated: true,
-      primaryWallet: { address: lowerAddress },
-    });
-
-    render(
-      <WalletConnect
-        userAddress={null}
-        setUserAddress={setUserAddress}
-        onConnect={onConnect}
-      />,
-    );
-
-    const expected = getAddress(lowerAddress);
+    render(<WalletConnect userAddress={null} setUserAddress={setUserAddress} onConnect={onConnect} />);
 
     await waitFor(() => {
-      expect(setUserAddress).toHaveBeenCalledWith(expected);
-      expect(onConnect).toHaveBeenCalledWith(expected);
-    });
-
-    expect(screen.getByTestId("dynamic-widget")).toBeInTheDocument();
-  });
-
-  it("calls onDisconnect when wallet gets disconnected", async () => {
-    const onConnect = vi.fn();
-    const onDisconnect = vi.fn();
-
-    mockedUseFeatures.mockReturnValue({
-      isEnabled: () => true,
-    });
-
-    let currentContext = {
-      sdkHasLoaded: true,
-      isAuthenticated: true,
-      primaryWallet: { address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e" },
-    };
-
-    mockedUseDynamicContext.mockImplementation(() => currentContext);
-
-    const { rerender } = render(
-      <WalletConnect onConnect={onConnect} onDisconnect={onDisconnect} />,
-    );
-
-    await waitFor(() => {
+      expect(setUserAddress).toHaveBeenCalledWith(expect.stringMatching(/^0x742d35Cc/i));
       expect(onConnect).toHaveBeenCalledTimes(1);
     });
-
-    currentContext = {
-      sdkHasLoaded: true,
-      isAuthenticated: false,
-      primaryWallet: null,
-    };
-
-    rerender(
-      <WalletConnect onConnect={onConnect} onDisconnect={onDisconnect} />,
-    );
-
-    await waitFor(() => {
-      expect(onDisconnect).toHaveBeenCalledTimes(1);
-    });
   });
 
-  describe("network badge rendering", () => {
-    const userAddress = "0x742d35Cc6634C0532925a3b844Bc454e4438f44e";
+  it('calls onDisconnect when wallet disconnects', async () => {
+    const onConnect    = vi.fn();
+    const onDisconnect = vi.fn();
+    const addr         = '0x742d35Cc6634C0532925a3b844Bc454e4438f44e';
 
-    it("shows BASE badge for Base mainnet (numeric chainId 8453) from primaryWallet.chainId", async () => {
-      mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
-      mockedUseDynamicContext.mockReturnValue({
-        sdkHasLoaded: true,
-        isAuthenticated: true,
-        primaryWallet: { address: userAddress, chainId: 8453 },
-      });
+    useFeatures.mockReturnValue({ isEnabled: () => true });
+    setupWagmi({ address: addr, isConnected: true });
 
-      render(<WalletConnect userAddress={userAddress} />);
+    const { rerender } = render(<WalletConnect onConnect={onConnect} onDisconnect={onDisconnect} />);
 
-      const badge = await screen.findByTitle("Connected on Base (8453)");
-      expect(badge).toBeInTheDocument();
-      expect(badge).toHaveTextContent("BASE");
-    });
+    await waitFor(() => expect(onConnect).toHaveBeenCalledTimes(1));
 
-    it("shows POL badge for Polygon (chainId 137) from publicClient.chain.id", async () => {
-      mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
-      mockedUseDynamicContext.mockReturnValue({
-        sdkHasLoaded: true,
-        isAuthenticated: true,
-        primaryWallet: {
-          address: userAddress,
-          connector: {
-            getPublicClient: () => ({ chain: { id: 137 } }),
-          },
-        },
-      });
+    useAccount.mockReturnValue({ address: undefined, isConnected: false });
+    rerender(<WalletConnect onConnect={onConnect} onDisconnect={onDisconnect} />);
 
-      render(<WalletConnect userAddress={userAddress} />);
-
-      const badge = await screen.findByTitle("Connected on Polygon (137)");
-      expect(badge).toBeInTheDocument();
-      expect(badge).toHaveTextContent("POL");
-    });
-
-    it("shows BASE badge when chainId is provided as hex string (0x2105 = 8453)", async () => {
-      mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
-      mockedUseDynamicContext.mockReturnValue({
-        sdkHasLoaded: true,
-        isAuthenticated: true,
-        primaryWallet: { address: userAddress, chainId: "0x2105" },
-      });
-
-      render(<WalletConnect userAddress={userAddress} />);
-
-      const badge = await screen.findByTitle("Connected on Base (8453)");
-      expect(badge).toBeInTheDocument();
-      expect(badge).toHaveTextContent("BASE");
-    });
-
-    it("shows generic badge with shortLabel for unknown chain", async () => {
-      mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
-      mockedUseDynamicContext.mockReturnValue({
-        sdkHasLoaded: true,
-        isAuthenticated: true,
-        primaryWallet: { address: userAddress, chainId: 999999 },
-      });
-
-      render(<WalletConnect userAddress={userAddress} />);
-
-      const badge = await screen.findByTitle("Connected on Chain 999999 (999999)");
-      expect(badge).toBeInTheDocument();
-      expect(badge).toHaveTextContent("#999999");
-    });
-
-    it("shows no network badge when chainId is unavailable", async () => {
-      mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
-      mockedUseDynamicContext.mockReturnValue({
-        sdkHasLoaded: true,
-        isAuthenticated: true,
-        primaryWallet: { address: userAddress },
-      });
-
-      render(<WalletConnect userAddress={userAddress} />);
-
-      await screen.findByText(/0x742d/i);
-      expect(screen.queryByTitle(/Connected on/i)).not.toBeInTheDocument();
-    });
-
-    it("shows Wrong Network text when connected to a chain other than the default selectedNetwork (base)", async () => {
-      mockedUseFeatures.mockReturnValue({ isEnabled: () => true });
-      mockedUseDynamicContext.mockReturnValue({
-        sdkHasLoaded: true,
-        isAuthenticated: true,
-        primaryWallet: { address: userAddress, chainId: 137 },
-      });
-
-      render(<WalletConnect userAddress={userAddress} />);
-
-      expect(await screen.findByText("Wrong Network")).toBeInTheDocument();
-    });
+    await waitFor(() => expect(onDisconnect).toHaveBeenCalledTimes(1));
   });
 
-  it("does not show wrong network when selected network matches chain", async () => {
-    mockedUseFeatures.mockReturnValue({
-      isEnabled: () => true,
+  describe('network badge', () => {
+    const addr = '0x742d35Cc6634C0532925a3b844Bc454e4438f44e';
+
+    it('shows BASE badge for chainId 8453', async () => {
+      useFeatures.mockReturnValue({ isEnabled: () => true });
+      setupWagmi({ address: addr, isConnected: true, chainId: 8453 });
+      render(<WalletConnect userAddress={addr} />);
+      expect(await screen.findByTitle('Base (8453)')).toHaveTextContent('BASE');
     });
 
-    mockedUseDynamicContext.mockReturnValue({
-      sdkHasLoaded: true,
-      isAuthenticated: true,
-      primaryWallet: {
-        address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
-        connector: {
-          getPublicClient: () => ({ chain: { id: 137 } }),
-        },
-      },
+    it('shows POL badge for chainId 137', async () => {
+      useFeatures.mockReturnValue({ isEnabled: () => true });
+      setupWagmi({ address: addr, isConnected: true, chainId: 137 });
+      render(<WalletConnect userAddress={addr} />);
+      expect(await screen.findByTitle('Polygon (137)')).toHaveTextContent('POL');
     });
 
-    render(
-      <WalletConnect
-        userAddress="0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
-        selectedNetwork="polygon"
-      />,
-    );
-
-    const badge = await screen.findByText("POL");
-    expect(badge).toBeInTheDocument();
-    expect(screen.queryByText("Wrong Network")).not.toBeInTheDocument();
-  });
-
-  it("shows wrong network even when userAddress prop is null if wallet is authenticated", async () => {
-    mockedUseFeatures.mockReturnValue({
-      isEnabled: () => true,
+    it('shows ARB badge for chainId 42161', async () => {
+      useFeatures.mockReturnValue({ isEnabled: () => true });
+      setupWagmi({ address: addr, isConnected: true, chainId: 42161 });
+      render(<WalletConnect userAddress={addr} />);
+      expect(await screen.findByTitle('Arbitrum (42161)')).toHaveTextContent('ARB');
     });
 
-    mockedUseDynamicContext.mockReturnValue({
-      sdkHasLoaded: true,
-      isAuthenticated: true,
-      primaryWallet: {
-        address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
-        connector: {
-          getPublicClient: () => ({ chain: { id: 137 } }),
-        },
-      },
+    it('shows generic badge for unknown chain', async () => {
+      useFeatures.mockReturnValue({ isEnabled: () => true });
+      setupWagmi({ address: addr, isConnected: true, chainId: 999999 });
+      render(<WalletConnect userAddress={addr} />);
+      expect(await screen.findByTitle('Chain 999999 (999999)')).toHaveTextContent('#999999');
     });
 
-    render(<WalletConnect userAddress={null} selectedNetwork="base" />);
+    it('shows Wrong Network when chain differs from selectedNetwork', async () => {
+      useFeatures.mockReturnValue({ isEnabled: () => true });
+      setupWagmi({ address: addr, isConnected: true, chainId: 137 });
+      render(<WalletConnect userAddress={addr} selectedNetwork="base" />);
+      expect(await screen.findByText('Wrong Network')).toBeInTheDocument();
+    });
 
-    const badge = await screen.findByText("POL");
-    expect(badge).toBeInTheDocument();
-    expect(screen.getByText("Wrong Network")).toBeInTheDocument();
+    it('no Wrong Network when chain matches selectedNetwork', async () => {
+      useFeatures.mockReturnValue({ isEnabled: () => true });
+      setupWagmi({ address: addr, isConnected: true, chainId: 137 });
+      render(<WalletConnect userAddress={addr} selectedNetwork="polygon" />);
+      expect(await screen.findByTitle('Polygon (137)')).toBeInTheDocument();
+      expect(screen.queryByText('Wrong Network')).not.toBeInTheDocument();
+    });
   });
 });

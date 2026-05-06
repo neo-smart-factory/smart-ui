@@ -1,43 +1,34 @@
 import ReactDOM from 'react-dom/client';
-import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core';
-import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
-import { ZeroDevSmartWalletConnectors } from '@dynamic-labs/ethereum-aa';
-import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
-import { createConfig, WagmiProvider } from 'wagmi';
+import { WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { http } from 'viem';
-import { base, mainnet, polygon } from 'viem/chains';
-
+import { OnchainKitProvider } from '@coinbase/onchainkit';
+import { base } from 'wagmi/chains';
+import { wagmiConfig } from './web3/wagmi';
 import App from './App';
 import './index.css';
 
-const dynamicEnvId = import.meta.env.VITE_DYNAMIC_ENVIRONMENT_ID;
 
-const config = createConfig({
-    chains: [mainnet, polygon, base],
-    multiInjectedProviderDiscovery: false,
-    transports: {
-        [mainnet.id]: http(),
-        [polygon.id]: http(),
-        [base.id]: http(),
-    },
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { staleTime: 30_000, refetchOnWindowFocus: false, retry: 2 },
+  },
 });
 
-const queryClient = new QueryClient();
+const apiKey = (import.meta.env.VITE_ONCHAINKIT_API_KEY ?? '').trim() || undefined;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <DynamicContextProvider
-        settings={{
-            environmentId: dynamicEnvId,
-            walletConnectors: [EthereumWalletConnectors, ZeroDevSmartWalletConnectors],
+  <WagmiProvider config={wagmiConfig}>
+    <QueryClientProvider client={queryClient}>
+      <OnchainKitProvider
+        apiKey={apiKey}
+        chain={base}
+        config={{
+          appearance: { name: 'NΞØ Smart Factory', mode: 'dark' },
+          wallet: { display: 'modal' },
         }}
-    >
-        <WagmiProvider config={config}>
-            <QueryClientProvider client={queryClient}>
-                <DynamicWagmiConnector>
-                    <App />
-                </DynamicWagmiConnector>
-            </QueryClientProvider>
-        </WagmiProvider>
-    </DynamicContextProvider>
+      >
+        <App />
+      </OnchainKitProvider>
+    </QueryClientProvider>
+  </WagmiProvider>
 );

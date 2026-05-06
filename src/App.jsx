@@ -22,7 +22,7 @@ import LandingSection from './components/LandingSection';
 import CustomService from './components/CustomService';
 import OpsDashboard from './components/OpsDashboard';
 import WalletConnect from './components/WalletConnect';
-import { useDynamicWallet } from './hooks/useDynamicWallet';
+import { useWallet } from './hooks/useWallet';
 import TransactionStatus from './components/TransactionStatus';
 import { useTransactionStatus } from './hooks/useTransactionStatus';
 import useFeatures from './hooks/useFeatures';
@@ -119,7 +119,7 @@ export default function SmartMint() {
   const isRealTransactionsEnabled = isEnabled('phase2', 'realTransactions');
 
   // Web3 Wallet (Dynamic.xyz) - só funciona se Phase 2 habilitada
-  const dynamicWallet = useDynamicWallet();
+  const dynamicWallet = useWallet();
 
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -571,7 +571,7 @@ export default function SmartMint() {
       // Calls the deployment service (handles both Real and Simulation)
       const result = await deployToken(formData, effectiveUserAddress, {
         isRealTransactions: isRealTransactionsEnabled,
-        signer: dynamicWallet.signer,
+        signer: dynamicWallet.provider,
         onProgress: setDeployProgress,
         onStatus: setDeployStatus
       });
