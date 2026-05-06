@@ -1,5 +1,5 @@
 import { getAddress } from "ethers";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
   formatAddress,
   formatHash,

@@ -58,6 +58,12 @@ A **NΞØ Smart Factory** é uma interface de gestão para criação de ativos n
 
 **Importante:** O runtime atual é **híbrido**. Quando wallet e signer estão disponíveis, executa fluxo on-chain; quando não estão, usa simulation mode como fallback seguro.
 
+## 🧰 Notas Operacionais de CI
+
+- O pipeline usa `pnpm` fixado via `packageManager` no `package.json`.
+- Workflows de CI devem manter a mesma versão de `pnpm` para evitar `ERR_PNPM_BAD_PM_VERSION`.
+- O lockfile (`pnpm-lock.yaml`) deve estar sincronizado antes de abrir PR para manter `--frozen-lockfile` estável em GitHub Actions e Vercel.
+
 ## 🚀 Estética e Design
 
 ```

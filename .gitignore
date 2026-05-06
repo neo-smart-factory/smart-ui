@@ -57,3 +57,5 @@ backups/emergency_*/
 !backups/.gitkeep
 package-lock.json
 .pnpm-store/
+remote_bundle.js
+src/App.jsx.backup
