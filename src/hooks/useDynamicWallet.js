@@ -6,16 +6,15 @@ import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
  * @returns {Object} - { address, isConnected, provider, signer }
  */
 export function useDynamicWallet() {
-    const context = useDynamicContext();
+    let context;
+    try {
+        context = useDynamicContext();
+    } catch {
+        return { address: null, isConnected: false, provider: null, signer: null };
+    }
 
-    // If context is null or undefined, return defaults
     if (!context) {
-        return {
-            address: null,
-            isConnected: false,
-            provider: null,
-            signer: null,
-        };
+        return { address: null, isConnected: false, provider: null, signer: null };
     }
 
     const { primaryWallet, isAuthenticated } = context;
